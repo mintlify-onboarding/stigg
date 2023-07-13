@@ -1,30 +1,37 @@
 {
   "$schema": "https://mintlify.com/schema.json",
-  "name": "Starter Kit",
+  "name": "Stigg",
   "logo": {
     "dark": "/logo/dark.svg",
     "light": "/logo/light.svg"
   },
-  "favicon": "/favicon.png",
+  "favicon": "/favicon.svg",
   "colors": {
-    "primary": "#12A7D3",
-    "light": "#81D7F7",
-    "dark": "#004E7A"
+    "primary": "#317DED",
+    "light": "#A9C1FF",
+    "dark": "#6892FF"
+  },
+  "primaryTab": {
+    "name": "📖 Documentation"
   },
   "topbarLinks": [
     {
-      "name": "Documentation",
-      "url": "https://mintlify.com/docs"
+      "name": "🌎 Log in to Stigg",
+      "url": "https://app.stigg.io/"
     }
   ],
   "topbarCtaButton": {
-    "name": "Dashboard",
-    "url": "https://dashboard.mintlify.com"
+    "name": "👋 Start using Stigg",
+    "url": "https://app.stigg.io/signup"
   },
   "tabs": [
     {
-      "name": "API Reference",
-      "url": "api-reference"
+      "name": "📰 Changelog",
+      "url": "https://changelog.stigg.io/"
+    },
+    {
+      "name": "✨ Example Project", 
+      "url": "example-project"
     }
   ],
   "navigation": [
@@ -213,24 +220,15 @@
       ]
     },
     {
-      "group": "🔐 Security & compliance",
-      "pages": []
-    },
-    {
       "group": "🤖 Conceptual guides",
       "pages": [
         "domain-model"
       ]
-    },
-    {
-      "group": "📜 Legal",
-      "pages": []
     }
   ],
   "footerSocials": {
-    "twitter": "https://twitter.com/mintlify",
-    "github": "https://github.com/mintlify",
-    "linkedin": "https://www.linkedin.com/company/mintsearch"
-  },
-  "backgroundImage": "/background.png"
+    "web": "https://www.stigg.io/",
+    "twitter": "https://twitter.com/GetStigg/",
+    "linkedin": "https://www.linkedin.com/company/getstigg/"
+  }
 }
