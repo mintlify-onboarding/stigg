@@ -29,25 +29,202 @@
   ],
   "navigation": [
     {
-      "group": "Get Started",
-      "pages": ["introduction", "quickstart", "development"]
-    },
-    {
-      "group": "Essentials",
-      "pages": ["essentials/markdown", "essentials/code", "essentials/images", "essentials/settings", "essentials/navigation"]
-    },
-    {
-      "group": "API Documentation",
-      "pages": ["api-reference/authentication"]
-    },
-    {
-      "group": "Endpoint Examples",
+      "group": "👋 Getting started",
       "pages": [
-        "api-reference/endpoint/get",
-        "api-reference/endpoint/create",
-        "api-reference/endpoint/update",
-        "api-reference/endpoint/delete"
+        "welcome-to-stigg",
+        "get-started-in-minutes"
       ]
+    },
+    {
+      "group": "🤑 Modeling your pricing in Stigg",
+      "pages": [
+        {
+          "group": "Modeling your pricing",
+          "pages": [
+            "modeling-your-pricing",
+            "features",
+            "products",
+            "plans",
+            "add-ons",
+            "coupons"
+          ]
+        },
+        {
+          "group": "Use-case specific guides",
+          "pages": [
+            "use-case-specific-guides",
+            "free-trials",
+            "freemium",
+            "multiple-subscriptions"
+          ]
+        },
+        {
+          "group": "Managing customers & subscriptions",
+          "pages": [
+            "manage-customers-subscriptions",
+            "customers",
+            "subscriptions"
+          ]
+        },
+        "subscription-updates-in-stigg"
+      ]
+    },
+    {
+      "group": "💻 Codebase integration",
+      "pages": [
+        "codebase-integration-overview",
+        {
+          "group": "Backend integration",
+          "pages": [
+            "backend-integration",
+            "nodejs-sdk",
+            "python-sdk",
+            "python-sdk-v2",
+            "ruby-sdk",
+            "go-sdk",
+            "graphql-api"
+          ]
+        },
+        {
+          "group": "Frontend integration",
+          "pages": [
+            "frontend-integration",
+            "javascript-sdk",
+            "react-sdk",
+            "vuejs",
+            "nextjs",
+            "html",
+            "enable-client-side-security"
+          ]
+        },
+        {
+          "group": "Additional deployment methods",
+          "pages": [
+            "additional-deployment-methods",
+            "api-gateway",
+            "bring-your-own-solution"
+          ]
+        },
+        {
+          "group": "Quick start guides",
+          "pages": [
+            "quick-start-guides-overview",
+            "provisioning-customers",
+            "creating-subscriptions",
+            "gating-access-to-features",
+            "rendering-paywalls",
+            "rendering-custom-paywalls",
+            "rendering-customer-portal",
+            "example-project"
+          ]
+        }
+      ]
+    },
+    {
+      "group": "⚡ Business app integration",
+      "pages": [
+        "applications-integration-overview",
+        {
+          "group": "Stripe",
+          "pages": [
+            "stripe",
+            "integration-when-using-stripe-elements-for-checkout"
+          ]
+        },
+        {
+          "group": "HubSpot",
+          "pages": [
+            "hubspot",
+            "hubspot-entity-mapping",
+            "hubspot-example-email-automation-trial"
+          ]
+        },
+        {
+          "group": "Webhooks",
+          "pages": [
+            "webhooks",
+            "events",
+            "example-zapier-integration",
+            "example-segment-integration"
+          ]
+        }
+      ]
+    },
+    {
+      "group": "😎 Rolling out pricing changes with confidence",
+      "pages": [
+        {
+          "group": "Gaining insights about your pricing strategy",
+          "pages": [
+            "dashboard",
+            "active-subscriptions-dashboard",
+            "feature-inspector"
+          ]
+        },
+        "experiments"
+      ]
+    },
+    {
+      "group": "🌐 Price localization",
+      "pages": [
+        "price-localization",
+        "price-localization-no-code-configuration",
+        "price-localization-codebase-integration",
+        "price-localization-billing"
+      ]
+    },
+    {
+      "group": "⚙️ Managing your account",
+      "pages": [
+        "environments",
+        "team-members",
+        "single-sign-on"
+      ]
+    },
+    {
+      "group": "🔄 Importing and exporting data",
+      "pages": [
+        "importing-existing-customers-and-subscriptions",
+        "exporting-data-from-stigg"
+      ]
+    },
+    {
+      "group": "🚀 High-availability and scale",
+      "pages": [
+        "high-availability-architecture",
+        "accessible-from-everywhere",
+        "local-caching-and-fallback-strategy",
+        "persistent-caching",
+        "errors-retries-and-usage-buffering",
+        "reliability-observability-monitoring"
+      ]
+    },
+    {
+      "group": "💬 Frequently asked questions",
+      "pages": [
+        "are-your-soc2-compliant",
+        "entitlement-calculation-in-stigg"
+      ]
+    },
+    {
+      "group": "📚 API and SDK references",
+      "pages": [
+        "api-and-sdk-overview"
+      ]
+    },
+    {
+      "group": "🔐 Security & compliance",
+      "pages": []
+    },
+    {
+      "group": "🤖 Conceptual guides",
+      "pages": [
+        "domain-model"
+      ]
+    },
+    {
+      "group": "📜 Legal",
+      "pages": []
     }
   ],
   "footerSocials": {

@@ -1,0 +1,57 @@
+---
+title: "Hardening client access"
+---
+
+When your client side application is integrated with Stigg, it uses the **Client API key** which is publicly accessible to anyone. While the Stigg backend limits the access for that API key to the minimum, some sensitive data may still be accessible for a malicious actor (e.g. by guessing customer ID).
+
+It is highly recommended to enable security hardening for **Client API key**, in order for Stigg backend to verify the identity of the requests originated from your client-side application.
+
+Customer identity is signed using **HMAC SHA256** algorithm.
+
+## How does hardening work?
+
+![](/images/89224c4-image.png) 
+
+As a prerequisite, inject a signing secret obtained from Stigg into your backend application.
+
+When a user login into your application (step 1), your backend application should create a customer token (step 2) and return it as part of the response (step 3).
+
+When initializing Stigg client on the frontend, provide the customer token as well, which will be sent automatically to Stigg backend upon every request (step 4).
+
+Stigg backend would verify the customer identity using the provided customer token.
+
+  
+## How can I enable hardening?
+
+1. Ask [Stigg Support](/cdn-cgi/l/email-protection#097a7c7979667b7d497a7d606e6e276066) to provide you with the signing secret for the environment that you would like to turn on the hardening.
+2. On your backend application:  
+   1. Find the handler for that provide the user identity to the client side.  
+   2. Add to the response additional field with the `customerToken` that sign the customer using the signing secret, for example:
+
+TypeScript
+
+`` import { createHmac } from 'crypto';
+
+export function createCustomerToken(customerId: string, signingSecret: string): string {
+  const signature = createHmac('sha256', signingSecret).update(customerId).digest('hex');
+  return `HMAC-SHA256 ${customerId}:${signature}`;
+}
+ ``
+
+1. On your client application, pass the `customerToken`:
+
+TypeScript
+
+`import { useStiggContext } from '@stigg/react-sdk';
+
+function App() {
+  const { stigg } = useStiggContext();
+
+  useEffect(() => {
+    // After user sign in call to setCustomerId
+    stigg.setCustomerId('customer-ID', 'customer-Token');
+  })
+}
+`
+
+1. Ask [Stigg Support](/cdn-cgi/l/email-protection#b9caccc9c9d6cbcdf9cacdd0dede97d0d6) to enable the hardening enforcement for the environment.

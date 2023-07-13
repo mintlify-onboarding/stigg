@@ -1,0 +1,168 @@
+---
+title: "Vue.js"
+---
+
+## Overview
+
+Stigg's Vue SDK is a Javascript library for embedding self-service components in Vue 3 apps.  
+It is based on [React SDK](react-sdk) components under the hood.
+
+  
+## Prerequisites
+
+### Installing Stigg's Vue SDK in Vue 3 applications
+
+Install the `@stigg/vue-sdk` package in your project using one of the below method:
+
+#### From npm:
+
+Shell
+
+`npm install @stigg/vue-sdk
+`
+
+#### From yarn:
+
+Shell
+
+`yarn add @stigg/vue-sdk
+`
+
+  
+### Installing Stigg's Vue SDK in Vue 2 applications
+
+Install the `@stigg/vue-2-sdk` package in your project using one of the below method:
+
+#### From npm:
+
+Shell
+
+`npm install @stigg/vue-2-sdk
+`
+
+#### From yarn:
+
+Shell
+
+`yarn add @stigg/vue-2-sdk
+`
+
+  
+## Retrieving the client API key
+
+In the Stigg Cloud Console, go to [Settings > Account > Environments](https://app.stigg.io/account/settings).
+
+Copy the   **Client API key** of the relevant environment.
+
+  
+## Getting started
+
+Import the library CSS styles
+
+TypeScript
+
+`import '@stigg/vue-sdk/dist/style.css';
+`
+
+Configure the SDK by wrapping your application in `StiggProvider`:
+
+Vue
+
+`<script setup lang="ts">
+import {StiggProvider} from '@stigg/vue-sdk';
+
+const apiKey = "<STIGG_CLIENT_API_KEY>";
+</script>
+
+<template>
+   <StiggProvider :apiKey="apiKey">
+      <NestedComponents />
+   </StiggProvider>
+</template>
+`
+
+  
+## Rendering pricing plans
+
+Pricing tables allow your customers to select the plan that that they'd like to subscribe to. Plan pickers can be used on your **public pricing page**, as well as part of **in-app paywalls**.
+
+One of the major benefits of leverage Stigg's pricing table widget, is that any change that you make to your pricing model is auto-magically reflected in the pricing table - no additional coding is required 😎.
+
+![](/images/74be183-image.png)
+
+To render it, you'll need to import the `Paywall` component and place it under the `StiggProvider`. You can customize the pricing tables [using the same properties as the original React component has](react-sdk#customization-options). Use can use the exported TS types for the props as well.
+
+Vue
+
+`` <script setup lang="ts">
+import {
+  StiggProvider, StiggProviderProps, Paywall, PaywallProps
+} from '@stigg/vue-sdk';
+
+const stiggProvider: StiggProviderProps = {
+  apiKey: "<STIGG_CLIENT_API_KEY>",
+}
+
+  
+const paywall: PaywallProps = {
+   onPlanSelected: ({plan}) => {
+      console.log(`Selected plan: ${plan.displayName}`);
+   }
+}
+</script>
+
+<template>
+   <StiggProvider v-bind="stiggProvider">
+      <Paywall v-bind="paywall" />
+   </StiggProvider>
+</template>
+ ``
+
+> ### 📘
+> 
+> You can find more paywall options [here](https://react-sdk-docs.stigg.io/)
+
+  
+## Rendering a customer portal
+
+Stigg's customer portal widget allows you to introduce self-service and drive in-app expansions using only a few lines of codes. 
+
+The customer portal:
+
+1. Provides customers with visibility to their current subscription details - subscribed plan, purchased add-ons, granted promotional entitlements.
+2. Provides customers with visibility to the usage of their subscription's features.
+3. Allows customers to upgrade and downgrade their subscription in a self-served manner - when you update your pricing model in Stigg, customers will auto-magically be able to upgrade or downgrade their subscription according to the updated pricing model 😎.
+4. Allows customers to view their billing and payment information - when Stigg is integrated with a billing solution (such as Stripe), customers can also update this information and view previous invoices directly from the billing solution's billing portal.
+
+The widget's layout, style and texts are [fully customizable](#customization-options) to suit your branding needs.
+
+![](/images/773b08a-image.png)
+
+Use the `CustomerPortal` component to render the customer portal.
+
+Vue
+
+`<script setup lang="ts">
+import {StiggProvider, CustomerPortal, CustomerPortalProps} from '@stigg/vue-sdk';
+
+const apiKey = "<STIGG_CLIENT_API_KEY>";
+
+const customerId = "<CUSTOMER-ID>";
+
+const customerPortal: CustomerPortalProps = {
+   onManageSubscription: () => {
+     console.log('Manage subscription');
+   }
+}
+</script>
+
+<template>
+   <StiggProvider :apiKey="apiKey" :customer-id="customerId">
+      <CustomerPortal v-bind="customerPortal"/>
+   </StiggProvider>
+</template>
+`
+
+## Example project
+
+[ ![](/images/a01818b-GitHub-Mark.png)  vue-react-sdk GitHub ](https://github.com/stiggio/vue-react-sdk) 
