@@ -14,7 +14,7 @@ Clicking on a specific subscription will provide additional visibility to the su
 
 ![](/images/9156017-small-Screenshot_2023-05-03_at_22.09.33.png)
 
-Subscriptions of plans and add-ons with an outdated (legacy) version will have a proper indication, and [migration](subscriptions#migrating-subscriptions-to-the-latest-plan-or-add-on-version) to the latest plan or add-on version can then take place.
+Subscriptions of plans and add-ons with an outdated (legacy) version will have a proper indication, and [migration](/subscriptions#migrating-subscriptions-to-the-latest-plan-or-add-on-version) to the latest plan or add-on version can then take place.
 
 ![](/images/353738e-Screen_Shot_2022-10-19_at_23.46.16.png)
 
@@ -54,30 +54,30 @@ Review the subscription summary.
 
 Confirm the creation of the subscription by clicking on the "Create" button.
 
-> ### 🚧
-> 
-> 1. A customer can have at most one active trial and one non-trial (free or paid) subscription for a specific product. When the customer has a trial subscription and new trial subscription to the same product is provisioned, the current trial subscription will be canceled at the start date of the new trial subscription.
-> 2. When the customer has a active non-trial (free or paid) subscription and new non-trial subscription to the same product is provisioned - the current non-trial subscription will be canceled at the start date of the new non-trial subscription.
-> 3. When the customer has an active trial subscription to a specific plan, and a paid subscription for the same plan is created is created (= an upgrade from a trial subscription to a paid subscription), the paid plan will start at the end of the trial period.
-> 4. In the **self-served** flow:  
->   1. Customers can only have one free trial **per product**. Admins can manually create additional trial subscriptions using the [Stigg Console](https://app.stigg.io).  
->   2. When a customer has already paid for a plan, they'll no longer be eligible for a free trial - the reasoning behind this behavior is that free trials are intended to allow customers to try the product before they pay for it. If they already paid for it, they don't need to try it.
+<Warning>
+1. A customer can have at most one active trial and one non-trial (free or paid) subscription for a specific product. When the customer has a trial subscription and new trial subscription to the same product is provisioned, the current trial subscription will be canceled at the start date of the new trial subscription.
+2. When the customer has a active non-trial (free or paid) subscription and new non-trial subscription to the same product is provisioned - the current non-trial subscription will be canceled at the start date of the new non-trial subscription.
+3. When the customer has an active trial subscription to a specific plan, and a paid subscription for the same plan is created is created (= an upgrade from a trial subscription to a paid subscription), the paid plan will start at the end of the trial period.
+4. In the **self-served** flow:  
+   1. Customers can only have one free trial **per product**. Admins can manually create additional trial subscriptions using the [Stigg Console](https://app.stigg.io).  
+   2. When a customer has already paid for a plan, they'll no longer be eligible for a free trial - the reasoning behind this behavior is that free trials are intended to allow customers to try the product before they pay for it. If they already paid for it, they don't need to try it.
+</Warning>
 
-> ### 📘
-> 
-> When Stigg is integrated with a billing solution, in order to create a paid subscription, the customer must have a valid payment method that can be used for billing the subscription.
-> 
-> For the most part, payment method are entered by customers during the checkout process when they attempt to pay for a paid subscription; however, Stigg also allows admins to add payment method on their behalf when customer don't have a defined payment method. This functionality is helpful when a tech support or customer success representative is assisting a customer in completing their subscription.
-> 
-> When admins attempt to create a paid subscription and the customer doesn't have a valid payment method, admins will be prompted to add a valid payment method in order to complete the creation of the subscription.
-> 
-> The customer's payment method is stored directly in the billing solution that's integrated with Stigg (for example: [Stripe](stripe)). The information is never stored in Stigg itself.
+<Note>
+When Stigg is integrated with a billing solution, in order to create a paid subscription, the customer must have a valid payment method that can be used for billing the subscription.
+ 
+For the most part, payment method are entered by customers during the checkout process when they attempt to pay for a paid subscription; however, Stigg also allows admins to add payment method on their behalf when customer don't have a defined payment method. This functionality is helpful when a tech support or customer success representative is assisting a customer in completing their subscription.
+ 
+When admins attempt to create a paid subscription and the customer doesn't have a valid payment method, admins will be prompted to add a valid payment method in order to complete the creation of the subscription.
+ 
+The customer's payment method is stored directly in the billing solution that's integrated with Stigg (for example: [Stripe](/stripe)). The information is never stored in Stigg itself.
+</Note>
 
-> ### 📘
-> 
-> Stigg pursues a "generous" behavior towards customers; that is, if a customer has both an active subscription and a trial subscription, the configuration value or quota that's more generous between these subscriptions will prevail.
-> 
-> Determining the bottom line of the functionality that the customer is eligible for is possible using the [entitlement summary view](#entitlement-summary).
+<Note>
+Stigg pursues a "generous" behavior towards customers; that is, if a customer has both an active subscription and a trial subscription, the configuration value or quota that's more generous between these subscriptions will prevail.
+ 
+Determining the bottom line of the functionality that the customer is eligible for is possible using the [entitlement summary view](#entitlement-summary).
+</Note>
 
 ## Viewing the details of a specific subscription
 
@@ -90,8 +90,8 @@ A high-level summary of the subscription details:
 1. Subscription ID
 2. Status
 3. Resource ID - the ID of the entity that the subscription applies to, for example: website ID, app ID, etc. Relevant for products that allow multiple active subscriptions.
-4. Billing ID - relevant when Stigg is integrated with a billing solution, such as: [Stripe](stripe).
-5. CRM - relevant when Stigg is integrated with a CRM solution, such as: [HubSpot](hubspot).
+4. Billing ID - relevant when Stigg is integrated with a billing solution, such as: [Stripe](/stripe).
+5. CRM - relevant when Stigg is integrated with a CRM solution, such as: [HubSpot](/hubspot).
 6. Plan
 7. Price
 8. Billing period - monthly, annually
@@ -112,9 +112,9 @@ For features that are metered using an incremental meter, Stigg provides visibil
 
 ![](/images/9981c93-small-Screenshot_2023-05-03_at_22.31.35.png)
 
-> ### 📘
-> 
-> Details of a subscription's entitlement usage are only available for **active** subscriptions.
+<Note>
+Details of a subscription's entitlement usage are only available for **active** subscriptions.
+</Note>
 
 ### Entitlement summary
 
@@ -128,9 +128,9 @@ The summary is useful for troubleshooting and customer support.
 
 ![](/images/86819ba-small-Screenshot_2023-05-03_at_22.31.42.png)
 
-> ### 📘
-> 
-> Details of a subscription's entitlement usage are only available for **active** subscriptions.
+<Note>
+Details of a subscription's entitlement usage are only available for **active** subscriptions.
+</Note>
 
 Also see:
 
@@ -163,16 +163,16 @@ Review the subscription summary.
 
 Confirm the update of the subscription by clicking on the "Update" button.
 
-> ### 📘
-> 
-> To change the **plan** of an existing subscription or update the billing period, [provision a new subscription](#entitlement-summary).
+<Note>
+To change the **plan** of an existing subscription or update the billing period, [provision a new subscription](#entitlement-summary).
+</Note>
 
-> ### 🚧
-> 
-> When a subscription that has scheduled updates (for example: downgrade to a lower tier) is updated again using the Stigg Console:
-> 
-> 1. The updates will **override** the scheduled updates.
-> 2. The updates will be applied **immediately**.
+<Warning>
+When a subscription that has scheduled updates (for example: downgrade to a lower tier) is updated again using the Stigg Console:
+
+1. The updates will **override** the scheduled updates.
+2. The updates will be applied **immediately**.
+</Warning>
 
 ## Canceling subscriptions
 
@@ -184,18 +184,18 @@ In the opened modal, select when the subscription will be cancelled:
 2. Immediately
 3. On a specific date - not relevant for trial periods.
 
-> ### 📘
-> 
-> The subscription cancelation period will be pre-selected according to [the product's default behavior](products#advanced-product-settings). 
-> 
-> The subscription cancellation logic (revoke access to the subscription entitlements or downgrade the the customer to a free plan) is also determined according to this behavior.
+<Note>
+The subscription cancelation period will be pre-selected according to [the product's default behavior](/products#advanced-product-settings). 
+
+The subscription cancellation logic (revoke access to the subscription entitlements or downgrade the the customer to a free plan) is also determined according to this behavior.
+</Note>
 
 Confirm the action by clicking on the "Cancel subscription" button in the opened modal.
 
-> ### 📘
-> 
-> 1. Subscriptions that have been canceled will appear with a "Canceled" status.
-> 2. Subscriptions that are still pending cancelation will appear with a "Cancelation scheduled" status.
+<Note>
+1. Subscriptions that have been canceled will appear with a "Canceled" status.
+2. Subscriptions that are still pending cancelation will appear with a "Cancelation scheduled" status.
+</Note>
 
 ## Canceling scheduled updates
 
@@ -215,12 +215,12 @@ To do so, in the subscription details view, click on the dotted menu icon of the
 
 Confirm the action by clicking on the "Migrate" button in the opened modal.
 
-> ### 🚧
-> 
-> When the current price of the subscription is different than the latest published package version, during the migration the customer will be charged or credited the prorated amount until the end of the current billing period depending on whether the latest price is more expensive or cheaper than the current subscription price.
+<Warning>
+When the current price of the subscription is different than the latest published package version, during the migration the customer will be charged or credited the prorated amount until the end of the current billing period depending on whether the latest price is more expensive or cheaper than the current subscription price.
+</Warning>
 
-> ### 📘
-> 
-> Migration can also be invoked programmatically via our [Node.js SDK](https://node-sdk-docs.stigg.io/index.html#MigrateSubscriptionToLatest) and [GraphQL API](graphql-api#migrating-subscriptions-to-the-latest-plan-and-add-on-version) for each subscription, which allow you to rollout subscriptions to your existing customers gradually.
+<Note>
+Migration can also be invoked programmatically via our [Node.js SDK](https://node-sdk-docs.stigg.io/index.html#MigrateSubscriptionToLatest) and [GraphQL API](/graphql-api#migrating-subscriptions-to-the-latest-plan-and-add-on-version) for each subscription, which allow you to rollout subscriptions to your existing customers gradually.
+</Note>
 
 ![](/images/2ac7602-Screen_Shot_2022-10-19_at_23.46.28.png)

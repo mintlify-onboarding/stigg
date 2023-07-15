@@ -8,7 +8,7 @@ With ever-growing competition in SaaS, you’ll need to provide seamless experie
 
 The behavior of your product's subscription update logic has implications both on your customer experience and business.
 
-Luckily, Stigg got you covered! ![:sunglasses:](/images/sunglasses.png ":sunglasses:") This article describes exactly how.
+Luckily, Stigg got you covered! 😎 This article describes exactly how.
 
 ![](/images/9d35a9b-63e4d67d350612301eb46722_Customer_updates_timeline.png)
 
@@ -44,11 +44,11 @@ In SaaS there are 2 common best-practices:
 
 Allowing customers to downgrade immediately and granting them credits they can redeem in the upcoming invoice may be perceived better by your customers. Slack calls it '[fair billing](https://slack.com/help/articles/218915077-Slacks-Fair-Billing-Policy)’. However, this option is much less favorable to your business as this is a loss in revenue.
 
-Every [Product](products) in Stigg can be configured to follow either of these behaviors. 
+Every [Product](/products) in Stigg can be configured to follow either of these behaviors. 
 
 By default, Products in Stigg are configured to downgrade immediately.
 
-To change this behavior, contact the [Stigg Support Team](/cdn-cgi/l/email-protection#681b1d1818071a1c281b1c010f0f460107). An ability to control this configuration in a self-served manner is planned as part of our roadmap.
+To change this behavior, contact the [Stigg Support Team](mailto:support@stigg.io). An ability to control this configuration in a self-served manner is planned as part of our roadmap.
 
 ![](/images/63185b9-subscription_downgrade.png)
 
@@ -88,9 +88,8 @@ When **another** update to the unit quantity is requested to quantity Q2, the ne
 
 #### Example code snippet
 
-JavaScript
-
-`// users.length == 5
+```javascript JavaScript
+// users.length == 5
 
 // update seat count to 4
 users.remove(userA);
@@ -116,7 +115,7 @@ stiggClient.reportUsage(customerId, 'feature-seats', 1);
 // end result:
 // 1. the customer will be subscribed to 4 seats at the end of the current billing cycle
 // 2. since they still didn't go over the original limit of the current billing cycle (= 5 seats), they will *not* pay for any new seat
-`
+```
 
 ### Scheduled downgrades and rollout of plan and add-on changes
 
@@ -127,9 +126,9 @@ In order to allow companies ensure that changes to plan and add-on packaging and
   
 ### Visibility of scheduled updates in the Stigg Customer Portal
 
-Stigg provides a [fully customizable snap-in Customer Portal widget](react-sdk#rendering-a-customer-portal), that customers can use to update their subscription in a self-served manner.
+Stigg provides a [fully customizable snap-in Customer Portal widget](/react-sdk#rendering-a-customer-portal), that customers can use to update their subscription in a self-served manner.
 
-When a subscription has scheduled updates, this is auto-magically reflected in the Stigg Customer Portal - no additional code changes are required to communicate this to customers ![:muscle:](/images/muscle.png ":muscle:").
+When a subscription has scheduled updates, this is auto-magically reflected in the Stigg Customer Portal - no additional code changes are required to communicate this to customers 💪.
 
 ![](/images/211f15e-image.png)
 
