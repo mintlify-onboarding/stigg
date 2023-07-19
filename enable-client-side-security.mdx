@@ -25,24 +25,22 @@ Stigg backend would verify the customer identity using the provided customer tok
 
 1. Ask [Stigg Support](/cdn-cgi/l/email-protection#097a7c7979667b7d497a7d606e6e276066) to provide you with the signing secret for the environment that you would like to turn on the hardening.
 2. On your backend application:  
-   1. Find the handler for that provide the user identity to the client side.  
-   2. Add to the response additional field with the `customerToken` that sign the customer using the signing secret, for example:
+   i. Find the handler for that provide the user identity to the client side.  
+   ii. Add to the response additional field with the `customerToken` that sign the customer using the signing secret, for example:
 
-TypeScript
-
-`` import { createHmac } from 'crypto';
+```typescript TypeScript
+import { createHmac } from 'crypto';
 
 export function createCustomerToken(customerId: string, signingSecret: string): string {
   const signature = createHmac('sha256', signingSecret).update(customerId).digest('hex');
   return `HMAC-SHA256 ${customerId}:${signature}`;
 }
- ``
+```
 
-1. On your client application, pass the `customerToken`:
+3. On your client application, pass the `customerToken`:
 
-TypeScript
-
-`import { useStiggContext } from '@stigg/react-sdk';
+```typescript TypeScript
+import { useStiggContext } from '@stigg/react-sdk';
 
 function App() {
   const { stigg } = useStiggContext();
@@ -52,6 +50,6 @@ function App() {
     stigg.setCustomerId('customer-ID', 'customer-Token');
   })
 }
-`
+```
 
-1. Ask [Stigg Support](/cdn-cgi/l/email-protection#b9caccc9c9d6cbcdf9cacdd0dede97d0d6) to enable the hardening enforcement for the environment.
+4. Ask [Stigg Support](mailto:support@stigg.io) to enable the hardening enforcement for the environment.

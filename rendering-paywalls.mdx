@@ -13,17 +13,16 @@ In this quick start guide we'll demonstrate how to create a customer-facing payw
 
 In order to complete this guide in your application code, please make sure that you have:
 
-* [Modeled your pricing in Stigg](modeling-your-pricing)
-* [Installed the Stigg React client SDK](react-sdk#installing-the-sdk)
-* [A Stigg **client** API key](javascript-sdk#retrieving-the-client-api-key)
+* [Modeled your pricing in Stigg](/modeling-your-pricing)
+* [Installed the Stigg React client SDK](/react-sdk#installing-the-sdk)
+* [A Stigg **client** API key](/javascript-sdk#retrieving-the-client-api-key)
   
 ## Initializing the React SDK
 
 The first step is to initialize Stigg's React SDK with the client API key by wrapping your application with StiggProvider component.
 
-React
-
-`import React from 'react';
+```javascript React
+import React from 'react';
 import ReactDOM from 'react-dom';
 import { StiggProvider } from '@stigg/react-sdk';
 import App from './App';
@@ -34,7 +33,7 @@ ReactDOM.render(
   </StiggProvider>,
   document.getElementById('app'),
 );
-`
+```
 
   
 ## Rendering the paywall
@@ -42,8 +41,9 @@ ReactDOM.render(
 Rendering the customer paywall can be achieved in 2 steps:
 
 1. Set the customer ID, the customer ID can usually be retrieved after a customer signs-in or restores their session.  
-TypeScript  
-`import { useStiggContext } from '@stigg/react-sdk';  
+
+```typescript TypeScript  
+import { useStiggContext } from '@stigg/react-sdk';  
 function App() {  
   const { stigg } = useStiggContext();  
   useEffect(() => {  
@@ -51,17 +51,19 @@ function App() {
     stigg.setCustomerId('customer-ID');  
   })  
 }  
-`
+```
+
 2. Use the Paywall to render the customer paywall.  
-React TSX  
-`<Paywall  
+
+```javascript React TSX  
+<Paywall  
   highlightedPlanId="plan-id"  
   onPlanSelected={({ plan, customer }) => {  
     // Handle customer intention to subscribe to plan  
   }}  
 />  
-`
+```
   
 ## Additional resources
 
-[ ![](/images/9f55ab1-codingbrowser_102152.png)  Stigg's frontend integration ](frontend-integration) 
+[ ![](/images/9f55ab1-codingbrowser_102152.png)  Stigg's frontend integration ](/frontend-integration) 

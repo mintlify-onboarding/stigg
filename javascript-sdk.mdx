@@ -7,18 +7,17 @@ description: "How to install and use the Stigg SDK on the client-side"
 
 The JavaScript SDK allows you access customer data from Stigg, and leverage it to implement mind-blowing customer experiences.
 
-> ### 📘
-> 
-> Stigg also offers plug-and-play customizable widgets for [React](react-sdk), [Vue.js](vuejs-sdk), [Webflow, Wordpress, and plain HTML](html).
+<Note> 
+Stigg also offers plug-and-play customizable widgets for [React](/react-sdk), [Vue.js](/vuejs-sdk), [Webflow, Wordpress, and plain HTML](/html).
+</Note>
 
 ## Installing the SDK
 
 The first step is to install the Stigg SDK as a dependency in your application using your application's dependency manager:
 
-Shell
-
-`npm install @stigg/js-client-sdk
-`
+```shell Shell
+npm install @stigg/js-client-sdk
+```
 
 ## Retrieving the client API key
 
@@ -32,9 +31,8 @@ Copy the   **Client API key** of the relevant environment.
 Initializing client instance with client api key.  
 You can either pass the customer id when initializing the client instance or using `setCustomerId` function as shown below.
 
-JavaScript
-
-`import Stigg from '@stigg/js-client-sdk';
+```javascript JavaScript
+import Stigg from '@stigg/js-client-sdk';
 
 const stiggClient = Stigg.initialize({  
     apiKey: 'YOUR_CLIENT_API_KEY',
@@ -42,70 +40,65 @@ const stiggClient = Stigg.initialize({
 });
 
 export default stiggClient;
-`
+```
 
-> ### 📚
-> 
-> [SDK reference ↗️](https://js-sdk-docs.stigg.io/classes/stigg#initialize)
+<Info>
+[📚 SDK reference ↗️](https://js-sdk-docs.stigg.io/classes/stigg#initialize)
+</Info>
 
   
 To find out when the client is ready, you can use `waitForInitialization` which return a promise that resolves when the client is ready to use, or rejects when the initialization failed.
 
-Javascript
-
-`try {
+```javascript Javascript
+try {
   await stiggClient.waitForInitialization();
   // initialization succeeded, entitlements values are now available
 } catch (err) {
   // initialization failed
 }
-`
+```
 
 ## Setting the customer context
 
 Set the customer ID of the user that's accessing your app, usually after the customer signs in or restores a session:
 
-JavaScript
+```javascript JavaScript
+stiggClient.setCustomerId('customer-demo-01');
+```
 
-`stiggClient.setCustomerId('customer-demo-01');
-`
-
-> ### 📚
-> 
-> [SDK reference ↗️](https://js-sdk-docs.stigg.io/classes/stigg#setCustomerId)
+<Info>
+[📚 SDK reference ↗️](https://js-sdk-docs.stigg.io/classes/stigg#setCustomerId)
+</Info>
 
   
 ## Setting the customer resource context
 
-For [Multi-instance products](/docs/multiple-subscriptions), set the customer resource ID of the user that's accessing your app, usually after the customer enters into a resource context:
+For [Multi-instance products](/multiple-subscriptions), set the customer resource ID of the user that's accessing your app, usually after the customer enters into a resource context:
 
-JavaScript
+```javascript JavaScript
+stiggClient.setResource('resource-01');
+```
 
-`stiggClient.setResource('resource-01');
-`
-
-> ### 📚
-> 
-> [SDK reference ↗️](https://js-sdk-docs.stigg.io/classes/stigg#setResource)
+<Info> 
+[📚 SDK reference ↗️](https://js-sdk-docs.stigg.io/classes/stigg#setResource)
+</Info>
 
   
 ## Getting all of the entitlements of a specific customer
 
-JavaScript
-
-`const entitlements = await stiggClient.getEntitlements();
+```javascript JavaScript
+const entitlements = await stiggClient.getEntitlements();
 
 // all the entitlements the customer is entitled to  
 entitlements.forEach((entitlement) => {  
   console.log(JSON.stringify(entitlement));  
 });
-`
+```
 
-Result 
+<Accordion title="Result">
 
-JSON
-
-`[
+```json JSON
+[
   {
     "isFallback": false,
     "hasAccess": true,
@@ -135,21 +128,21 @@ JSON
     }
   }
 ]
-`
+```
+</Accordion>
 
   
-> ### 📚
-> 
-> [SDK reference ↗️](https://js-sdk-docs.stigg.io/classes/stigg#getEntitlements)
+<Info>
+[📚 SDK reference ↗️](https://js-sdk-docs.stigg.io/classes/stigg#getEntitlements)
+</Info>
 
   
 ## Getting the entitlement of a customer to a specific feature
 
 #### Checking the entitlement for a boolean feature
 
-JavaScript
-
-`const entitlement = stiggClient.getBooleanEntitlement({  
+```javascript JavaScript
+const entitlement = stiggClient.getBooleanEntitlement({  
   featureId: 'feature-demo-02'  
 });
 
@@ -158,13 +151,12 @@ if (entitlement.hasAccess) {
 } else {  
   // no access, offer an upsell  
 }
-`
+```
 
-Result - has access 
+<Accordion title="Result - has access">
 
-JSON
-
-`{
+```json JSON
+{
   "isFallback": false,
   "hasAccess": true,
   "feature": {
@@ -176,30 +168,30 @@ JSON
     "isMetered": false
   }
 }
-`
+```
+</Accordion>
 
-Result - no access 
+<Accordion title="Result - no access">
 
-JSON
-
-`{
+```json JSON
+{
   "hasAccess": false,
   "accessDeniedReason": "CustomerNotEntitledForFeature",
   "isFallback": false
 }
-`
+```
+</Accordion>
 
   
-> ### 📚
-> 
-> [SDK reference ↗️](https://js-sdk-docs.stigg.io/classes/stigg#getBooleanEntitlement)
+<Info>
+[📚 SDK reference ↗️](https://js-sdk-docs.stigg.io/classes/stigg#getBooleanEntitlement)
+</Info>
 
   
 #### Checking the entitlement for a numeric configuration feature
 
-JavaScript
-
-`const entitlement = stiggClient.getNumericEntitlement({  
+```javascript JavaScript
+const entitlement = stiggClient.getNumericEntitlement({  
   featureId: 'feature-demo-01'  
 });
 
@@ -207,13 +199,12 @@ if (entitlement.hasAccess) {
   // get the entitlement numeric value that is defined for the feature  
   console.log(entitlement.value);  
 }
-`
+```
 
-Result - has access 
+<Accordion title="Result - has access">
 
-JSON
-
-`{
+```json JSON
+{
   "isFallback": false,
   "hasAccess": true,
   "isUnlimited": false,
@@ -229,31 +220,31 @@ JSON
     "isMetered": false
   }
 }
-`
+```
+</Accordion>
 
-Result - no access 
+<Accordion title="Result - no access">
 
-JSON
-
-`{
+```json JSON
+{
   "hasAccess": false,
   "accessDeniedReason": "CustomerNotEntitledForFeature",
   "isFallback": false,
   "isUnlimited": false
 }
-`
+```
+</Accordion>
 
   
-> ### 📚
-> 
-> [SDK reference ↗️](https://js-sdk-docs.stigg.io/classes/stigg#getNumericEntitlement)
+<Info>
+[📚 SDK reference ↗️](https://js-sdk-docs.stigg.io/classes/stigg#getNumericEntitlement)
+</Info>
 
   
 #### Checking if a customer has access to a metered feature
 
-JavaScript
-
-`const entitlement = stiggClient.getMeteredEntitlement({  
+```javascript JavaScript
+const entitlement = stiggClient.getMeteredEntitlement({  
   featureId: 'feature-demo-03'
 });
 
@@ -262,13 +253,12 @@ if (entitlement.hasAccess) {
 } else {  
   // the customer has exceeded his quota for this feature  
 }
-`
+```
 
-Result - has access 
+<Accordion title="Result - has access">
 
-JSON
-
-`{
+```json JSON
+{
   "isFallback": false,
   "hasAccess": true,
   "isUnlimited": false,
@@ -290,13 +280,13 @@ JSON
     "isMetered": true
   }
 }
-`
+```
+</Accordion>
 
-Result - no access 
+<Accordion title="Result - no access">
 
-JSON
-
-`{
+```json JSON
+{
   "isFallback": false,
   "hasAccess": true,
   "isUnlimited": false,
@@ -318,19 +308,19 @@ JSON
     "isMetered": true
   }
 }
-`
+```
+</Accordion>
 
   
-> ### 📚
-> 
-> [SDK reference ↗️](https://js-sdk-docs.stigg.io/classes/stigg#getMeteredEntitlement)
+<Info>
+[📚 SDK reference ↗️](https://js-sdk-docs.stigg.io/classes/stigg#getMeteredEntitlement)
+</Info>
 
   
 #### Proactively checking if a customer will have access to X units of a metered feature
 
-JavaScript
-
-`const requestedUsage = 10;
+```javascript JavaScript
+const requestedUsage = 10;
 
 const entitlement = stiggClient.getMeteredEntitlement({  
   featureId: 'feature-demo-03',  
@@ -344,13 +334,12 @@ if (entitlement.hasAccess) {
 } else {  
   // the customer has exceeded his quota for this feature  
 }
-`
+```
 
-Result - has access 
+<Accordion title="Result - has access">
 
-JSON
-
-`{
+```json JSON
+{
   "isFallback": false,
   "hasAccess": true,
   "isUnlimited": false,
@@ -372,13 +361,13 @@ JSON
     "isMetered": true
   }
 }
-`
+```
+</Accordion>
 
-Result - no access 
+<Accordion title="Result - no access">
 
-JSON
-
-`{
+```json JSON
+{
   "isFallback": false,
   "hasAccess": true,
   "isUnlimited": false,
@@ -400,28 +389,27 @@ JSON
     "isMetered": true
   }
 }
-`
+```
+</Accordion>
 
   
-> ### 📚
-> 
-> [SDK reference ↗️](https://js-sdk-docs.stigg.io/classes/stigg#getMeteredEntitlement)
+<Info>
+[📚 SDK reference ↗️](https://js-sdk-docs.stigg.io/classes/stigg#getMeteredEntitlement)
+</Info>
 
   
 ## Getting paywall data
 
 Useful for rendering the public pricing page or customer paywall.
 
-JavaScript
+```javascript JavaScript
+const paywallData = await stiggClient.getPaywall();
+```
 
-`const paywallData = await stiggClient.getPaywall();
-`
+<Accordion title="Result">
 
-Result 
-
-JSON
-
-`{
+```json JSON
+{
   "plans": [
     {
       "id": "plan-stigg-starter",
@@ -478,29 +466,27 @@ JSON
     }
   ]
 }
-
-`
+```
+</Accordion>
 
   
-> ### 📚
-> 
-> [SDK reference ↗️](https://js-sdk-docs.stigg.io/classes/stigg#getPaywall)
+<Info>
+[📚 SDK reference ↗️](https://js-sdk-docs.stigg.io/classes/stigg#getPaywall)
+</Info>
 
   
 ## Getting customer portal data
 
 Useful for rendering the public pricing page or customer paywall.
 
-JavaScript
+```javascript JavaScript
+const customerPortalData = await stiggClient.getCustomerPortal();
+```
 
-`const customerPortalData = await stiggClient.getCustomerPortal();
-`
+<Accordion title="Result">
 
-Result 
-
-JSON
-
-`{
+```json JSON
+{
   "data": {
     "customerPortal": {
       "subscriptions": [
@@ -581,28 +567,27 @@ JSON
     }
   }
 }
-`
+```
+</Accordion>
 
   
-> ### 📚
-> 
-> [SDK reference ↗️](https://js-sdk-docs.stigg.io/classes/stigg#getCustomerPortal)
+<Info> 
+[📚 SDK reference ↗️](https://js-sdk-docs.stigg.io/classes/stigg#getCustomerPortal)
+</Info>
 
   
 ## Getting customer data
 
 Useful for rendering a customer portal.
 
-JavaScript
+```javascript JavaScript
+const customer = await stiggClient.getCustomer();
+```
 
-`const customer = await stiggClient.getCustomer();
-`
+<Accordion title="Result">
 
-Result 
-
-JSON
-
-`{
+```json JSON
+{
   "id": "customer-demo-01",
   "name": "First customer",
   "email": "[[email protected]](/cdn-cgi/l/email-protection)",
@@ -620,30 +605,29 @@ JSON
       "groupType": "VARIANT",
   }
 }
-`
+```
+</Accordion>
 
   
-> ### 📚
-> 
-> [SDK reference ↗️](https://js-sdk-docs.stigg.io/classes/stigg#getCustomer)
+<Info>
+[📚 SDK reference ↗️](https://js-sdk-docs.stigg.io/classes/stigg#getCustomer)
+</Info>
 
   
 ## Getting customer active subscriptions
 
 Useful for rendering a customer portal.
 
-JavaScript
-
-`const customer = await stiggClient.getActiveSubscriptions({
+```javascript JavaScript
+const customer = await stiggClient.getActiveSubscriptions({
   resourceId: 'resource-01',  // optional, pass it to get subscription of specific resource
 });
-`
+```
 
-Result 
+<Accordion title="Result">
 
-JSON
-
-`[
+```json JSON
+[
   {
     "id": "subscription-plan-stigg-pro-28a241",
     "status": "ACTIVE",
@@ -736,26 +720,26 @@ JSON
     }
   }
 ]
-`
+```
+</Accordion>
 
   
-> ### 📚
-> 
-> [SDK reference ↗️](https://js-sdk-docs.stigg.io/classes/stigg#getActiveSubscriptions)
+<Info> 
+[📚 SDK reference ↗️](https://js-sdk-docs.stigg.io/classes/stigg#getActiveSubscriptions)
+</Info>
 
   
 ## Getting all available coupons
 
 Useful for rendering a paywall or promotions.
 
-JavaScript
+```javascript JavaScript
+const coupons = await stiggClient.getCoupons();
+```
 
-`const coupons = await stiggClient.getCoupons();
-`
-
-> ### 📚
-> 
-> [SDK reference ↗️](https://js-sdk-docs.stigg.io/classes/stigg#getCoupons)
+<Info>
+[📚 SDK reference ↗️](https://js-sdk-docs.stigg.io/classes/stigg#getCoupons)
+</Info>
 
   
 ## Estimate subscription cost
@@ -763,9 +747,8 @@ JavaScript
 You can estimate the subscription cost using the `estimateSubscription` method.  
 This can help the customer to understand the costs before paying.
 
-JavaScript
-
-`// increment usage of a metered feature  
+```javascript JavaScript
+// increment usage of a metered feature  
 await stiggClient.estimateSubscription({  
     customerId: "customer-demo-01",
   planId: "plan-revvenu-growth",
@@ -779,13 +762,12 @@ await stiggClient.estimateSubscription({
   startDate: new Date(),            // optional
   billingCountryCode: 'US'      // optional, required for price localization, must be in the ISO-3166-1 format
 });
-`
+```
 
-Return fields 
+<Accordion title="Return fields">
 
-JavaScript
-
-`` {
+```javascript JavaScript
+{
   total: 'Total after discounts and taxes.',
   totalExcludingTax: 'Total including discounts but excluding tax.',
   subTotal: 'Total before any discount or exclusive tax is applied.',
@@ -822,13 +804,12 @@ JavaScript
     tax: 'Tax amount',
   },
 };
- ``
+```
+</Accordion>
 
-Result 
+<Accordion title="Result">
 
-JSON
-
-`
+```json JSON
 {
   "total": {
     "amount": 10,
@@ -874,20 +855,18 @@ JSON
     }
   }
 }
-
-`
-
+```
+</Accordion>
   
-> ### 📚
-> 
-> [SDK reference ↗️](https://node-sdk-docs.stigg.io/classes/stigg#estimateSubscription)
+<Info>
+[📚 SDK reference ↗️](https://node-sdk-docs.stigg.io/classes/stigg#estimateSubscription)
+</Info>
 
   
 You can also estimate the cost of updating an existing subscription using the `updateSubscription` method, which also returns a breakdown of the proration amounts:
 
-Node.js
-
-`await stiggClient.estimateSubscriptionUpdate({  
+```nodesjs Node.js
+await stiggClient.estimateSubscriptionUpdate({  
   subscriptionId: "subscription-plan-revvenu-growth-da6324",
   // optional parameters:
   unitQuantity: 2, // for subscriptions with per-unit pricing
@@ -897,13 +876,12 @@ Node.js
     quantity: 1  
   }]
 });
-`
+```
 
-Return fields 
+<Accordion title="Return fields">
 
-JavaScript
-
-`` {
+```javascript JavaScript
+{
   total: 'Total after discounts and taxes.',
   totalExcludingTax: 'Total including discounts but excluding tax.',
   subTotal: 'Total before any discount or exclusive tax is applied.',
@@ -940,13 +918,13 @@ JavaScript
     tax: 'Tax amount',
   },
 };
- ``
+```
+</Accordion>
 
-Result 
+<Accordion title="Result">
 
-JSON
-
-`{
+```json JSON
+{
   "total": {
     "amount": 2.5,
     "currency": "USD"
@@ -991,20 +969,21 @@ JSON
     }
   }
 }
-`
+```
+</Accordion>
 
   
-> ### 📚
-> 
-> [SDK reference ↗️](https://node-sdk-docs.stigg.io/classes/stigg#estimateSubscriptionUpdate)
+<Info>
+[📚 SDK reference ↗️](https://node-sdk-docs.stigg.io/classes/stigg#estimateSubscriptionUpdate)
+</Info>
 
-> ### 🚧
-> 
-> Promo code support
-> 
-> 1. Passing of promo codes requires an integration with a billing solution, such as: [Stripe](stripe).
-> 2. Promo codes should be generated in the integrated billing solution.
-> 3. When providing the optional `promotionCode` parameter, the promo code and associated coupon will validated against the defined restrictions to ensure that they're applicable for the subscription. If validation fails, a [relevant error code](https://node-sdk-docs.stigg.io/enums/errorcode) would be returned; otherwise, the subscription will include the discounted price.
+<Warning> 
+Promo code support
+ 
+1. Passing of promo codes requires an integration with a billing solution, such as: [Stripe](stripe).
+2. Promo codes should be generated in the integrated billing solution.
+3. When providing the optional `promotionCode` parameter, the promo code and associated coupon will validated against the defined restrictions to ensure that they're applicable for the subscription. If validation fails, a [relevant error code](https://node-sdk-docs.stigg.io/enums/errorcode) would be returned; otherwise, the subscription will include the discounted price.
+</Warning>
 
   
 ## Handling a successful checkout
@@ -1015,10 +994,10 @@ Due to the async nature of webhooks from Stripe, the subscription might not be y
 
 For example, you can present a loading animation until the promise returned from the method is resolved.
 
-javascript
-
-`` // in the context of the `successUrl` page,  
+```javascript javascript
+// in the context of the `successUrl` page,  
 // wait for the subscription to become active and entitlements to be updated
+
 
 async function onPageLoad(){  
   showLoadingIndicator();
@@ -1038,38 +1017,36 @@ async function onPageLoad(){
 window.addEventListener('load', (event) => {  
   onPageLoad();  
 });
- ``
+```
 
-> ### 📚
-> 
-> [SDK reference ↗️](https://js-sdk-docs.stigg.io/classes/stigg#waitForCheckoutCompleted)
+<Info>
+[📚 SDK reference ↗️](https://js-sdk-docs.stigg.io/classes/stigg#waitForCheckoutCompleted)
+</Info>
 
 ## Clearing the customer context
 
 Clear the customer ID of the user that's accessing your app, usually after the customer signs out:
 
-JavaScript
+```javascript JavaScript
+stiggClient.clearCustomer();
+```
 
-`stiggClient.clearCustomer();
-`
-
-> ### 📚
-> 
-> [SDK reference ↗️](https://js-sdk-docs.stigg.io/classes/stigg#clearCustomer)
+<Note>
+[📚 SDK reference ↗️](https://js-sdk-docs.stigg.io/classes/stigg#clearCustomer)
+</Note>
 
   
 ## Clearing the customer resource context
 
-For [Multi-instance products](/docs/multiple-subscriptions), clear the customer ID of the user that's accessing your app, usually after the customer exit the context of specific resource:
+For [Multi-instance products](/multiple-subscriptions), clear the customer ID of the user that's accessing your app, usually after the customer exit the context of specific resource:
 
-JavaScript
+```javascript JavaScript
+stiggClient.clearResource();
+```
 
-`stiggClient.clearResource();
-`
-
-> ### 📚
-> 
-> [SDK reference ↗️](https://js-sdk-docs.stigg.io/classes/stigg#clearResource)
+<Info>
+[📚 SDK reference ↗️](https://js-sdk-docs.stigg.io/classes/stigg#clearResource)
+</Info>
 
   
 ## Refresh the cache
@@ -1080,16 +1057,14 @@ After performing an operation on the backend that can modify the customer entitl
 
 To do so, call the below method:
 
-JavaScript
+```javascript JavaScript
+await stiggClient.refresh();
+```
 
-`await stiggClient.refresh();
-`
-
-> ### 📚
-> 
-> [SDK reference ↗️](https://js-sdk-docs.stigg.io/classes/stigg#refresh)  
->  
+<Info> 
+[📚 SDK reference ↗️](https://js-sdk-docs.stigg.io/classes/stigg#refresh)  
+</Info>  
 
 ## Full SDK reference
 
-[ ![](/images/6485b4f-codingbrowser_102152.png)  JavaScript SDK reference ](javascript-sdk-reference) 
+[ ![](/images/6485b4f-codingbrowser_102152.png)  JavaScript SDK reference ](/javascript-sdk-reference) 

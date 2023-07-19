@@ -14,17 +14,16 @@ The customer portal widget built to be modular and every component can be used a
 
 In order to complete this guide in your application code, please make sure that you have:
 
-* [Modeled your pricing in Stigg](modeling-your-pricing)
-* [Installed the Stigg React client SDK](react-sdk#installing-the-sdk)
-* [A Stigg **client** API key](javascript-sdk#retrieving-the-client-api-key)
+* [Modeled your pricing in Stigg](/modeling-your-pricing)
+* [Installed the Stigg React client SDK](/react-sdk#installing-the-sdk)
+* [A Stigg **client** API key](/javascript-sdk#retrieving-the-client-api-key)
   
 ## Initializing the React SDK
 
 The first step is to initialize Stigg's React SDK with the client API key by wrapping your application with StiggProvider component.
 
-React
-
-`import React from 'react';
+```javascript React
+import React from 'react';
 import ReactDOM from 'react-dom';
 import { StiggProvider } from '@stigg/react-sdk';
 import App from './App';
@@ -35,7 +34,7 @@ ReactDOM.render(
   </StiggProvider>,
   document.getElementById('app'),
 );
-`
+```
 
   
 ## Rendering the customer portal
@@ -43,8 +42,9 @@ ReactDOM.render(
 Rendering the customer portal can be achieved using 2 steps:
 
 1. Set the customer ID, the customer ID can usually be retrieved after a customer signs-in or restores their session.  
-TypeScript  
-`import { useStiggContext } from '@stigg/react-sdk';  
+
+```typescript TypeScript  
+import { useStiggContext } from '@stigg/react-sdk';  
 function App() {  
   const { stigg } = useStiggContext();  
   useEffect(() => {  
@@ -52,17 +52,17 @@ function App() {
     stigg.setCustomerId('customer-ID');  
   })  
 }  
-`
+```
 2. Use the `CustomerPortal` component to render the customer portal.  
 The CustomerPortal component support [component composition](https://reactjs.org/docs/composition-vs-inheritance.html) so it's possible to pass as a parameter the Paywall component and it will be rendered inside the customer portal.  
-React TSX  
-`<CustomerPortal  
+```javascript React TSX  
+<CustomerPortal  
     paywallComponent={<Paywall />}  
     theme={...}  
     textOverrides={...}  
 />  
-`
+```
 
 ## Additional resources
 
-[ ![](/images/9f55ab1-codingbrowser_102152.png)  Stigg's frontend integration ](frontend-integration) 
+[ ![](/images/9f55ab1-codingbrowser_102152.png)  Stigg's frontend integration ](/frontend-integration) 

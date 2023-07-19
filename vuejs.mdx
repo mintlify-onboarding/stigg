@@ -5,7 +5,7 @@ title: "Vue.js"
 ## Overview
 
 Stigg's Vue SDK is a Javascript library for embedding self-service components in Vue 3 apps.  
-It is based on [React SDK](react-sdk) components under the hood.
+It is based on [React SDK](/react-sdk) components under the hood.
 
   
 ## Prerequisites
@@ -16,17 +16,15 @@ Install the `@stigg/vue-sdk` package in your project using one of the below meth
 
 #### From npm:
 
-Shell
-
-`npm install @stigg/vue-sdk
-`
+```shell Shell
+npm install @stigg/vue-sdk
+```
 
 #### From yarn:
 
-Shell
-
-`yarn add @stigg/vue-sdk
-`
+```shell Shell
+yarn add @stigg/vue-sdk
+```
 
   
 ### Installing Stigg's Vue SDK in Vue 2 applications
@@ -35,17 +33,15 @@ Install the `@stigg/vue-2-sdk` package in your project using one of the below me
 
 #### From npm:
 
-Shell
-
-`npm install @stigg/vue-2-sdk
-`
+```shell Shell
+npm install @stigg/vue-2-sdk
+```
 
 #### From yarn:
 
-Shell
-
-`yarn add @stigg/vue-2-sdk
-`
+```shell Shell
+yarn add @stigg/vue-2-sdk
+```
 
   
 ## Retrieving the client API key
@@ -59,16 +55,14 @@ Copy the   **Client API key** of the relevant environment.
 
 Import the library CSS styles
 
-TypeScript
-
-`import '@stigg/vue-sdk/dist/style.css';
-`
+```typescript TypeScript
+import '@stigg/vue-sdk/dist/style.css';
+```
 
 Configure the SDK by wrapping your application in `StiggProvider`:
 
-Vue
-
-`<script setup lang="ts">
+```html Vue
+<script setup lang="ts">
 import {StiggProvider} from '@stigg/vue-sdk';
 
 const apiKey = "<STIGG_CLIENT_API_KEY>";
@@ -79,7 +73,7 @@ const apiKey = "<STIGG_CLIENT_API_KEY>";
       <NestedComponents />
    </StiggProvider>
 </template>
-`
+```
 
   
 ## Rendering pricing plans
@@ -92,9 +86,8 @@ One of the major benefits of leverage Stigg's pricing table widget, is that any 
 
 To render it, you'll need to import the `Paywall` component and place it under the `StiggProvider`. You can customize the pricing tables [using the same properties as the original React component has](react-sdk#customization-options). Use can use the exported TS types for the props as well.
 
-Vue
-
-`` <script setup lang="ts">
+```html Vue
+<script setup lang="ts">
 import {
   StiggProvider, StiggProviderProps, Paywall, PaywallProps
 } from '@stigg/vue-sdk';
@@ -116,11 +109,11 @@ const paywall: PaywallProps = {
       <Paywall v-bind="paywall" />
    </StiggProvider>
 </template>
- ``
+```
 
-> ### 📘
-> 
-> You can find more paywall options [here](https://react-sdk-docs.stigg.io/)
+<Note> 
+You can find more paywall options [here](https://react-sdk-docs.stigg.io/)
+</Note>
 
   
 ## Rendering a customer portal
@@ -140,9 +133,8 @@ The widget's layout, style and texts are [fully customizable](#customization-opt
 
 Use the `CustomerPortal` component to render the customer portal.
 
-Vue
-
-`<script setup lang="ts">
+```html Vue
+<script setup lang="ts">
 import {StiggProvider, CustomerPortal, CustomerPortalProps} from '@stigg/vue-sdk';
 
 const apiKey = "<STIGG_CLIENT_API_KEY>";
@@ -161,7 +153,7 @@ const customerPortal: CustomerPortalProps = {
       <CustomerPortal v-bind="customerPortal"/>
    </StiggProvider>
 </template>
-`
+```
 
 ## Example project
 

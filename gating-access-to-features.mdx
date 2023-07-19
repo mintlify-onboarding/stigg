@@ -13,9 +13,9 @@ The functionality that’s included in each plan is defined by a combination of 
 
 In order to complete this guide in your application code, please make sure that you have:
 
-* [Modeled your pricing in Stigg](modeling-your-pricing)
-* [Installed the Stigg JavaScript client SDK](javascript-sdk#installing-the-sdk)
-* [A Stigg **client** API key](javascript-sdk#retrieving-the-client-api-key)
+* [Modeled your pricing in Stigg](/modeling-your-pricing)
+* [Installed the Stigg JavaScript client SDK](/javascript-sdk#installing-the-sdk)
+* [A Stigg **client** API key](/javascript-sdk#retrieving-the-client-api-key)
   
 ## Initializing the client SDK
 
@@ -23,9 +23,8 @@ The first step is to initialize Stigg's client SDK with the client API key of th
 
 The customer ID can usually be retrieved after a customer signs-in or restores their session.
 
-TypeScript
-
-`import Stigg from '@stigg/js-client-sdk';
+```typescript TypeScript
+import Stigg from '@stigg/js-client-sdk';
 
 const stiggClient = await Stigg.initialize({ 
     apiKey: 'YOUR_CLIENT_API_KEY',
@@ -33,7 +32,7 @@ const stiggClient = await Stigg.initialize({
 });
 
 export default stiggClient; 
-`
+```
 
   
 ## Checking whether the customer can access the feature
@@ -41,21 +40,25 @@ export default stiggClient;
 Checking whether the customer has access to the feature, is achieved in 2 steps:
 
 1. Retrieve the customer's entitlement for the feature using the feature ID that's defined in Stigg.  
-TypeScript  
-`const entitlement = stiggClient.getMeteredEntitlement({  
+
+```typescript TypeScript  
+const entitlement = stiggClient.getMeteredEntitlement({  
     featureId: "feature-birds",  
     options: { requestedUsage: 3 }  
 });  
-`  
-> ### 📘  
-> This example demonstrates a customer's attempt to use 3 birds of their quota at once.
+```
+<Note>  
+This example demonstrates a customer's attempt to use 3 birds of their quota at once.
+</Note>
+
 2. Use the result to check whether they have access to this functionality.  
-TypeScript  
-`if (entitlement.hasAccess) {  
+
+```typescript TypeScript  
+if (entitlement.hasAccess) {  
     console.log("The customer can access the feature!");  
 }  
-`
+```
   
 ## Additional resources
 
-[ ![](/images/9f55ab1-codingbrowser_102152.png)  Stigg's frontend integration ](frontend-integration) 
+[ ![](/images/9f55ab1-codingbrowser_102152.png)  Stigg's frontend integration ](/frontend-integration) 

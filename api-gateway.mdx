@@ -10,7 +10,7 @@ One of the possible implementation methods for gating access to features in back
 
 ### Example
 
-Lets take the [Example project](/docs/example-project) and consider that its backend servers are behind [HTTP API](https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api.html). As part of this example we will implement a [Lambda authorizer for HTTP APIs](https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-lambda-authorizer.html) for feature gating.
+Lets take the [Example project](/example-project) and consider that its backend servers are behind [HTTP API](https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api.html). As part of this example we will implement a [Lambda authorizer for HTTP APIs](https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-lambda-authorizer.html) for feature gating.
 
 #### Mapping REST endpoints to Stigg features
 
@@ -28,11 +28,10 @@ Let's translate this table into code, for simplicity we will focus on `PUT /api/
 
 > The rest of the routes will be included in the full source code attached at the end of the article
 
-We will add the features definitions along with their [fallback](/docs/high-availability-architecture#local-caching-and-fallback-strategy):
+We will add the features definitions along with their [fallback](/high-availability-architecture#local-caching-and-fallback-strategy):
 
-JavaScript
-
-`const STIGG_FEATURE_TODOS = {
+```javascript JavaScript
+const STIGG_FEATURE_TODOS = {
     id: 'feature-todos',
     fallback: {
         hasAccess: true,
@@ -46,13 +45,12 @@ const STIGG_FEATURE_UPDATE_TODO = {
         hasAccess: true,
     },
 };
-`
+```
 
 Then add the route definition:
 
-JavaScript
-
-`const routes = [
+```javascript JavaScript
+const routes = [
   // ...
   {
     method: 'PUT',
@@ -61,15 +59,14 @@ JavaScript
   },
   // ...
 ];
-`
+```
 
 #### Implementing the authorizer lambda
 
 Next, lets compose a simple lambda handler:
 
-JavaScript
-
-`exports.handler = async (event, context) => {
+```javascript JavaScript
+exports.handler = async (event, context) => {
     // fetch requested resource from API Gateway authorizer event
     const { method, path } = event?.requestContext?.http;
     const { authorization } = event?.headers;
@@ -79,13 +76,12 @@ JavaScript
 
     context.succeed({ isAuthorized });
 };
-`
+```
 
 Next, lets implement the `checkRouteEntitlements` function:
 
-JavaScript
-
-`` async function checkRouteEntitlements(method, path, authorization) {
+```javascript JavaScript
+async function checkRouteEntitlements(method, path, authorization) {
     if (!method || !path || !authorization) {
         console.warn('Missing request parameters');
         return false;
@@ -113,7 +109,7 @@ JavaScript
     console.info(`Route '${method} ${path}' response for '${customerId}' - ${isAuthorized}`);
     return isAuthorized;
 }
- ``
+```
 
 > The implementation of the inner functions was omitted for simplicity, and will be included in the full source code attached at the end of the article
 

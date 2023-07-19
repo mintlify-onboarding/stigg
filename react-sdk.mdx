@@ -7,9 +7,9 @@ description: "How to install and integrate the Stigg React SDK on the client-sid
 
 The Stigg React SDK is a Javascript library for implementing pricing and packaging in React apps with Stigg. it provides plug and play components and custom React hooks.
 
-> ### 📚
-> 
-> [Full SDK reference ↗️](https://react-sdk-docs.stigg.io/)
+<Info> 
+[📚 Full SDK reference ↗️](https://react-sdk-docs.stigg.io/)
+</Info>
 
 ## Installing the SDK
 
@@ -17,17 +17,15 @@ You have a few options for using the `@stigg/react-sdk` package in your project:
 
 #### From npm:
 
-Shell
-
-`npm install @stigg/react-sdk
-`
+``shell Shell
+npm install @stigg/react-sdk
+```
 
 #### From yarn:
 
-Shell
-
-`yarn add @stigg/react-sdk
-`
+```shell Shell
+yarn add @stigg/react-sdk
+```
 
 ## Retrieving the client API key
 
@@ -39,9 +37,8 @@ Copy the   **Client API key** of the relevant environment.
 
 First, you'll need to wrap your application in a single `StiggProvider` component. that will provide the React Context to components that are placed inside your application:
 
-React
-
-`import React from 'react';  
+```javascript React
+import React from 'react';  
 import ReactDOM from 'react-dom';  
 import { StiggProvider } from '@stigg/react-sdk';  
 import App from './App';
@@ -52,16 +49,15 @@ ReactDOM.render(
   </StiggProvider>,  
   document.getElementById('app'),  
 );
-`
+```
 
 ### Importing the styles
 
 If you plan to use the widget components, add an import statement to include the bundled styles:
 
-TypeScript
-
-`import '@stigg/react-sdk/dist/styles.css';
-`
+```typescript TypeScript
+import '@stigg/react-sdk/dist/styles.css';
+```
 
 ## Rendering pricing tables
 
@@ -73,21 +69,20 @@ One of the major benefits of leverage Stigg's pricing table widget, is that any 
 
 To render a pricing table, use the `Paywall` component:
 
-React
-
-`<Paywall  
+```javascript React
+<Paywall  
   highlightedPlanId="plan-id"  
   onPlanSelected={({ plan, customer }) => {  
     // Handle customer intention to subscribe to plan  
   }}  
 />
-`
+```
 
-> ### 📘
-> 
-> Stigg's pricing table widget can be fully customized to align with the UI of your website and application, more details can be found [here](#customization-options).
-> 
-> Additional configurations and **localization** options can be found [here](https://react-sdk-docs.stigg.io/types/paywallprops)
+<Note> 
+Stigg's pricing table widget can be fully customized to align with the UI of your website and application, more details can be found [here](#customization-options).
+ 
+Additional configurations and **localization** options can be found [here](https://react-sdk-docs.stigg.io/types/paywallprops)
+</Note>
 
   
 ## Rendering a customer portal
@@ -108,8 +103,9 @@ The widget's layout, style and texts are [fully customizable](#customization-opt
 Rendering the customer portal can be achieved using 2 steps:
 
 1. Set the customer ID, the customer ID can usually be retrieved after a customer signs-in or restores their session.  
-TypeScript  
-`import { useStiggContext } from '@stigg/react-sdk';  
+
+```typescript TypeScript  
+import { useStiggContext } from '@stigg/react-sdk';  
 function App() {  
   const { stigg } = useStiggContext();  
   useEffect(() => {  
@@ -117,28 +113,30 @@ function App() {
     stigg.setCustomerId('customer-ID');  
   })  
 }  
-`
+```
+
 2. Use the `CustomerPortal` component to render the customer portal.  
 The CustomerPortal component support [component composition](https://reactjs.org/docs/composition-vs-inheritance.html) so it's possible to pass as a parameter the Paywall component and it will be rendered inside the customer portal.  
-React TSX  
-`<CustomerPortal  
+
+```javascript React TSX  
+<CustomerPortal  
     paywallComponent={<Paywall />}  
     theme={...}  
     textOverrides={...}  
 />  
-`
+```
 
-> ### 🚧
-> 
-> Allowing customers to edit their billing details requires an integration with a billing provider such as [Stripe](stripe#integration-with-stripes-billing-portal).
+<Warning> 
+Allowing customers to edit their billing details requires an integration with a billing provider such as [Stripe](/stripe#integration-with-stripes-billing-portal).
+</Warning>
 
-> ### 📘
-> 
-> Learn more on how to [refresh Stigg cache](/docs/react-sdk#refreshing-the-cache) after performing an operation that modifies the customer to immediately reflect the customer changes on the customer portal
+<Note>
+Learn more on how to [refresh Stigg cache](/react-sdk#refreshing-the-cache) after performing an operation that modifies the customer to immediately reflect the customer changes on the customer portal
+</Note>
 
-> ### 📘
-> 
-> You can find more customer portal options [here](https://react-sdk-docs.stigg.io/types/customerportalprops)
+<Note>
+You can find more customer portal options [here](https://react-sdk-docs.stigg.io/types/customerportalprops)
+</Note>
 
   
 ### Subscriptions with a custom price
@@ -165,9 +163,8 @@ The `CustomerPortal` component is just an opinionated way to render the customer
 
 In order to use the standalone component, it's required to wrap all the components with `CustomerPortalProvider` which will pass the necessary data to each component:
 
-React
-
-`import { 
+```javascript React
+import { 
   CustomerPortalProvider,
   CustomerUsageData,
   BillingInformation,
@@ -186,8 +183,7 @@ function App() {
         </CustomerPortalProvider>    
   )
 }
-
-`
+```
 
 ## Customization options
 
@@ -198,9 +194,8 @@ The components included in of this package comes with default styling, and you c
 You can pass customization options such as theming and locale to `StiggProvider` component.  
 It will affect all Stigg components that are descendent to the provider, this is useful in order to pass your own branding colors palette or typography.
 
-React
-
-`import React from 'react';  
+```javascript React
+import React from 'react';  
 import ReactDOM from 'react-dom';  
 import { StiggProvider } from '@stigg/react-sdk';  
 import App from './App';
@@ -252,11 +247,11 @@ ReactDOM.render(
   </StiggProvider>,  
   document.getElementById('app'),  
 );
-`
+```
 
-> ### 📘
-> 
-> You can find more theming options [here](https://react-sdk-docs.stigg.io/types/theme)
+<Note> 
+You can find more theming options [here](https://react-sdk-docs.stigg.io/types/theme)
+</Note>
 
   
 ### Component level customization options
@@ -265,9 +260,8 @@ You can pass customization options per component.
 
 #### Paywall component
 
-React
-
-`` const textOverrides = {  
+```javascript React
+const textOverrides = {  
     highlightChip: 'Best value',  
     planCTAButton: {  
         startTrial: (plan: Plan) => `Start trial (${plan.defaultTrialConfig.duration} days)`,  
@@ -288,18 +282,17 @@ React
     }}  
     textOverrides={textOverrides}  
 />
- ``
+```
 
-> ### 📘
-> 
-> You can find more text overrides options [here](https://react-sdk-docs.stigg.io/types/paywalllocalization)
+<Note>
+You can find more text overrides options [here](https://react-sdk-docs.stigg.io/types/paywalllocalization)
+</Note>
 
   
 #### Customer portal component
 
-React
-
-`const textOverrides = {  
+```javascript React
+const textOverrides = {  
   title: 'Plans & billing',
   manageSubscription: 'Manage subscription',
   usageTabTitle: 'Usage data',
@@ -329,12 +322,11 @@ const customerPortalTheme = {
     textOverrides={textOverrides}
     paywallComponent={<Paywall />}
 />
+```
 
-`
-
-> ### 📘
-> 
-> You can find more text overrides options [here](https://react-sdk-docs.stigg.io/types/customerportalprops)
+<Note> 
+You can find more text overrides options [here](https://react-sdk-docs.stigg.io/types/customerportalprops)
+</Note>
 
   
 ### Using CSS class names
@@ -390,9 +382,8 @@ For cases that the theming object above is not sufficient enough, every HTML ele
 
 Use the `useStigg` React hook to access [Stigg's JavaScript client](javascript-sdk) easily from every component:
 
-React
-
-`import React from 'react';  
+```javascript React
+import React from 'react';  
 import { useStiggContext } from '@stigg/react-sdk';
 
 function App() {  
@@ -403,7 +394,7 @@ function App() {
     stigg.getBooleanEntitlement(...)  
   })  
 }
-`
+```
 
 ## Handling a checkout
 
@@ -411,9 +402,8 @@ When initiating checkout using Stigg, the user is expected to be redirected and 
 
 Due to the async nature of webhooks from Stripe, the subscription might not be yet provisioned in your Stigg account. To make sure that the new subscription has been activated in this scenario, you can utilize the `useWaitForCheckoutCompleted` custom hook to have an indication if the checkout is still in progress, succeeded or cancelled. 
 
-React
-
-`import { useWaitForCheckoutCompleted, ProvisionStatus } from '@stigg/react-sdk';
+```javascript React
+import { useWaitForCheckoutCompleted, ProvisionStatus } from '@stigg/react-sdk';
 
 function Checkout(props) {
    const { isAwaitingCheckout, provisionStatus } = useWaitForCheckoutCompleted();
@@ -426,11 +416,11 @@ function Checkout(props) {
      // Failed to provision subscription
    }
 }
-`
+```
 
-> ### 📘
-> 
-> You can find `useWaitForCheckoutCompleted` hook API reference [here](https://react-sdk-docs.stigg.io/functions/usewaitforcheckoutcompleted)
+<Note>
+You can find `useWaitForCheckoutCompleted` hook API reference [here](https://react-sdk-docs.stigg.io/functions/usewaitforcheckoutcompleted)
+</Note>
 
 ## Refreshing the cache
 
@@ -440,9 +430,8 @@ After performing an operation on the backend that can modify the customer entitl
 
 To do so, call the below method:
 
-React
-
-`import { useStiggContext } from '@stigg/react-sdk';
+```javascript React
+import { useStiggContext } from '@stigg/react-sdk';
 
 function App() {
     const { stigg, refreshData } = useStiggContext();
@@ -453,9 +442,8 @@ function App() {
     await refreshData();
   }
 }
-
-`
+```
 
 ## Full SDK reference
 
-[ ![](/images/6485b4f-codingbrowser_102152.png)  React SDK reference ](react-sdk-reference) 
+[ ![](/images/6485b4f-codingbrowser_102152.png)  React SDK reference ](/react-sdk-reference) 

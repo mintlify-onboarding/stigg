@@ -3,30 +3,29 @@ title: "Python SDK v2 (Beta)"
 description: "How to install and use the Stigg Python SDK on the server-side"
 ---
 
-> ### 📘
-> 
-> Stigg's Python SDK is a thin wrapper around the [GraphQL API](graphql-api) and does not support caching, polling or streaming of customer entitlements.
+<Note>
+Stigg's Python SDK is a thin wrapper around the [GraphQL API](/graphql-api) and does not support caching, polling or streaming of customer entitlements.
+</Note>
 
 ## Overview
 
-This library provides a Python client to interact with [Stigg's GraphQL API ](/docs/graphql-api)based on the operations the [Stigg's Node.js SDK](/docs/nodejs-sdk) is using under the hood.
+This library provides a Python client to interact with [Stigg's GraphQL API ](/graphql-api)based on the operations the [Stigg's Node.js SDK](/nodejs-sdk) is using under the hood.
 
-The [ariadne-codegen](https://github.com/mirumee/ariadne-codegen) code generator is used to generate a typesafe and async Python API client, which is based on [httpx](https://github.com/encode/httpx) and [pydantic](pydantic).
+The [ariadne-codegen](https://github.com/mirumee/ariadne-codegen) code generator is used to generate a typesafe and async Python API client, which is based on [httpx](https://github.com/encode/httpx) and [pydantic](/pydantic).
 
-> ### 🚧
-> 
-> Looking for the older version of the Python client?
-> 
-> You can find the docs for the old Python SDK client here: [stigg-api-client](python-sdk).
+<Warning>
+Looking for the older version of the Python client?
+ 
+You can find the docs for the old Python SDK client here: [stigg-api-client](/python-sdk).
+</Warning>
 
 ## Installing the SDK
 
 The first step is to install the Stigg SDK as a dependency in your application using your application's dependency manager:
 
-Shell
-
-`pip install stigg-api-client-v2
-`
+```shell Shell
+pip install stigg-api-client-v2
+```
 
 ## Retrieving the server API Key
 
@@ -40,21 +39,19 @@ Import the Stigg client and initialize it with the API key.
 
 Synchronous client:
 
-Python
-
-`from stigg import Stigg
+```python Python
+from stigg import Stigg
 
 client = Stigg.create_client("STIGG_SERVER_API_KEY")
-`
+```
 
 Asynchronous client (asyncio):
 
-Python
-
-`from stigg import Stigg
+```python Python
+from stigg import Stigg
 
 client = Stigg.create_async_client("STIGG_SERVER_API_KEY")
-`
+```
 
 ## Provisioning customers
 
@@ -66,9 +63,8 @@ You can optionally pass `subscriptionParams` to create subscription for that cus
 
 #### Query
 
-python
-
-`data = await client.provision_customer(ProvisionCustomerInput(**{
+```python Python
+data = await client.provision_customer(ProvisionCustomerInput(**{
   "refId": "customer-demo-123",
   "name": "Acme",                       # optional
   "email": "[[email protected]](/cdn-cgi/l/email-protection)",    # optional - billing email address
@@ -103,14 +99,12 @@ python
     "key": "value"
   }   
 }))
+```
 
-`
+<Accordion title="Response">
 
-Response 
-
-JSON
-
-`{
+```json JSON
+{
     "provision_customer": {
         "customer": {
             "id": "customer-demo-123",
@@ -148,7 +142,8 @@ JSON
         }
     }
 }
-`
+```
+</Accordion>
 
 ## Updating customers
 
@@ -157,9 +152,8 @@ Due to the fact that the customer's billing information is not persisted on Stig
 
 #### Query
 
-Python
-
-`data = await client.update_customer(UpdateCustomerInput(
+```python Python
+data = await client.update_customer(UpdateCustomerInput(
   **{
     "email": "[[email protected]](/cdn-cgi/l/email-protection)",
     "name": "Acme",
@@ -177,14 +171,12 @@ Python
     }
   }
 ))
+```
 
-`
+<Accordion title="Response">
 
-Response 
-
-JSON
-
-`{
+```json JSON
+{
     "update_customer": {
         "id": "customer-id2",
         "name": "Acme",
@@ -200,24 +192,22 @@ JSON
         }
     }
 }
-`
+```
+</Accordion>
 
 ## Getting customer data
 
 #### Query
 
-Python
-
-`data = await client.get_customer_by_id(GetCustomerByRefIdInput({
+```python Python
+data = await client.get_customer_by_id(GetCustomerByRefIdInput({
   "customerId": "customer-id2"
 })
-`
+```
 
-Response 
+<Accordion title="Response">
 
-JSON
-
-`
+```json JSON
 {
   "get_customer_by_ref_id": {
     "id": "customer-id2",
@@ -234,27 +224,26 @@ JSON
     }
   }
 }
-`
+```
+</Accordion>
 
 ## Getting customer active subscriptions
 
 #### Query
 
-Python
-
-`data = await client.get_active_subscriptions(GetActiveSubscriptionsInput(
+```python Python
+data = await client.get_active_subscriptions(GetActiveSubscriptionsInput(
   **{
     "customerId": "CUSTOMER-ID",
     "resourceId": "RESOURCE-ID"   # optional - pass it to get subscription of specific resource 
   }
 ))
-`
+```
 
-Response 
+<Accordion title="Response">
 
-JSON
-
-`{
+```json JSON
+{
   "get_active_subscriptions": [
     {
       "id": "subscription-plan-revvenu-basic-169747",
@@ -324,7 +313,8 @@ JSON
     }
   ]
 }
-`
+```
+</Accordion>
 
 ## Provision subscriptions
 
@@ -336,9 +326,8 @@ When no payment is required or when Stigg is not integrated with a billing solut
 
 When a customer subscribes to a new plan (free, paid, trial, etc.), provision a subscription in Stigg. The provision result can be a successfully created subscription, or a redirect link to stripe checkout in case payment is needed. 
 
-python
-
-`data = await client.provision_subscription(ProvisionSubscriptionInput(
+```python Python 
+data = await client.provision_subscription(ProvisionSubscriptionInput(
     **{
         "customerId": "customer-id",
         "planId": "plan-revvenu-basic",
@@ -365,13 +354,12 @@ python
         }
     }
 ))
-`
+```
 
-Success Result 
+<Accordion title="Success Result">
 
-JSON
-
-`{
+```json JSON
+{
   "provision_subscription": {
     "checkout_url": "https:\/\/your-success-url.com",
     "status": "SUCCESS",
@@ -420,28 +408,29 @@ JSON
     }
   }
 }
-`
+```
+</Accordion>
 
-Payment Required Result 
+<Accordion title="Payment Required Result">
 
-JSON
-
-`{
+```json JSON
+{
   "provision_subscription": {
     "checkout_url": "https:\/\/checkout.stripe.com\/c\/pay\/cs_test_a1ZW8HpF4G7hV6w9Q9hV7MGYpzBU2BPpt6RJRZXE2PC7WyxRHQKqQ2UvDj#fidkdWxOYHwnPyd1blpxYHZxWjA0Tzx1TlNJSHxCYEZGd1BHPU1kM0JAXVFHfXdrREhnQ3VJdldAS1MwZjRkNGxxcWBVf09SSE0zRzBcYTN3cXNkbFdMQnI0V3ZrN0toSGc3NnB9QEdBPVJMNTVzM3NpdnVDSycpJ2N3amhWYHdzYHcnP3F3cGApJ2lkfGpwcVF8dWAnPyd2bGtiaWBabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYCkndnF3bHVgRGZmanBrcSc%2FJ2RmZnFaNE5MdGtyQDRiU1E3f3JfUyd4JSUl",
     "status": "PAYMENT_REQUIRED",
     "subscription": null
   }
 }
-`
+```
+</Accordion>
 
   
-> ### 🚧
-> 
-> 1. A customer can have both a non-trial (free or paid) subscription and trial subscription to different plans of the same product in parallel - this logic allows customers to trial a higher tier plan, while still paying for an existing plan.
-> 2. When the customer has a trial subscription for plan X of product A and a new subscription is created for the same plan, the new subscription will be created as as non-trial (paid) subscription - this logic follows an upgrade flow of a trial subscription to a paid subscription of a specific plan.
-> 3. Except in the above mentioned cases, when a customer has an active subscription for product X, and another subscription for the same product is created with start date S, the existing subscription will automatically be cancelled and the new subscription will start on start date S.
-> 4. It's also possible to explicitly skip the trial period of the selected plan by providing the `skipTrial: true` parameter to the `provisionSubscription()` method.
+<Warning>
+1. A customer can have both a non-trial (free or paid) subscription and trial subscription to different plans of the same product in parallel - this logic allows customers to trial a higher tier plan, while still paying for an existing plan.
+2. When the customer has a trial subscription for plan X of product A and a new subscription is created for the same plan, the new subscription will be created as as non-trial (paid) subscription - this logic follows an upgrade flow of a trial subscription to a paid subscription of a specific plan.
+3. Except in the above mentioned cases, when a customer has an active subscription for product X, and another subscription for the same product is created with start date S, the existing subscription will automatically be cancelled and the new subscription will start on start date S.
+4. It's also possible to explicitly skip the trial period of the selected plan by providing the `skipTrial: true` parameter to the `provisionSubscription()` method.
+</Warning>
 
 ## Updating subscriptions
 
@@ -449,21 +438,19 @@ Updating an existing subscription, this can be used to update the feature quanti
 
 #### Query
 
-Python
-
-`data = await client.update_subscription(UpdateSubscriptionInput(
+```python Python
+data = await client.update_subscription(UpdateSubscriptionInput(
   **{
     "refId": "subscription-plan-revvenu-growth-589879",
     "unitQuantity": 2,
   }
 ))
-`
+```
 
-Response 
+<Accordion title="Response">
 
-JSON
-
-`{
+```json JSON
+{
     "update_subscription": {
         "id": "subscription-plan-revvenu-growth-589879",
         "status": "ACTIVE",
@@ -521,27 +508,26 @@ JSON
         }
     }
 }
-`
+```
+</Accordion>
 
 ## Cancel subscription
 
 #### Query
 
-Python
-
-`data = await client.cancel_subscription(SubscriptionCancellationInput(
+```python Python
+data = await client.cancel_subscription(SubscriptionCancellationInput(
   **{
     "subscriptionRefId": "subscription-plan-revvenu-growth-589879",
     "subscriptionCancellationTime":  "IMMEDIATE"
   }
 ))
-`
+```
 
-Response 
+<Accordion title="Response">
 
-JSON
-
-`{
+```json JSON
+{
     "cancel_subscription": {
         "id": "subscription-plan-revvenu-growth-589879",
         "status": "CANCELED",
@@ -601,11 +587,12 @@ JSON
         }
     }
 }
-`
+```
+</Accordion>
 
-> ### 🚧
-> 
-> Subscription cancellation will take place according to the defined product behavior.
+<Warning>
+Subscription cancellation will take place according to the defined product behavior.
+</Warning>
 
 ## Getting the entitlement of a customer for a specific feature
 
@@ -613,9 +600,8 @@ Used to check if the customer has access to a feature, the usage limit, and the 
 
 #### Query
 
-Python
-
-`resp = await client.get_entitlement(FetchEntitlementQuery(
+```python Python
+resp = await client.get_entitlement(FetchEntitlementQuery(
   **{
     "customerId": "customer-id",
     "featureId": "feature-01-templates",
@@ -632,13 +618,12 @@ if resp.entitlement.is_granted:
 else:
   # access denied
   pass
-`
+```
 
-Response 
+<Accordion title="Response">
 
-JSON
-
-`{
+```json JSON
+{
         "entitlement": {
             "is_granted": true,
             "access_denied_reason": null,
@@ -661,7 +646,8 @@ JSON
             "reset_period_configuration": null
         }
 }
-`
+```
+</Accordion>
 
 ## Getting all of the entitlements of a customer
 
@@ -669,22 +655,19 @@ Used to check to what features the customer has access to, the usage limit , and
 
 #### Query
 
-Python
-
-`
+```python Python
 data = await client.get_entitlements(FetchEntitlementsQuery(
   **{
     "customerId": "customer-id",
     "resourceId": "resource-01",  # optional, pass it to get entitlement of specific resource
   }
 ))
-`
+```
 
-Response 
+<Accordion title="Response">
 
-JSON
-
-`{
+```json JSON
+{
     "data": {
         "entitlements": [
             {
@@ -758,7 +741,8 @@ JSON
         ]
     }
 }
-`
+```
+</Accordion>
 
 ## Reporting usage measurements to Stigg
 
@@ -770,9 +754,8 @@ For features with a fluctuating meter you can also pass a negative value to decr
 
 #### Query
 
-Python
-
-`data = await client.report_usage(UsageMeasurementCreateInput(
+```python Python
+data = await client.report_usage(UsageMeasurementCreateInput(
     **{
         "value": 5,
         "customerId": "customer-id",
@@ -780,15 +763,14 @@ Python
         "resourceId": "resource-01",  # optional, pass it to report usage for specific resource
     }
   ))
-`
+```
 
 By default, the value reported should represent the **change** in usage of the feature, for example user added 2 more seats then the report usage call should have the value of 2.
 
 In some cases, it's more useful to set the usage to some value instead of reporting the change value, it's possible by passing the `updateBehavior` parameter:
 
-Python
-
-`data = await client.report_usage(UsageMeasurementCreateInput(
+```python Python
+data = await client.report_usage(UsageMeasurementCreateInput(
     ** {
         "value": 5,
         "customerId": "customer-id",
@@ -797,44 +779,41 @@ Python
         "resourceId": "resource-01",  # optional, pass it to report usage for specific resource
     }
 ))
-`
+```
 
-Response 
+<Accordion title="Response">
 
-JSON
-
-`{
+```json JSON
+{
     "create_usage_measurement": {
         "id": "d723d1c6-64fa-4a8b-aa2d-a6dc57e13804"
     }
 }
-`
+```
+</Accordion>
 
-> ### 🚧
-> 
-> 1. Reporting of measurements to Stigg should be done only after the relevant resources have been provisioned in your application.
-> 2. To ensure that the provisioned resources are aligned with the measurements that are reported to Stigg, ensure that customers are not allowed to allocate new resources until an acknowledgement about the processed measurement is received from the Stigg backend.
+<Warning>
+1. Reporting of measurements to Stigg should be done only after the relevant resources have been provisioned in your application.
+2. To ensure that the provisioned resources are aligned with the measurements that are reported to Stigg, ensure that customers are not allowed to allocate new resources until an acknowledgement about the processed measurement is received from the Stigg backend.
+</Warning>
 
-> ### 📘
-> 
-> Validating that a measurement was successfully reported to Stigg is also possible in the [customer details section](customers#viewing-customers-entitlement-usage) of the relevant customer in the Stigg Cloud Console.
+<Note>
+Validating that a measurement was successfully reported to Stigg is also possible in the [customer details section](/customers#viewing-customers-entitlement-usage) of the relevant customer in the Stigg Cloud Console.
+</Note>
 
   
 ## Getting available coupons
 
 #### Query
 
-Python
+```python Python
+data = await client.get_coupons()
+```
 
-`data = await client.get_coupons()
+<Accordion title="Response">
 
-`
-
-Response 
-
-JSON
-
-`{
+```json JSON
+{
     "coupons": {
         "edges": [
             {
@@ -856,7 +835,8 @@ JSON
         ]
     }
 }
-`
+```
+</Accordion>
 
 ## Estimate subscription cost
 
@@ -865,9 +845,8 @@ This can help the customer to understand the costs before paying.
 
 #### Query
 
-Python
-
-`data = await client.request(EstimateSubscriptionInput(
+```python Python
+data = await client.request(EstimateSubscriptionInput(
     ** {
         "customerId": "customer-demo-01",
         "billingPeriod": "MONTHLY",
@@ -883,14 +862,12 @@ Python
         "resourceId": "resource-01",  # optional, required for multiple subscription for same product
     }
 ))
+```
 
-`
+<Accordion title="Result">
 
-Result 
-
-JSON
-
-`{
+```json JSON
+{
     "estimate_subscription": {
         "sub_total": {
             "amount": 30,
@@ -907,16 +884,16 @@ JSON
         "proration": null
     }
 }
-`
+```
+</Accordion>
 
   
 You can also estimate the cost of updating an existing subscription using the `updateSubscription` method, which also returns a breakdown of the proration amounts:
 
 #### Query
 
-Python
-
-`data = await client.estimate_subscription_update(EstimateSubscriptionUpdateInput(
+```python Python
+data = await client.estimate_subscription_update(EstimateSubscriptionUpdateInput(
   ** {
     "subscriptionId": "subscription-plan-revvenu-growth-dfe598",
     "unitQuantity": 7,
@@ -925,13 +902,12 @@ Python
     ]
   }
 ))
-`
+```
 
-Result 
+<Accordion title="Result">
 
-JSON
-
-`{
+```json JSON
+{
     "data": {
         "estimate_subscription_update": {
             "sub_total": {
@@ -960,6 +936,7 @@ JSON
         }
     }
 }
-`
+```
+</Accordion>
 
   

@@ -7,23 +7,8 @@ title: "Rendering custom paywalls"
 In this quick start guide we'll demonstrate how to create a custom customer-facing paywall.
 
   
-## Before we begin
-
-In order to complete this guide in your application code, please make sure that you have:
-
-* [Modeled your pricing in Stigg](modeling-your-pricing)
-* [Installed the Stigg JavaScript client SDK](javascript-sdk#installing-the-sdk)
-* [A Stigg **client** API key](javascript-sdk#retrieving-the-client-api-key)
-  
-## Initializing the client SDK
-
-The first step is to initialize Stigg's client SDK with the client API key of the environment that's integrated with Stigg, and the ID of the relevant customer.
-
-The customer ID can usually be retrieved after a customer signs-in or restores their session.
-
-TypeScript
-
-`import Stigg from '@stigg/js-client-sdk';
+```typescript TypeScript
+import Stigg from '@stigg/js-client-sdk';
 
 const stiggClient = await Stigg.initialize({ 
     apiKey: 'YOUR_CLIENT_API_KEY',
@@ -31,7 +16,7 @@ const stiggClient = await Stigg.initialize({
 });
 
 export default stiggClient; 
-`
+```
 
   
 ## Rendering the custom paywall
@@ -39,11 +24,12 @@ export default stiggClient;
 Rendering the paywall can be achieved in 2 steps:
 
 1. Retrieve the paywall content.  
-TypeScript  
-`const plans = await stiggClient.getPaywall();  
-`
+
+```typescript TypeScript  
+const plans = await stiggClient.getPaywall();  
+```
 2. Bind the returned content to your company's branded and fully customized UX components.
   
 ## Additional resources
 
-[ ![](/images/9f55ab1-codingbrowser_102152.png)  Stigg's frontend integration ](frontend-integration) 
+[ ![](/images/9f55ab1-codingbrowser_102152.png)  Stigg's frontend integration ](/frontend-integration) 

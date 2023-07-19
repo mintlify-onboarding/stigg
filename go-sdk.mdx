@@ -3,22 +3,21 @@ title: "Go SDK"
 description: "How to install and use the Stigg Go SDK on the server-side"
 ---
 
-> ### 📘
-> 
-> Stigg's Go SDK is a thin wrapper around the [GraphQL API](graphql-api) and does not support caching, polling or streaming of customer entitlements.
+<Note>
+Stigg's Go SDK is a thin wrapper around the [GraphQL API](/graphql-api) and does not support caching, polling or streaming of customer entitlements.
+</Note>
 
 ## Overview
 
-This Go module provides a wrapper to [Stigg's GraphQL API](/docs/graphql-api) based on the operations that are in use by the [Stigg's Node.js SDK](/docs/nodejs-sdk). It leverages the [gqlgenc](https://github.com/Yamashou/gqlgenc) library to generate the types under the hood and by default utilizes the `http.Client` module to execute the API requests.
+This Go module provides a wrapper to [Stigg's GraphQL API](/graphql-api) based on the operations that are in use by the [Stigg's Node.js SDK](/nodejs-sdk). It leverages the [gqlgenc](https://github.com/Yamashou/gqlgenc) library to generate the types under the hood and by default utilizes the `http.Client` module to execute the API requests.
 
 ## Installing the SDK
 
 The first step is to install the Stigg SDK as a dependency in your application:
 
-Shell
-
-`go get github.com/stiggio/api-client-go
-`
+```shell Shell
+go get github.com/stiggio/api-client-go
+```
 
 ## Retrieving the server API Key
 
@@ -30,9 +29,8 @@ Copy the   **Server API key** of the relevant environment.
 
 Import the Stigg client and initialize it with the API key:
 
-Go
-
-`import (
+```go Go
+import (
     "context"
     "github.com/stiggio/api-client-go"
     "os"
@@ -51,7 +49,7 @@ func main() {
   
   // client is initialized
 }
-`
+```
 
 ## Provisioning customers
 
@@ -63,9 +61,7 @@ You can optionally pass `subscriptionParams` to create subscription for that cus
 
 #### Query
 
-Go
-
-`
+```go Go
     result, err := client.ProvisionCustomer(context.Background(), stigg.ProvisionCustomerInput{
         CustomerID: Ptr("customer-id"),
         Name:  Ptr("Acme"),                         // optional
@@ -101,14 +97,12 @@ Go
             "Key": "Value",
         }
     })
+```
 
-`
+<Accordion title="Response">
 
-Response 
-
-JSON
-
-`{
+```json JSON
+{
     "provisionCustomer": {
       "customer": {
         "refId": "customer-id",
@@ -132,7 +126,8 @@ JSON
       }
     }
 }
-`
+```
+</Accordion>
 
 ## Updating customers
 
@@ -141,9 +136,8 @@ Due to the fact that the customer's billing information is not persisted on Stig
 
 #### Query
 
-Go
-
-`    result, err := client.UpdateCustomer(context.Background(), stigg.UpdateCustomerInput{
+```go Go
+    result, err := client.UpdateCustomer(context.Background(), stigg.UpdateCustomerInput{
         CustomerID:  Ptr("customer-id"),
         Name:  Ptr("Acme"),
         Email: Ptr("[[email protected]](/cdn-cgi/l/email-protection)"),
@@ -164,14 +158,12 @@ Go
             "Key": "Value",
         },
     })
+```
 
-`
+<Accordion title="Response">
 
-Response 
-
-JSON
-
-`{
+```json JSON
+{
  "updateCustomer": {
   "id": "customer-f9942a",
   "name": "Acme",
@@ -187,25 +179,23 @@ JSON
   }
  }
 }
-
-`
+```
+</Accordion>
 
 ## Getting customer data
 
 #### Query
 
-Go
-
-`result, err := client.GetCustomerByID(context.Background(), stigg.GetCustomerByRefIDInput{
+```go Go
+result, err := client.GetCustomerByID(context.Background(), stigg.GetCustomerByRefIDInput{
         CustomerID: "customer-f9942a",
 })
-`
+```
 
-Response 
+<Accordion title="Response">
 
-JSON
-
-`{
+```json JSON
+{
  "getCustomerByRefId": {
   "id": "customer-f9942a",
   "name": "Acme",
@@ -221,26 +211,24 @@ JSON
   }
  }
 }
-
-`
+```
+</Accordion>
 
 ## Getting customer active subscriptions
 
 #### Query
 
-Go
-
-`result, err := client.GetActiveSubscriptions(context.Background(), stigg.GetActiveSubscriptionsInput{
+```go Go
+result, err := client.GetActiveSubscriptions(context.Background(), stigg.GetActiveSubscriptionsInput{
     CustomerID: "customer-f9942a",
     ResourceId: "resource-01"      // optional - pass it to get subscription of specific resource 
 })
-`
+```
 
-Response 
+<Accordion title="Response">
 
-JSON
-
-`{
+```json JSON
+{
  "getActiveSubscriptions": [
    {
     "id": "subscription-plan-revvenu-basic-4a9432",
@@ -310,8 +298,8 @@ JSON
    }
  ]
 }
-
-`
+```
+</Accordion>
 
 ## Provisioning subscriptions
 
@@ -323,9 +311,8 @@ When no payment is required or when Stigg is not integrated with a billing solut
 
 When a customer subscribes to a new plan (free, paid, trial, etc.), provision a subscription in Stigg. The provision result can be a successfully created subscription, or a redirect link to stripe checkout in case payment is needed. 
 
-Go
-
-`result, err := client.ProvisionSubscription(context.Background(), stigg.ProvisionSubscriptionInput{
+```go Go
+result, err := client.ProvisionSubscription(context.Background(), stigg.ProvisionSubscriptionInput{
   CustomerID: "customer-demo-01",
   PlanID: "plan-revvenu-essentials",
   ResourceId: "resource-01",                // optional, required for multiple subscription for same product
@@ -336,14 +323,12 @@ Go
     CancelURL:  "https://your-cancel-url.com",
   },
 })
+```
 
-`
+<Accordion title="Success Result">
 
-Success Result 
-
-JSON
-
-`{
+```json JSON
+{
  "provisionSubscriptionV2": {
   "checkoutUrl": "https://your-success-url.com",
   "status": "SUCCESS",
@@ -390,34 +375,33 @@ JSON
   }
  }
 }
+```
+</Accordion>
 
-`
+<Accordion title="Payment Required Result">
 
-Payment Required Result 
-
-JSON
-
-`{
+```json JSON
+{
  "provisionSubscriptionV2": {
   "checkoutUrl": "https://checkout.stripe.com/c/pay/cs_test_a1v4yjs2PqWvWPy1PiYKhDT05fxY7g1KPO4LQArZdgawINQufLmcfmcm3Z#fidkdWxOYHwnPyd1blpxYHZxWjA0TnZpVjZCX11oMk9QUzxWcEpPRzN8cTZQXDZSSDRwcGRpQ3BiZ0w8NDY9PFZiX2REa0tHZzJDdXBHTD1caEN%2FQ3doS21Abn00REhDUH12cW50fW9rcHJ0NTVwVTxpdEFsMicpJ2N3amhWYHdzYHcnP3F3cGApJ2lkfGpwcVF8dWAnPyd2bGtiaWBabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYCkndnF3bHVgRGZmanBrcSc%2FJ2RmZnFaNE59QUhxRGtESjRVQ2pwUCd4JSUl",
   "status": "PAYMENT_REQUIRED",
     "subscription": null
     }
 }
-
-`
+```
+</Accordion>
 
   
-> ### 📚
-> 
-> [SDK reference ↗️](https://node-sdk-docs.stigg.io/classes/stigg#provisionSubscription)
+<Info>
+[📚 SDK reference ↗️](https://node-sdk-docs.stigg.io/classes/stigg#provisionSubscription)
+</Info>
 
-> ### 🚧
-> 
-> 1. A customer can have both a non-trial (free or paid) subscription and trial subscription to different plans of the same product in parallel - this logic allows customers to trial a higher tier plan, while still paying for an existing plan.
-> 2. When the customer has a trial subscription for plan X of product A and a new subscription is created for the same plan, the new subscription will be created as as non-trial (paid) subscription - this logic follows an upgrade flow of a trial subscription to a paid subscription of a specific plan.
-> 3. Except in the above mentioned cases, when a customer has an active subscription for product X, and another subscription for the same product is created with start date S, the existing subscription will automatically be cancelled and the new subscription will start on start date S.
-> 4. It's also possible to explicitly skip the trial period of the selected plan by providing the `skipTrial: true` parameter to the `provisionSubscription()` method.
+<Warning>
+1. A customer can have both a non-trial (free or paid) subscription and trial subscription to different plans of the same product in parallel - this logic allows customers to trial a higher tier plan, while still paying for an existing plan.
+2. When the customer has a trial subscription for plan X of product A and a new subscription is created for the same plan, the new subscription will be created as as non-trial (paid) subscription - this logic follows an upgrade flow of a trial subscription to a paid subscription of a specific plan.
+3. Except in the above mentioned cases, when a customer has an active subscription for product X, and another subscription for the same product is created with start date S, the existing subscription will automatically be cancelled and the new subscription will start on start date S.
+4. It's also possible to explicitly skip the trial period of the selected plan by providing the `skipTrial: true` parameter to the `provisionSubscription()` method.
+</Warning>
 
 ## Updating subscriptions
 
@@ -425,19 +409,17 @@ Updating an existing subscription, this can be used to update the feature quanti
 
 #### Query
 
-Go
-
-`result, err := client.UpdateSubscription(context.Background(), stigg.UpdateSubscriptionInput{
+```go Go
+result, err := client.UpdateSubscription(context.Background(), stigg.UpdateSubscriptionInput{
   SubscriptionID: Ptr("subscription-plan-revvenu-essentials-dc847c"),
   UnitQuantity:   Ptr(float64(5)),
 })
-`
+```
 
-Response 
+<Accordion title="Response">
 
-JSON
-
-`{
+```json JSON
+{
  "updateSubscription": {
   "id": "subscription-plan-revvenu-essentials-dc847c",
   "status": "ACTIVE",
@@ -480,26 +462,24 @@ JSON
   }
  }
 }
-
-`
+```
+</Accordion>
 
 ## Cancel subscription
 
 #### Query
 
-Go
-
-`result, err := client.CancelSubscription(context.Background(), stigg.SubscriptionCancellationInput{
+```go Go
+result, err := client.CancelSubscription(context.Background(), stigg.SubscriptionCancellationInput{
   SubscriptionRefID:            "subscription-plan-revvenu-essentials-dc847c",
   SubscriptionCancellationTime: Ptr(stigg.SubscriptionCancellationTimeImmediate),
 })
-`
+```
 
-Response 
+<Accordion title="Response">
 
-JSON
-
-`{
+```json JSON
+{
  "cancelSubscription": {
   "id": "subscription-plan-revvenu-essentials-dc847c",
   "status": "CANCELED",
@@ -542,12 +522,12 @@ JSON
   }
  }
 }
+```
+</Accordion>
 
-`
-
-> ### 🚧
-> 
-> Subscription cancellation will take place according to the defined product behavior.
+<Warning>
+Subscription cancellation will take place according to the defined product behavior.
+</Warning>
 
 ## Getting the entitlement of a customer for a specific feature
 
@@ -555,9 +535,8 @@ Used to check if the customer has access to a feature, the usage limit, and the 
 
 #### Query
 
-Go
-
-`result, err := client.GetEntitlement(context.Background(), stigg.FetchEntitlementQuery{
+```go Go
+result, err := client.GetEntitlement(context.Background(), stigg.FetchEntitlementQuery{
   CustomerID: "customer-demo-01",
   FeatureID:  "feature-01-templates",
   Options: &stigg.EntitlementOptions{
@@ -571,13 +550,12 @@ if result.Entitlement.IsGranted {
 } else {
   // access denied
 }
-`
+```
 
-Response 
+<Accordion title="Response">
 
-JSON
-
-`{
+```json JSON
+{
  "entitlement": {
   "isGranted": true,
   "accessDeniedReason": null,
@@ -600,8 +578,8 @@ JSON
   "resetPeriodConfiguration": null
  }
 }
-
-`
+```
+</Accordion>
 
 ## Getting all of the entitlements of a customer
 
@@ -609,19 +587,17 @@ Used to check to what features the customer has access to, the usage limit , and
 
 #### Query
 
-Go
-
-`result, err := client.GetEntitlements(context.Background(), stigg.FetchEntitlementsQuery{
+```go Go
+result, err := client.GetEntitlements(context.Background(), stigg.FetchEntitlementsQuery{
   CustomerID: "customer-demo-01",
   ResourceId: "resource-01",  // optional, pass it to get entitlements of specific resource
 })
-`
+```
 
-Response 
+<Accordion title="Response">
 
-JSON
-
-`{
+```json JSON
+{
  "entitlements": [
   {
    "isGranted": true,
@@ -695,8 +671,8 @@ JSON
   }
  ]
 }
-
-`
+```
+</Accordion>
 
 ## Reporting usage measurements to Stigg
 
@@ -708,52 +684,47 @@ For features with a fluctuating meter you can also pass a negative value to decr
 
 #### Query
 
-Go
-
-`result, err := client.ReportUsage(context.Background(), stigg.UsageMeasurementCreateInput{
+```go Go
+result, err := client.ReportUsage(context.Background(), stigg.UsageMeasurementCreateInput{
   Value:      5,
   CustomerID: "customer-demo-01",
   FeatureID:  "feature-02-campaigns",
   ResourceId: "resource-01",  // optional, pass it to report usage for specific resource
 })
+```
 
-`
+<Accordion title="Response">
 
-Response 
-
-JSON
-
-`{
+```json JSON
+{
  "createUsageMeasurement": {
   "id": "9401dd9a-e350-43fc-8499-b1dbd3ac411c"
  }
 }
+```
+</Accordion>
 
-`
+<Warning> 
+1. Reporting of measurements to Stigg should be done only after the relevant resources have been provisioned in your application.
+2. To ensure that the provisioned resources are aligned with the measurements that are reported to Stigg, ensure that customers are not allowed to allocate new resources until an acknowledgement about the processed measurement is received from the Stigg backend.
+</Warning>
 
-> ### 🚧
-> 
-> 1. Reporting of measurements to Stigg should be done only after the relevant resources have been provisioned in your application.
-> 2. To ensure that the provisioned resources are aligned with the measurements that are reported to Stigg, ensure that customers are not allowed to allocate new resources until an acknowledgement about the processed measurement is received from the Stigg backend.
-
-> ### 📘
-> 
-> Validating that a measurement was successfully reported to Stigg is also possible in the [customer details section](customers#viewing-customers-entitlement-usage) of the relevant customer in the Stigg Cloud Console.
+<Note>
+Validating that a measurement was successfully reported to Stigg is also possible in the [customer details section](/customers#viewing-customers-entitlement-usage) of the relevant customer in the Stigg Cloud Console.
+</Note>
 
 ## Getting available coupons
 
 #### Query
 
-Go
+```go Go
+result, err := client.GetCoupons(context.Background())
+```
 
-`result, err := client.GetCoupons(context.Background())
-`
+<Accordion title="Response">
 
-Response 
-
-JSON
-
-`{
+```json JSON
+{
  "coupons": {
   "edges": [
    {
@@ -774,7 +745,8 @@ JSON
   ]
  }
 }
-`
+```
+</Accordion>
 
 ## Estimating subscription cost
 
@@ -783,9 +755,8 @@ This can help the customer to understand the costs before paying.
 
 #### Query
 
-Go
-
-`result, err := client.EstimateSubscription(context.Background(), stigg.EstimateSubscriptionInput{
+```go Go
+result, err := client.EstimateSubscription(context.Background(), stigg.EstimateSubscriptionInput{
   CustomerID:      "customer-demo-01",
   PlanID:          "plan-revvenu-essentials",
   BillingPeriod:   Ptr(stigg.BillingPeriodMonthly),
@@ -797,14 +768,12 @@ Go
   BillingCountryCode: "DK)"   // optional, required for price localization, must be in the ISO-3166-1 format
   ResourceId: "resource-01",  // optional, required for multiple subscription for same product                          
 })
+```
 
-`
+<Accordion title="Result">
 
-Result 
-
-JSON
-
-`{
+```json JSON
+{
  "estimateSubscription": {
   "subTotal": {
    "amount": 45,
@@ -821,17 +790,16 @@ JSON
   "proration": null
  }
 }
-
-`
+```
+</Accordion>
 
   
 You can also estimate the cost of updating an existing subscription using the `updateSubscription` method, which also returns a breakdown of the proration amounts:
 
 #### Query
 
-Ruby
-
-`result, err := client.EstimateSubscriptionUpdate(context.Background(), stigg.EstimateSubscriptionUpdateInput{
+```ruby Ruby
+result, err := client.EstimateSubscriptionUpdate(context.Background(), stigg.EstimateSubscriptionUpdateInput{
   SubscriptionID: "subscription-plan-revvenu-basic-558071",
   UnitQuantity:   Ptr(float64(4)),
   Addons: []*stigg.SubscriptionAddonInput{{
@@ -839,13 +807,12 @@ Ruby
     Quantity: Ptr(int64(5)),
   }},
 })
-`
+```
 
-Result 
+<Accordion title="Result">
 
-JSON
-
-` {
+```json JSON
+{
  "estimateSubscriptionUpdate": {
   "subTotal": {
    "amount": 0,
@@ -862,7 +829,6 @@ JSON
   "proration": null
  }
 }
-
-`
-
+```
+</Accordion>
   

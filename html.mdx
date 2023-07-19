@@ -6,7 +6,7 @@ title: "Webflow, Wordpress and plain HTML"
 
 The Embed SDK is a Javascript library for presenting Stigg components in websites that are created using Webflow, Wordpress, or plain HTML.
 
-Under the hood, the Embed SDK wraps the [React SDK](react-sdk), and allows you to inject the same components into your website without including any other frameworks.
+Under the hood, the Embed SDK wraps the [React SDK](/react-sdk), and allows you to inject the same components into your website without including any other frameworks.
 
 You can read more about the React SDK API reference [here](https://react-sdk-docs.stigg.io).
 
@@ -14,17 +14,15 @@ You can read more about the React SDK API reference [here](https://react-sdk-doc
 
 To include the Embed SDK in the page, you need to add the following `<script>` tag to the `<body> `element:
 
-HTML
-
-`<script src="https://cdn.jsdelivr.net/npm/@stigg/[[email protected]](/cdn-cgi/l/email-protection)/dist/embed-sdk.js"></script>
-`
+```html HTML
+<script src="https://cdn.jsdelivr.net/npm/@stigg/[[email protected]](/cdn-cgi/l/email-protection)/dist/embed-sdk.js"></script>
+```
 
 You also need to include the styles in the `<head>` tag:
 
-HTML
-
-`<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@stigg/[[email protected]](/cdn-cgi/l/email-protection)/dist/embed-sdk.css" />
-`
+```html HTML
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@stigg/[[email protected]](/cdn-cgi/l/email-protection)/dist/embed-sdk.css" />
+```
 
   
 ## Retrieving the client API key
@@ -38,12 +36,11 @@ Copy the   **Client API key** of the relevant environment.
 
 You'll need to initialize the Embed SDK with your API key. For the list of additional parameters that can be passed please refer to the React SDK's `<StiggProvider/>` component.
 
-HTML
-
-`<script>
+```html HTML
+<script>
   const stigg = Stigg({ apiKey: "YOUR-CLIENT-API-KEY" });
 </script>
-`
+```
 
   
 ## Render pricing plans
@@ -54,20 +51,18 @@ Use the `Paywall` component to render the pricing plans in a public pricing page
 
 #### Add the target container element to the DOM
 
-HTML
-
-`<body>
+```html HTML
+<body>
   <div id="paywall"/>
 </body>
-`
+```
 
 #### Render the paywall
 
 The stigg.Paywall function accepts the same properties as the Paywall component would. 
 
-HTML
-
-`<script>
+```html HTML
+<script>
   const stigg = Stigg({
       apiKey: "YOUR-CLIENT-API-KEY",
       // You can ppass additional options 
@@ -88,13 +83,13 @@ HTML
     // mount the paywall to the container element
     paywall.mount('#paywall');
 </script>
-`
+```
 
-> ### 📘
-> 
-> You can find more paywall options [here](https://react-sdk-docs.stigg.io/).
+<Note>
+You can find more paywall options [here](https://react-sdk-docs.stigg.io/).
+</Note>
 
   
 ## Customization options
 
-You can customize the paywall look and feel using the options that are supported by the React SDK. You can find more information about the options [here](react-sdk#customization-options).
+You can customize the paywall look and feel using the options that are supported by the React SDK. You can find more information about the options [here](/react-sdk#customization-options).

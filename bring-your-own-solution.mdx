@@ -22,17 +22,16 @@ In this tutorial, we'll run a BYOS application that consumes events from Stigg, 
 
 We'll implement a Node.js [Express app](https://expressjs.com/) and use [Postgraphile](https://www.graphile.org/postgraphile/) to generate a GraphQL API based on a relational database schema, for which will use PostgreSQL.
 
-> ### 📘
-> 
-> The full source code is available [here](https://github.com/stiggio/stigg-byos-example).
+<Note>
+The full source code is available [here](https://github.com/stiggio/stigg-byos-example).
+</Note>
 
 #### 1\. Preparing the DB and the data model
 
 Let's start by preparing the init script that will define the database schema:
 
-SQL
-
-`CREATE TABLE public.customers
+```sql SQL
+CREATE TABLE public.customers
 (
     created_at   TIMESTAMP             DEFAULT CURRENT_TIMESTAMP,
     updated_at   TIMESTAMP             DEFAULT CURRENT_TIMESTAMP,
@@ -66,15 +65,13 @@ CREATE TABLE public.subscriptions
 
 COMMENT
 ON TABLE public.subscriptions IS 'Subscription records.';
-`
+```
 
 #### 2\. Creating the endpoint
 
 We will populate the above tables with data from Stigg, so for that, we'll add an endpoint to handle the incoming webhooks:
 
-TypeScript
-
-`
+```typescript TypeScript
 // Endpoint to handle incoming webhooks from Stigg
 app.post('/webhook', async (req, res) => {
   // Naive verification of the webhook origin, HMAC signatures will be added later
@@ -91,7 +88,7 @@ app.post('/webhook', async (req, res) => {
     res.status(500).json({ success: false });
   }
 });
-`
+```
 
 #### 3\. Subscribing to events
 
@@ -113,9 +110,8 @@ Subscribe to the following events:
 
 We'll need an event processor to handle the arriving events, extract the relevant state and update our local app's database:
 
-TypeScript
-
-`` export async function processEvent(event: WebhookEvent) {
+```typescript TypeScript
+export async function processEvent(event: WebhookEvent) {
   console.log(`Processing event: ${event.messageId}`, event);
   try {
     await applyEvent(event);
@@ -168,7 +164,7 @@ async function onCustomerDeleted(event: CustomerEvent) {
 }
 
 // ... rest of the logic
- ``
+```
 
 The full file is available [here](https://github.com/stiggio/stigg-byos-example/blob/master/src/event-processor.ts).
 
@@ -176,9 +172,7 @@ The full file is available [here](https://github.com/stiggio/stigg-byos-example/
 
 To expose the data over an API, we'll add the `postgraphile` middleware to our express app:
 
-TypeScript
-
-`
+```typescript TypeScript
 // Exposing the GraphQL API generated from the database public schema, accessible at /graphql
 app.use(
   postgraphile(process.env.DATABASE_URL, 'public', {
@@ -198,8 +192,7 @@ app.use(
     disableQueryLog: true,
   }),
 );
-
-`
+```
 
 #### 5\. Querying the data
 
@@ -211,9 +204,7 @@ Now we can access the generated GraphQL API, to make our life easier we'll use t
 
 Let's add an endpoint that we can use to perform a check if a customer can access a feature or not, so our other services can use it:
 
-TypeScript
-
-`
+```typescript TypeScript
 app.post('/check-access', async (req, res) => {
   const { customerId, featureId, requestedUsage } = req.body;
   if (!customerId || !featureId) {
@@ -229,8 +220,7 @@ app.post('/check-access', async (req, res) => {
     res.status(403).json(decision);
   }
 });
-
-`
+```
 
 The logic of the `checkAccess`function can be found [here](https://github.com/stiggio/stigg-byos-example/blob/master/src/access-checker.ts).
 

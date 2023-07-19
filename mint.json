@@ -89,7 +89,8 @@
             "python-sdk-v2",
             "ruby-sdk",
             "go-sdk",
-            "graphql-api"
+            "graphql-api",
+            "persistent-caching"
           ]
         },
         {

@@ -7,9 +7,10 @@ description: "How to use the Stigg API on the server-side"
 
 The GraphQL API has a single endpoint:
 
-`https://api.stigg.io/graphql
+```
+https://api.stigg.io/graphql
 
-`
+```
 
 The endpoint remains constant no matter what operation you perform.
 
@@ -27,9 +28,9 @@ Copy the **Server API key** of the relevant environment.
 
 You can run queries on real Stigg data using our GraphQL Explorer, an integrated development environment in your browser that includes docs, syntax highlighting, and validation errors.
 
-> ### 📘
-> 
-> To authenticate you need to pass the **Server API key** in the **X-API-KEY** request header.
+<Note>
+To authenticate you need to pass the **Server API key** in the **X-API-KEY** request header.
+</Note>
 
 [![Stigg API's Graph | Apollo Studio](/images/og-logo.288fe3ddcb36cf8b9283ecfb578926f6.png)studio.apollographql.comStigg API's Graph | Apollo Studio](https://studio.apollographql.com/public/Stigg-API/explorer?variant=Production)
 
@@ -39,18 +40,18 @@ You can run queries on real Stigg data using our GraphQL Explorer, an integrated
 GraphQL is introspective. This means you can query a GraphQL schema for details about itself.  
 You can run an introspection query by passing your Server API key as a query parameter:
 
-`https://api.stigg.io/graphql?apiKey=YOUR_SERVER_API_KEY
-`
+```
+https://api.stigg.io/graphql?apiKey=YOUR_SERVER_API_KEY
+```
 
 For example, running the following curl, will get all the available root types:
 
-cURL
-
-`curl --request POST  
+```curl cURL
+curl --request POST  
      --header 'content-type: application/json'  
      --url "https://api.stigg.io/graphql?apiKey={YOUR_SERVER_API_KEY}"  
      --data '{"query":"query { \_\_schema { types { name } } }"}'
-`
+```
 
   
 ## Provisioning customers
@@ -59,13 +60,12 @@ When a new customer is provisioned within your application (for example: as part
 
 The customer's billing information can also be passed to Stigg when a customer is created or updated. When Stigg is integrated with additional service, this information will be propagated to the active integrations. The billing information is not persisted on Stigg's servers.
 
-You can optionally pass `subscriptionParams` to create subscription for that customer using a single operation. Doing so, will allow Stigg admins to override the requested subscription with no-code from the Stigg Console using the [product's Customer Journey configuration](products#defining-the-customer-journey).
+You can optionally pass `subscriptionParams` to create subscription for that customer using a single operation. Doing so, will allow Stigg admins to override the requested subscription with no-code from the Stigg Console using the [product's Customer Journey configuration](/products#defining-the-customer-journey).
 
 #### Query
 
-GraphQL
-
-`mutation ProvisionCustomer($input: ProvisionCustomerInput!) {  
+```graphql GraphQL
+mutation ProvisionCustomer($input: ProvisionCustomerInput!) {  
   provisionCustomer(input: $input) {  
     customer {
       refId  
@@ -87,13 +87,12 @@ GraphQL
     }
   }  
 }
-`
+```
 
 #### Variables
 
-JSON
-
-`{  
+```json JSON
+{  
   "input": {  
     "refId": "customer-id",  
     "name": "Acme",  
@@ -129,13 +128,12 @@ JSON
     }
   },
 }
-`
+```
 
-Response 
+<Accordion title="Response">
 
-JSON
-
-`{
+```json JSON
+{
   "data": {
     "provisionCustomer": {
       "customer": {
@@ -161,7 +159,8 @@ JSON
     }
   }
 }
-`
+```
+</Accordion>
 
   
 ## Updating customers
@@ -171,9 +170,8 @@ Due to the fact that the customer's billing information is not persisted on Stig
 
 #### Query
 
-GraphQL
-
-`mutation UpdateOneCustomer($input: UpdateCustomerInput!) {  
+```graphql GraphQL
+mutation UpdateOneCustomer($input: UpdateCustomerInput!) {  
   updateOneCustomer(input: $input) {  
     refId  
     name  
@@ -185,13 +183,12 @@ GraphQL
     additionalMetaData  
   }  
 }
-`
+```
 
 #### Variables
 
-JSON
-
-`{
+```json JSON
+{
   "input": {
     "email": "[[email protected]](/cdn-cgi/l/email-protection)",
     "name": "Acme",
@@ -209,13 +206,12 @@ JSON
     }
   }
 }
-`
+```
 
-Response 
+<Accordion title="Response">
 
-JSON
-
-`{
+```json JSON
+{
   "data": {
     "updateOneCustomer": {
       "refId": "customer-id",
@@ -231,16 +227,16 @@ JSON
     }
   }
 }
-`
+```
+</Accordion>
 
   
 ## Getting customer data
 
 #### Query
 
-GraphQL
-
-`fragment CouponFragment on Coupon {
+```graphql GraphQL
+fragment CouponFragment on Coupon {
   id
   discountValue
   additionalMetaData
@@ -292,24 +288,22 @@ query GetCustomerByRefId($input: GetCustomerByRefIdInput!) {
     ...CustomerFragment
   }
 }
-`
+```
 
 #### Variables
 
-GraphQL
-
-`{
+```graphql GraphQL
+{
   "input": {
     "customerId": "customer-demo-01"
   }
 }
-`
+```
 
-Response 
+<Accordion ttile="Response">
 
-JSON
-
-`{
+```json JSON
+{
   "data": {
     "customers": {
       "edges": [
@@ -334,16 +328,16 @@ JSON
     }
   }
 }
-`
+```
+</Accordion>
 
   
 ## Getting customer active subscriptions
 
 #### Query
 
-GraphQL
-
-`fragment PriceFragment on Price {
+```graphql GraphQL
+fragment PriceFragment on Price {
   billingModel
   billingPeriod
   price {
@@ -423,25 +417,23 @@ query GetActiveSubscriptions($input: GetActiveSubscriptionsInput!) {
     ...SubscriptionFragment
   }
 }
-`
+```
 
 #### Variables
 
-GraphQL
-
-`{
+```graphql GraphQL
+{
   "input": {
     "customerId": "customer-demo-01",
     "resourceId": "resource-01",  // optional, pass it to get subscription of specific resource
   }
 }
-`
+```
 
-Response 
+<Accordion title="Response">
 
-JSON
-
-`{
+```json JSON
+{
   "data": {
     "getActiveSubscriptions": [
       {
@@ -520,7 +512,8 @@ JSON
     ]
   }
 }
-`
+```
+</Accordion>
 
   
 ## Creating subscriptions
@@ -529,9 +522,8 @@ When a customer subscribes to a new plan (free, paid, trial, etc.), create the s
 
 #### Query
 
-GraphQL
-
-`mutation CreateSubscription($input: SubscriptionInput!) {  
+```graphql GraphQL
+mutation CreateSubscription($input: SubscriptionInput!) {  
   createSubscription(subscription: $input) {  
     id  
     refId  
@@ -557,13 +549,12 @@ GraphQL
     }
   }  
 }
-`
+```
 
 #### Variables
 
-JSON
-
-`{  
+```json JSON
+{  
   "input": {  
     "customerId": "customer-id",  
     "planId": "plan-revvenu-basic",  
@@ -581,13 +572,12 @@ JSON
     "resourceId": "resource-01"   // optional, required for multiple subscription for same product
   }  
 }
-`
+```
 
-Response 
+<Accordion title="Response">
 
-JSON
-
-`{
+```json JSON
+{
   "data": {
     "createSubscription": {
       "id": "e8ca2feb-e57e-4e93-9007-f14814524944",
@@ -619,14 +609,16 @@ JSON
     }
   }
 }
-`
+```
+</Accordion>
 
-> ### 🚧
-> 
-> 1. A customer can have both a non-trial (free or paid) subscription and trial subscription to different plans of the same product in parallel - this logic allows customers to trial a higher tier plan, while still paying for an existing plan.
-> 2. When the customer has a trial subscription for plan X of product A and a new subscription is created for the same plan, the new subscription will be created as non-trial (paid) subscription - this logic follows an upgrade flow of a trial subscription to a paid subscription of a specific plan.
-> 3. Except in the above-mentioned cases, when a customer has an active subscription for product X, and another subscription for the same product is created with start date S, the existing subscription will automatically be cancelled and the new subscription will start on start date S.  
-> It's also possible to explicitly skip the trial period of the selected plan by providing the `skipTrial: true` parameter to the `CreateSubscription` mutation.
+<Warning>
+1. A customer can have both a non-trial (free or paid) subscription and trial subscription to different plans of the same product in parallel - this logic allows customers to trial a higher tier plan, while still paying for an existing plan.
+2. When the customer has a trial subscription for plan X of product A and a new subscription is created for the same plan, the new subscription will be created as non-trial (paid) subscription - this logic follows an upgrade flow of a trial subscription to a paid subscription of a specific plan.
+3. Except in the above-mentioned cases, when a customer has an active subscription for product X, and another subscription for the same product is created with start date S, the existing subscription will automatically be cancelled and the new subscription will start on start date S.  
+
+It's also possible to explicitly skip the trial period of the selected plan by providing the `skipTrial: true` parameter to the `CreateSubscription` mutation.
+</Warning>
 
   
 ## Updating subscriptions
@@ -635,9 +627,8 @@ Updating an existing subscription, this can be used to update the feature quanti
 
 #### Query
 
-GraphQL
-
-`mutation UpdateOneSubscription($input: UpdateSubscriptionInput!) {  
+```graphql GraphQL
+mutation UpdateOneSubscription($input: UpdateSubscriptionInput!) {  
   updateOneSubscription(input: $input) {  
     id  
     refId  
@@ -660,25 +651,23 @@ GraphQL
     }  
   }  
 }
-`
+```
 
 #### Variables
 
-JSON
-
-`{
+```json JSON
+{
   "input": {
     "refId": "subscription-plan-professional-4dfecf",
     "unitQuantity": 5,
   }
 }
-`
+```
 
-Response 
+<Accordion title="Response">
 
-JSON
-
-`{
+```json JSON
+{
   "data": {
     "updateOneSubscription": {
       "id": "e8ca2feb-e57e-4e93-9007-f14814524944",
@@ -707,41 +696,39 @@ JSON
     }
   }
 }
-`
+```
+</Accordion>
 
   
 ## Cancel subscription
 
 #### Query
 
-GraphQL
-
-`mutation CancelSubscription($input: SubscriptionCancellationInput!) {  
+```graphql GraphQL
+mutation CancelSubscription($input: SubscriptionCancellationInput!) {  
   cancelSubscription(input: $input) {  
     refId  
     status  
     additionalMetaData  
   }  
 }
-`
+```
 
 #### Variables
 
-JSON
-
-`{
+```json JSON
+{
   "input": {
     "subscriptionRefId": "subscription-id",
     "subscriptionCancellationTime":  "IMMEDIATE"
   }
 }
-`
+```
 
-Response 
+<Accordion title="Response">
 
-JSON
-
-`{
+```json JSON
+{
   "data": {
     "cancelSubscription": {
       "refId": "subscription-plan-revvenu-essentials-5f7470",
@@ -752,11 +739,12 @@ JSON
     }
   }
 }
-`
+```
+</Accordion>
 
-> ### 🚧
-> 
-> Subscription cancellation will take place according to the defined product behavior.
+<Warning>
+Subscription cancellation will take place according to the defined product behavior.
+</Warning>
 
   
 ## Getting the entitlement of a customer for a specific feature
@@ -765,9 +753,8 @@ Used to check if the customer has access to a feature, the usage limit, and the 
 
 #### Query
 
-GraphQL
-
-`query GetEntitlement($query: FetchEntitlementQuery!) {  
+```graphql GraphQL
+query GetEntitlement($query: FetchEntitlementQuery!) {  
   entitlement(query: $query) {  
     isGranted  
     feature {  
@@ -789,13 +776,12 @@ GraphQL
     resetPeriod  
   }  
 }
-`
+```     
 
 #### Variables
 
-JSON
-
-`{  
+```json JSON
+{  
   "query": {  
     "customerId": "customer-id",  
     "featureId": "feature-01-templates",  
@@ -805,13 +791,12 @@ JSON
     "resourceId": "resource-01",       // optional, pass it to get entitlement of specific resource
   }  
 }
-`
+```
 
-Response 
+<Accordion title="Response">
 
-JSON
-
-`{
+```json JSON
+{
   "data": {
     "entitlement": {
       "isGranted": true,
@@ -835,7 +820,8 @@ JSON
     }
   }
 }
-`
+```
+</Accordion>
 
   
 ## Getting all of the entitlements of a customer
@@ -844,9 +830,8 @@ Used to check to what features the customer has access to, the usage limit , and
 
 #### Query
 
-GraphQL
-
-`query GetEntitlements($query: FetchEntitlementsQuery!) {
+```graphql GraphQL
+query GetEntitlements($query: FetchEntitlementsQuery!) {
   cachedEntitlements(query: $query) {
     feature {
       refId
@@ -865,25 +850,23 @@ GraphQL
     resetPeriod
   }
 }
-`
+```
 
 #### Variables
 
-JSON
-
-`{
+```json JSON
+{
   "query": {
     "customerId": "customer-id",
     "resourceId": "resource-01",    // optional, pass it to get entitlements of specific resource
   }
 }
-`
+```
 
-Response 
+<Accordion title="Response">
 
-JSON
-
-`{
+```json JSON
+{
   "data": {
     "cachedEntitlements": [
       {
@@ -957,7 +940,8 @@ JSON
     ]
   }
 }
-`
+```
+</Accordion>
 
   
 ## Reporting usage measurements to Stigg
@@ -970,20 +954,18 @@ For features with a fluctuating meter you can also pass a negative value to decr
 
 #### Query
 
-GraphQL
-
-`mutation CreateUsageMeasurement($input: UsageMeasurementCreateInput!) {  
+```graphql GraphQL
+mutation CreateUsageMeasurement($input: UsageMeasurementCreateInput!) {  
   createUsageMeasurement(usageMeasurement: $input) {  
     id  
   }  
 }
-`
+```
 
 #### Variables
 
-JSON
-
-`{  
+```json JSON
+{  
   "input": {  
     "value": 5,  
     "customerId": "customer-id",  
@@ -991,29 +973,29 @@ JSON
     "resourceId": "resource-01",       // optional, pass it to report usage for specific resource
   }  
 }
-`
+```
 
-Response 
+<Accordion title="Response">
 
-JSON
-
-`{
+```json JSON
+{
   "data": {
     "createUsageMeasurement": {
       "id": "05e3a286-acaa-42cd-b76b-b49befbd5113"
     }
   }
 }
-`
+```
+</Accordion>
 
-> ### 🚧
-> 
-> 1. Reporting of measurements to Stigg should be done only after the relevant resources have been provisioned in your application.
-> 2. To ensure that the provisioned resources are aligned with the measurements that are reported to Stigg, ensure that customers are not allowed to allocate new resources until an acknowledgement about the processed measurement is received from the Stigg backend.
+<Warning>
+1. Reporting of measurements to Stigg should be done only after the relevant resources have been provisioned in your application.
+2. To ensure that the provisioned resources are aligned with the measurements that are reported to Stigg, ensure that customers are not allowed to allocate new resources until an acknowledgement about the processed measurement is received from the Stigg backend.
+</Warning>
 
-> ### 📘
-> 
-> Validating that a measurement was successfully reported to Stigg is also possible in the [customer details section](customers#viewing-customers-entitlement-usage) of the relevant customer in the Stigg Cloud Console.
+<Note>
+Validating that a measurement was successfully reported to Stigg is also possible in the [customer details section](/customers#viewing-customers-entitlement-usage) of the relevant customer in the Stigg Cloud Console.
+</Note>
 
   
 ## Estimate subscription cost
@@ -1023,9 +1005,8 @@ This can help the customer to understand the costs before paying.
 
 #### Query
 
-GraphQL
-
-`mutation EstimateSubscription($input: EstimateSubscriptionInput!) {
+```graphql GraphQL
+mutation EstimateSubscription($input: EstimateSubscriptionInput!) {
   estimateSubscription(input: $input) {
     subTotal {
       amount
@@ -1052,13 +1033,12 @@ GraphQL
     }
   }
 }
-`
+```
 
 #### Variables
 
-JSON
-
-`{
+```json JSON
+{
   "input": {
     "customerId": "customer-demo-01",
     "billingPeriod": "MONTHLY",
@@ -1076,13 +1056,11 @@ JSON
     }
   }
 }
-`
+```
 
-Result 
+<Accordion title="Result">
 
-JSON
-
-`
+```json JSON
 {
   "data": {
     "estimateSubscription": {
@@ -1102,16 +1080,16 @@ JSON
     }
   }
 }
-`
+```
+</Accordion>
 
   
 You can also estimate the cost of updating an existing subscription using the `updateSubscription` method, which also returns a breakdown of the proration amounts:
 
 #### Query
 
-GraphQL
-
-`mutation EstimateSubscriptionUpdate($input: EstimateSubscriptionUpdateInput!) {
+```graphql GraphQL
+mutation EstimateSubscriptionUpdate($input: EstimateSubscriptionUpdateInput!) {
   estimateSubscriptionUpdate(input: $input) {
     subTotal {
       amount
@@ -1138,13 +1116,12 @@ GraphQL
     }
   }
 }
-`
+```
 
 #### Variables
 
-JSON
-
-`{
+```json JSON
+{
   "input": {
     "subscriptionId": "subscription-plan-revvenu-growth-da6324",
     "unitQuantity": 7,
@@ -1153,13 +1130,12 @@ JSON
     ]
   }
 }
-`
+```
 
-Result 
+<Accordion title="Result">
 
-JSON
-
-`{
+```json JSON
+{
   "data": {
     "estimateSubscriptionUpdate": {
       "subTotal": {
@@ -1188,16 +1164,16 @@ JSON
     }
   }
 }
-`
+```
+</Accordion>
 
   
 ## Getting available coupons
 
 #### Query
 
-GraphQL
-
-`fragment CouponFragment on Coupon {  
+```graphql GraphQL
+fragment CouponFragment on Coupon {  
     id  
     discountValue  
     type  
@@ -1221,26 +1197,24 @@ query FetchCoupons($filter: CouponFilter) {
       }  
     }  
 }
-`
+```
 
 #### Variables
 
-JSON
-
-`{  
+```json JSON
+{  
   "filter": {  
     "status": {  
       "eq": "ACTIVE",  
     },  
   },  
 }
-`
+```
 
-Response 
+<Accordion title="Response">
 
-JSON
-
-`{
+```json JSON
+{
   "data": {
     "coupons": {
       "edges": [
@@ -1264,53 +1238,52 @@ JSON
     }
   }
 }
-`
+```
+</Accordion>
 
   
 ## Migrating subscriptions to the latest plan and add-on version
 
 When changes to plans and add-ons are rolled out only to new subscriptions, grandfathering takes place. In order to prevent a SKU sprawl, Stigg allows you to manually migrate subscriptions to the latest plan and add-on version on a subscription-by-subscription basis.
 
-> ### 🚧
-> 
-> 1. Subscription will be migrated immediately upon completion of the GraphQL request.
-> 2. When the current price of the subscription is different than the latest published package version, during the migration the customer will be charged or credited the prorated amount until the end of the current billing period depending on whether the latest price is more expensive or cheaper than the current subscription price.
+<Warning>
+1. Subscription will be migrated immediately upon completion of the GraphQL request.
+2. When the current price of the subscription is different than the latest published package version, during the migration the customer will be charged or credited the prorated amount until the end of the current billing period depending on whether the latest price is more expensive or cheaper than the current subscription price.
+</Warning>
 
 #### Query
 
-GraphQL
-
-`mutation MigrateSubscriptionToLatest($input: SubscriptionMigrationInput!) {
+```graphql GraphQL
+mutation MigrateSubscriptionToLatest($input: SubscriptionMigrationInput!) {
   migrateSubscriptionToLatest(input: $input) {
     subscriptionId
   }
 }
-`
+```
 
 #### Variables
 
-JSON
-
-`{
+```json JSON
+{
   "input": {
     "subscriptionId": "subscription-plan-revvenu-basic-6fb76d",
     "subscriptionMigrationTime":"END_OF_BILLING_PERIOD"
   }
 }
-`
+```
 
-Response 
+<Accordion title="Response">
 
-JSON
-
-`{
+```json JSON
+{
   "data": {
     "migrateSubscriptionToLatest": {
       "subscriptionId": "subscription-plan-revvenu-basic-6fb76d"
     }
   }
 }
-`
+```
+</Accordion>
 
 ## Full API reference
 

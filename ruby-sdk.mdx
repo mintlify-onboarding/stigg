@@ -3,29 +3,27 @@ title: "Ruby SDK"
 description: "How to install and use the Stigg Ruby SDK on the server-side"
 ---
 
-> ### 📘
-> 
-> Stigg's Ruby SDK is a thin wrapper around the [GraphQL API](graphql-api) and does not support caching, polling or streaming of customer entitlements.
+<Note>
+Stigg's Ruby SDK is a thin wrapper around the [GraphQL API](/graphql-api) and does not support caching, polling or streaming of customer entitlements.
+</Note>
 
 ## Overview
 
-This Ruby gem provides a wrapper to [Stigg's GraphQL API](/docs/graphql-api) based on the operations that are in use by the [Stigg's Node.js SDK](/docs/nodejs-sdk). It leverages the [graphlient](https://github.com/ashkan18/graphlient) library under the hood and utilizes the `Graphlient::Client` class to execute the API requests.
+This Ruby gem provides a wrapper to [Stigg's GraphQL API](/graphql-api) based on the operations that are in use by the [Stigg's Node.js SDK](/nodejs-sdk). It leverages the [graphlient](https://github.com/ashkan18/graphlient) library under the hood and utilizes the `Graphlient::Client` class to execute the API requests.
 
 ## Installing the SDK
 
 The first step is to install the Stigg SDK as a dependency in your application using your application's dependency manager:
 
-Shell
-
-`bundle add stigg-api-client
-`
+```shell Shell
+bundle add stigg-api-client
+```
 
 If bundler is not being used to manage dependencies, install the gem by executing:
 
-Shell
-
-`gem install stigg-api-client
-`
+```shell Shell
+gem install stigg-api-client
+```
 
 ## Retrieving the server API Key
 
@@ -37,14 +35,13 @@ Copy the   **Server API key** of the relevant environment.
 
 Import the Stigg client and initialize it with the API key:
 
-Ruby
-
-`require("stigg")
+```ruby Ruby
+require("stigg")
 
 api_key = ENV["STIGG_SERVER_API_KEY"]
 
 client = Stigg.create_client(api_key)
-`
+```
 
 ## Provisioning customers
 
@@ -56,9 +53,8 @@ You can optionally pass `subscriptionParams` to create subscription for that cus
 
 #### Query
 
-Ruby
-
-`resp = client.request(Stigg::Mutation::ProvisionCustomer, {
+```ruby Ruby
+resp = client.request(Stigg::Mutation::ProvisionCustomer, {
     "input": {
         "refId": "customer-id",
         "name": "Acme",                         # optional
@@ -95,13 +91,12 @@ Ruby
         }
     },
 })
-`
+```
 
-Response 
+<Accordion title="Response">
 
-JSON
-
-`{
+```json JSON
+{
     "data": {
         "provision_customer": {
             "customer": {
@@ -141,7 +136,8 @@ JSON
         }
     }
 }
-`
+```
+</Accordion>
 
 ## Updating customers
 
@@ -150,9 +146,8 @@ Due to the fact that the customer's billing information is not persisted on Stig
 
 #### Query
 
-Ruby
-
-`resp = client.request(Stigg::Mutation::UpdateCustomer, {
+```ruby Ruby
+resp = client.request(Stigg::Mutation::UpdateCustomer, {
     "input": {
         "refId": "customer-id2",
         "email": "[[email protected]](/cdn-cgi/l/email-protection)",
@@ -170,14 +165,12 @@ Ruby
         }
     }
 })
+```
 
-`
+<Accordion title="Response">
 
-Response 
-
-JSON
-
-`{
+```json JSON
+{
   "data": {
     "update_customer": {
         "id": "customer-id2",
@@ -195,24 +188,23 @@ JSON
     }
   }
 }
-`
+```
+</Accordion>
 
 ## Getting customer data
 
 #### Query
 
-Ruby
-
-`resp = client.request(Stigg::Query::GetCustomerById,{
+```ruby Ruby
+resp = client.request(Stigg::Query::GetCustomerById,{
     "customerId": "customer-id"
 })
-`
+```
 
-Response 
+<Accordion title="Response">
 
-JSON
-
-`{
+```json JSON
+{
   "data": {
     "customers": {
         "edges": [
@@ -236,25 +228,25 @@ JSON
     }
   }
 }
-`
+```
+</Accordion>
 
 ## Getting customer active subscriptions
 
 #### Query
 
-Ruby
-
-`resp = client.request(Stigg::Query::GetActiveSubscriptions,{
+```ruby Ruby
+resp = client.request(Stigg::Query::GetActiveSubscriptions,{
     "customerId": "customer-id",
     "resourceId": "resource-id",  # optional - pass it to get subscription of specific resource  
 })
-`
+```
 
-Response 
 
-JSON
+<Accordion title="Response">
 
-`{
+```json JSON
+{
   "data": {
     "get_active_subscriptions": [
       {
@@ -326,7 +318,8 @@ JSON
     ]
   }
 }
-`
+```
+</Accordion>
 
 ## Provisioning subscriptions
 
@@ -338,9 +331,8 @@ When no payment is required or when Stigg is not integrated with a billing solut
 
 When a customer subscribes to a new plan (free, paid, trial, etc.), provision a subscription in Stigg. The provision result can be a successfully created subscription, or a redirect link to stripe checkout in case payment is needed. 
 
-ruby
-
-`resp = client.request(Stigg::Mutation::ProvisionSubscription, {
+```ruby Ruby
+resp = client.request(Stigg::Mutation::ProvisionSubscription, {
   "input": {
     "customerId": "customer-demo-02",
     "planId": "plan-revvenu-essentials",
@@ -354,13 +346,12 @@ ruby
     }
   }
 })
-`
+```
 
-Success Result 
+<Accordion title="Success Result">
 
-JSON
-
-`{
+```json JSON
+{
     "data": {
         "provision_subscription": {
             "checkout_url": "https:\/\/your-success-url.com",
@@ -409,13 +400,13 @@ JSON
         }
     }
 }
-`
+```
+</Accordion>
 
-Payment Required Result 
+<Accordion title="Payment Required Result">
 
-JSON
-
-`{
+```json JSON
+{
     "data": {
         "provision_subscription": {
             "checkout_url": "https:\/\/checkout.stripe.com\/c\/pay\/cs_test_a1ZW8HpF4G7hV6w9Q9hV7MGYpzBU2BPpt6RJRZXE2PC7WyxRHQKqQ2UvDj#fidkdWxOYHwnPyd1blpxYHZxWjA0Tzx1TlNJSHxCYEZGd1BHPU1kM0JAXVFHfXdrREhnQ3VJdldAS1MwZjRkNGxxcWBVf09SSE0zRzBcYTN3cXNkbFdMQnI0V3ZrN0toSGc3NnB9QEdBPVJMNTVzM3NpdnVDSycpJ2N3amhWYHdzYHcnP3F3cGApJ2lkfGpwcVF8dWAnPyd2bGtiaWBabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYCkndnF3bHVgRGZmanBrcSc%2FJ2RmZnFaNE5MdGtyQDRiU1E3f3JfUyd4JSUl",
@@ -424,19 +415,20 @@ JSON
         }
     }
 }
-`
+```
+</Accordion>
 
   
-> ### 📚
-> 
-> [SDK reference ↗️](https://node-sdk-docs.stigg.io/classes/stigg#provisionSubscription)
+<Info> 
+[📚 SDK reference ↗️](https://node-sdk-docs.stigg.io/classes/stigg#provisionSubscription)
+</Info>
 
-> ### 🚧
-> 
-> 1. A customer can have both a non-trial (free or paid) subscription and trial subscription to different plans of the same product in parallel - this logic allows customers to trial a higher tier plan, while still paying for an existing plan.
-> 2. When the customer has a trial subscription for plan X of product A and a new subscription is created for the same plan, the new subscription will be created as as non-trial (paid) subscription - this logic follows an upgrade flow of a trial subscription to a paid subscription of a specific plan.
-> 3. Except in the above mentioned cases, when a customer has an active subscription for product X, and another subscription for the same product is created with start date S, the existing subscription will automatically be cancelled and the new subscription will start on start date S.
-> 4. It's also possible to explicitly skip the trial period of the selected plan by providing the `skipTrial: true` parameter to the `provisionSubscription()` method.
+<Warning>
+1. A customer can have both a non-trial (free or paid) subscription and trial subscription to different plans of the same product in parallel - this logic allows customers to trial a higher tier plan, while still paying for an existing plan.
+2. When the customer has a trial subscription for plan X of product A and a new subscription is created for the same plan, the new subscription will be created as as non-trial (paid) subscription - this logic follows an upgrade flow of a trial subscription to a paid subscription of a specific plan.
+3. Except in the above mentioned cases, when a customer has an active subscription for product X, and another subscription for the same product is created with start date S, the existing subscription will automatically be cancelled and the new subscription will start on start date S.
+4. It's also possible to explicitly skip the trial period of the selected plan by providing the `skipTrial: true` parameter to the `provisionSubscription()` method.
+</Warning>
 
 ## Updating subscriptions
 
@@ -444,21 +436,19 @@ Updating an existing subscription, this can be used to update the feature quanti
 
 #### Query
 
-Ruby
-
-`resp = client.request(Stigg::Mutation::UpdateSubscription, {
+```ruby Ruby
+resp = client.request(Stigg::Mutation::UpdateSubscription, {
   "input": {
     "refId": "subscription-plan-revvenu-growth-589879",
     "unitQuantity": 2,
   }
 })
-`
+```
 
-Response 
+<Accordion title="Response">
 
-JSON
-
-`{
+```json JSON
+{
   "data": {
     "update_subscription": {
         "id": "subscription-plan-revvenu-growth-589879",
@@ -518,27 +508,26 @@ JSON
     }
   }
 }
-`
+```
+</Accordion>
 
 ## Cancel subscription
 
 #### Query
 
-Ruby
-
-`resp = client.request(Stigg::Mutation::CancelSubscription, {
+```ruby Ruby
+resp = client.request(Stigg::Mutation::CancelSubscription, {
   "input": {
     "subscriptionRefId": "subscription-plan-revvenu-growth-589879",
     "subscriptionCancellationTime":  "IMMEDIATE"
   }
 })
-`
+```
 
-Response 
+<Accordion title="Response">
 
-JSON
-
-`{
+```json JSON
+{
   "data": {
     "cancel_subscription": {
         "id": "subscription-plan-revvenu-growth-589879",
@@ -598,11 +587,12 @@ JSON
     }
   }
 }
-`
+```
+</Accordion>
 
-> ### 🚧
-> 
-> Subscription cancellation will take place according to the defined product behavior.
+<Warning>
+Subscription cancellation will take place according to the defined product behavior.
+</Warning>
 
 ## Getting the entitlement of a customer for a specific feature
 
@@ -610,9 +600,8 @@ Used to check if the customer has access to a feature, the usage limit, and the 
 
 #### Query
 
-Ruby
-
-`resp = client.request(Stigg::Query::GetEntitlement, {
+```ruby Ruby
+resp = client.request(Stigg::Query::GetEntitlement, {
   "query": {
     "customerId": "customer-id",
     "featureId": "feature-01-templates",
@@ -628,13 +617,12 @@ if resp.data.entitlement.is_granted
 else
     puts "Access denied"
 end
-`
+```
 
-Response 
+<Accordion title="Response">
 
-JSON
-
-`{
+```json JSON
+{
     "data": {
         "entitlement": {
             "is_granted": true,
@@ -659,7 +647,8 @@ JSON
         }
     }
 }
-`
+```
+</Accordion>
 
 ## Getting all of the entitlements of a customer
 
@@ -667,22 +656,19 @@ Used to check to what features the customer has access to, the usage limit , and
 
 #### Query
 
-Ruby
-
-`
+```ruby Ruby
 resp = client.request(Stigg::Query::GetEntitlements, {
   "query": {
     "customerId": "customer-id",
     "resourceId": "resource-01",  # optional, pass it to get entitlements of specific resource
   }
 })
-`
+```
 
-Response 
+<Accordion title="Response">
 
-JSON
-
-`{
+```json JSON
+{
     "data": {
         "entitlements": [
             {
@@ -756,7 +742,8 @@ JSON
         ]
     }
 }
-`
+```
+</Accordion>
 
 ## Reporting usage measurements to Stigg
 
@@ -768,9 +755,8 @@ For features with a fluctuating meter you can also pass a negative value to decr
 
 #### Query
 
-Ruby
-
-`resp = client.request(Stigg::Mutation::ReportUsage, {
+```ruby Ruby
+resp = client.request(Stigg::Mutation::ReportUsage, {
     "input": {
         "value": 5,
         "customerId": "customer-id",
@@ -778,51 +764,48 @@ Ruby
         "resourceId": "resource-01",  # optional, pass it to report usage for specific resource
     }
 })
-`
+```
 
-Response 
+<Accordion title="Response">
 
-JSON
-
-`{
+```json JSON
+{
   "data": {
     "create_usage_measurement": {
         "id": "d723d1c6-64fa-4a8b-aa2d-a6dc57e13804"
     }
   }
 }
-`
+```
+</Accordion>
 
-> ### 🚧
-> 
-> 1. Reporting of measurements to Stigg should be done only after the relevant resources have been provisioned in your application.
-> 2. To ensure that the provisioned resources are aligned with the measurements that are reported to Stigg, ensure that customers are not allowed to allocate new resources until an acknowledgement about the processed measurement is received from the Stigg backend.
+<Warning> 
+1. Reporting of measurements to Stigg should be done only after the relevant resources have been provisioned in your application.
+2. To ensure that the provisioned resources are aligned with the measurements that are reported to Stigg, ensure that customers are not allowed to allocate new resources until an acknowledgement about the processed measurement is received from the Stigg backend.
+</Warning>
 
-> ### 📘
-> 
-> Validating that a measurement was successfully reported to Stigg is also possible in the [customer details section](customers#viewing-customers-entitlement-usage) of the relevant customer in the Stigg Cloud Console.
+<Note>
+Validating that a measurement was successfully reported to Stigg is also possible in the [customer details section](/customers#viewing-customers-entitlement-usage) of the relevant customer in the Stigg Cloud Console.
+</Note>
 
 ## Getting available coupons
 
 #### Query
 
-Ruby
-
-`resp = client.request(Stigg::Query::GetCoupons, {
+```ruby Ruby
+resp = client.request(Stigg::Query::GetCoupons, {
   "filter": {
     "status": {
       "eq": "ACTIVE",
     },
   },
 })
+```
 
-`
+<Accordion title="Response">
 
-Response 
-
-JSON
-
-`{
+```json JSON
+{
   "data": {
     "coupons": {
         "edges": [
@@ -845,7 +828,8 @@ JSON
     }
   }
 }
-`
+```
+</Accordion>
 
 ## Estimating subscription cost
 
@@ -854,9 +838,8 @@ This can help the customer to understand the costs before paying.
 
 #### Query
 
-Ruby
-
-`resp = client.request(Stigg::Mutation::EstimateSubscription, {
+```ruby Ruby
+resp = client.request(Stigg::Mutation::EstimateSubscription, {
     "input": {
         "customerId": "customer-demo-01",
         "billingPeriod": "MONTHLY",
@@ -872,14 +855,12 @@ Ruby
         "resourceId": "resource-01",  # optional, required for multiple subscription for same product
     }
 })
+```
 
-`
+<Accordion title="Result">
 
-Result 
-
-JSON
-
-`{
+```json JSON
+{
   "data": {
     "estimate_subscription": {
         "sub_total": {
@@ -898,16 +879,16 @@ JSON
     }
   }
 }
-`
+```
+</Accordion>
 
   
 You can also estimate the cost of updating an existing subscription using the `updateSubscription` method, which also returns a breakdown of the proration amounts:
 
 #### Query
 
-Ruby
-
-`resp = client.request(Stigg::Mutation::EstimateSubscriptionUpdate,{
+```ruby Ruby
+resp = client.request(Stigg::Mutation::EstimateSubscriptionUpdate,{
   "input": {
     "subscriptionId": "subscription-plan-revvenu-growth-dfe598",
     "unitQuantity": 7,
@@ -916,13 +897,12 @@ Ruby
     ]
   }
 })
-`
+```
 
-Result 
+<Accordion title="Result">
 
-JSON
-
-`{
+```json JSON
+{
     "data": {
         "estimate_subscription_update": {
             "sub_total": {
@@ -951,6 +931,7 @@ JSON
         }
     }
 }
-`
+```
+</Accordion>
 
   
