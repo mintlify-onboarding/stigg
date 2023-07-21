@@ -27,9 +27,8 @@ Create a file `customers.json` that contains all the customers.
 
 The file should be in the following schema:
 
-JSON
-
-`{
+```json JSON
+{
   "customers": [
     {
       "customerId": "lorem-ipsum",
@@ -44,7 +43,7 @@ JSON
     // ...
   ],
 }
-`
+```
 
 #### Import subscriptions
 
@@ -52,9 +51,8 @@ Create a file `subscriptions.json` that contains all the subscriptions.
 
 The file should be in the following schema:
 
-JSON
-
-`"subscriptions": [
+```json JSON
+"subscriptions": [
     {
       "customerId": "lorem-ipsum",
       "planId": "plan-local-env-p-1",
@@ -68,7 +66,7 @@ JSON
     },
     // ...
   ],
-`
+```
 
 #### Import feature usage
 
@@ -76,9 +74,8 @@ Create a file `usage.json` that contains all the features usage.
 
 The file should be in the following schema:
 
-JSON
-
-`  "usages": [
+```json JSON
+"usages": [
     {
       "customerId": "lorem-ipsum",
       "resourceId": "site-1", // optional - required for multiple subscriptions product
@@ -87,7 +84,7 @@ JSON
     },
     // ...
   ]
-`
+```
 
 ### Initiating the bulk import process
 
@@ -95,17 +92,15 @@ Obtain a Server API key from the [Stigg Console](https://app.stigg.io/account/se
 
 Export it as environment variable: 
 
-Shell
-
-`export STIGG_SERVER_API_KEY='<SERVER-API-KEY>'
-`
+```shell Shell
+export STIGG_SERVER_API_KEY='<SERVER-API-KEY>'
+```
 
 Initiate the bulk import process (you can either import all at once or do it separately):
 
-Shell
-
-`npx @stigg/bulk-import --customers-file customers.json --subscriptions-file subscriptions.json --usage-file usage.json
-`
+```shell Shell
+npx @stigg/bulk-import --customers-file customers.json --subscriptions-file subscriptions.json --usage-file usage.json
+```
 
 During the import process there will be a progress bar.
 

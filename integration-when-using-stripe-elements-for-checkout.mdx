@@ -14,10 +14,10 @@ To do that, instead of using Stigg's native Stripe Checkout integration via the 
 In order to complete this guide in your application code, please make sure that you have:
 
 * Access to Stripe account
-* An active [Stripe integration](stripe)
-* [Modeled your pricing in Stigg](modeling-your-pricing)
-* Know how to [provision customers in Stigg](provisioning-customers)
-* Know how to [create subscriptions in Stigg](creating-subscriptions)
+* An active [Stripe integration](/stripe)
+* [Modeled your pricing in Stigg](/modeling-your-pricing)
+* Know how to [provision customers in Stigg](/provisioning-customers)
+* Know how to [create subscriptions in Stigg](/creating-subscriptions)
   
 ## How it works
 
@@ -34,14 +34,13 @@ Once your checkout form is built, the journey of the customer should look simila
 
 On a new user sign up, create a customer in Stigg to represent an individual or an organization:
 
-TypeScript
-
-`await stiggClient.provisionCustomer({ 
+```typescript TypeScript
+await stiggClient.provisionCustomer({ 
   customerId: 'CUSTOMER-ID', 
   subscriptionParams: null,
   ... 
 });
-`
+```
 
 This will also create a customer record in Stripe, and link the Stigg customer to the Stripe one.
 
@@ -49,11 +48,9 @@ This will also create a customer record in Stripe, and link the Stigg customer t
 
 To render a paywall within your app, you can use Stigg's embeddable widget or render your own pricing plans component based on the data fetched from Stigg:
 
-TypeScript
-
-`const plans = await stiggClient.getPaywall();
-
-`
+```typescript TypeScript
+const plans = await stiggClient.getPaywall();
+```
 
 The response contains an array of published [Plan](https://js-sdk-docs.stigg.io/index.html#Plan) objects that should be rendered in the paywall.
 
@@ -74,18 +71,17 @@ Exposing the SetupIntent to the client
 
 Provide the `client_secret` to `stripe.elements()` options
 
-> ### 🚧
-> 
-> The provided payment method will be set as default and will be used to pay for all future subscriptions.
+<Warning>
+ The provided payment method will be set as default and will be used to pay for all future subscriptions.
+ </Warning>
 
 In order to create the Setup Intent in Stripe, you can get Stripe's customer ID by getting the customer from Stigg. The `getCustomer` function returns the Customer object that has the `customer.billingId` property which holds the ID of the customer in Stripe:
 
-TypeScript
-
-`const customer = await stiggClient.getCustomer('CUSTOMER-ID');
+```typescript TypeScript
+const customer = await stiggClient.getCustomer('CUSTOMER-ID');
 console.log(customer.billingId);
 // OUTPUT: cus_MGJZNu894GQKI6
-`
+```
 
 The checkout form should handle the validation of the card prior creating subscription in Stigg, and once its valid and attached to a customer, Stigg will be notified by a `payment_method.attached` event from Stripe and it will be available for future use by Stigg.
 
@@ -93,14 +89,13 @@ The checkout form should handle the validation of the card prior creating subscr
 
 After adding the payment method, provision a subscription in Stigg:
 
-TypeScript
-
-`const subscription = await stiggClient.provisionSubscription({
+```typescript TypeScript
+const subscription = await stiggClient.provisionSubscription({
     customerId: 'CUSTOMER-ID',
     planId: 'PLAN-ID',
     ...
 })
-`
+```
 
 At this point, Stigg will attempt to create a subscription in Stripe and use the default payment method to be charged for the generated invoice in the case of a paid plan.
 
@@ -109,15 +104,14 @@ and no entitlement access will be provisioned.
 
 You can notify customers about failed payments by listening to Stigg's `customer.payment_failed` [webhook](webhooks). The customer should be instructed to replace the payment method with a different one and to try again.
 
-Once the payment is successful, the subscription will become active in Stigg and the customer will be granted access to the associated entitlements. Stigg will send an `entitlements.updated` event to configured [webhooks](webhooks) and will update the server SDKs in real-time by pushing the updates over a web-socket connection.
+Once the payment is successful, the subscription will become active in Stigg and the customer will be granted access to the associated entitlements. Stigg will send an `entitlements.updated` event to configured [webhooks]/(webhooks) and will update the server SDKs in real-time by pushing the updates over a web-socket connection.
 
 On the front-end, you should call the `refresh` function to re-fetch the current customer data and the new entitlements.
 
-TypeScript
+```typescript TypeScript
+await stiggClient.refresh();
+```
 
-`await stiggClient.refresh();
-`
-
-> ### 🚧
-> 
-> Stripe creates a time frame (default of 24 hours) for the outstanding invoice to be settled. If the invoice is not settled within that time frame, the subscription is canceled both in Stripe and Stigg.
+<Warning> 
+Stripe creates a time frame (default of 24 hours) for the outstanding invoice to be settled. If the invoice is not settled within that time frame, the subscription is canceled both in Stripe and Stigg.
+</Warning>

@@ -15,7 +15,7 @@ Stigg offers persistent cache setup for backend SDK users (currently Node.js) th
 * Reducing cache coherence issues
 * Increased cache hits/misses ratio
 
-To enable persistent caching in your environment, please [contact the Stigg Support Team](/cdn-cgi/l/email-protection#82f1f7f2f2edf0f6c2f1f6ebe5e5acebed).
+To enable persistent caching in your environment, please [contact the Stigg Support Team](mailto:support@stigg.io).
 
 ### Overview
 
@@ -37,9 +37,8 @@ In order for the persistent cache to be updated properly in near real-time, you'
 
 Run the service:
 
-Shell
-
-`docker run \
+```shell Shell
+docker run \
   --name stigg-persistent-cache \
   -e AWS_REGION="us-east-2" \
   -e QUEUE_URL="https://sqs.us-east-2.amazonaws.com/rest-of-the-queue-address..." \
@@ -47,7 +46,7 @@ Shell
   -e AWS_ACCESS_KEY_ID="<AWS_ACCESS_KEY_ID>" \
   -e AWS_SECRET_ACCESS_KEY="<AWS_SECRET_ACCESS_KEY>" \
   public.ecr.aws/p2i1w6c0/persistent-cache-service:latest
-`
+```
 
 Available options:
 
@@ -70,9 +69,8 @@ Available options:
 
 To configure the SDK to use the Redis cache, provide the `redis` config during initialization:
 
-Node.js
-
-`const stigg = Stigg.initialize({
+```javascript Node.js
+const stigg = Stigg.initialize({
     apiKey: 'YOUR_SERVER_API_KEY',
     redis: {
         host: 'localhost', 
@@ -81,13 +79,13 @@ Node.js
         environmentPrefix: 'development', // a string, for example 'production', 'staging' & etc
     }
 });
-`
+```
 
-> ### 📘
-> 
-> Important!
-> 
-> Please make sure that the SDK and the `persistent-cache-service` are configured to use the same Redis instance, DB number, and the same **environment prefix**.
+<Note>
+**Important!**
+ 
+Please make sure that the SDK and the `persistent-cache-service` are configured to use the same Redis instance, DB number, and the same **environment prefix**.
+</Note>
 
 During initialization, the SDK will try to connect to the Redis instance. Once connected, all the entitlement checks will be evaluated against data from the persistent cache instead of fetching it over the network.
 

@@ -6,16 +6,16 @@ title: "Single-sign on (SSO)"
 
 Stigg can be integrated with an identity provider (IdP) to allow secure access to Stigg using the same credentials that are used to access all corporate third-party applications. When enabled, anyone that's granted access to the Stigg application within the identity provider will be able to join the Stigg account and require authentication via SSO to access it.
 
-> ### 📘
-> 
-> Stigg supports the **Security Assertion Markup Language (SAML)** standard for enabling users access using single sign-on.
+<Note>
+Stigg supports the **Security Assertion Markup Language (SAML)** standard for enabling users access using single sign-on.
+</Note>
 
   
 ## Setting up the integration
 
 ### Before we begin
 
-To enable single-sign on (SSO), please contact [Stigg Support](/cdn-cgi/l/email-protection#33404643435c41477340475a54541d5a5c).
+To enable single-sign on (SSO), please contact [Stigg Support](mailto:support@stigg.io).
 
 ![](/images/180ae79-Screenshot_2023-01-09_at_16_31_41_blurred.png)
 
@@ -28,13 +28,15 @@ The Stigg support team will provide you with the details that are required to se
 
 1. **Single sign-on URL** which will be in the following format:
 
-`https://auth.stigg.io/login/callback?connection=CONNECTION_NAME
-`
+```
+https://auth.stigg.io/login/callback?connection=CONNECTION_NAME
+```
 
 1. **Audience URI**, which will be in the following format:
 
-`urn:auth0:stigg-prod:CONNECTION_NAME
-`
+```
+urn:auth0:stigg-prod:CONNECTION_NAME
+```
 
   
 ### Identity provider configuration
@@ -68,9 +70,41 @@ Click Save.
 
 In the "3\. SAML Signing Certificate" box, next to Certificate (Base64) click on "Download" - you'll need these details to complete the integration on the Stigg side.
 
-In the "4\. Set up <CONNECTION\_NAME>" box, copy the Login URL. It will look like `https://login.microsoftonline.com/xxx/saml2` \- you'll need these details to complete the integration on the Stigg side.
+In the "4\. Set up \<CONNECTION\_NAME\>" box, copy the Login URL. It will look like `https://login.microsoftonline.com/xxx/saml2` \- you'll need these details to complete the integration on the Stigg side.
 
-[ ![](/images/98b7bcf-Stigg_LogoSymbol_ForLightBG.png)  Complete the integration in Stigg ](#completing-the-integration-in-stigg) 
+<Card 
+    title="Complete the integration in Stigg" 
+    href="#completing-the-integration-in-stigg" 
+    icon={
+        <svg
+        className="h- w-14"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M47.113 59.079c-.303.151-6.086 2.696-16.313 2.217-5.329-.252-9.95-1.234-13.233-2.142l17.702-20.51a60.106 60.106 0 0011.844 1.788c10.228.504 16.01-2.066 16.314-2.217l-16.314 20.89v-.026zm-26.44-39.41c-2.904-9.802-1.768-16-1.692-16.328L2.516 24.104c-.05.328-1.187 6.527 1.692 16.328 1.515 5.09 3.56 9.349 5.227 12.322L25.22 30.757c-1.516-2.873-3.233-6.653-4.546-11.062v-.026zm41.036 2.167c-2.323-7.861-5.96-13.682-7.45-15.9L39.614 24.559l2.752 13.178c1.642.227 3.258.378 4.9.48.833.024 1.666.05 2.474.05 7.93 0 12.35-1.865 12.829-2.092l1.136-.504c.101-2.721-.075-7.534-1.97-13.859l-.025.025zM52.517 4.601c-2.5-.932-9.015-3.074-17.222-3.477-6.591-.328-11.314.63-13.94 1.386l-.227 1.21c-.05.251-1.061 6.122 1.641 15.32.455 1.562 1.01 3.099 1.616 4.636l13.485-.454L52.543 4.626l-.025-.025z"
+        fill="url(#paint0_linear_1262_15008)"
+      />
+      <path
+        d="M101.643 41.364c0 5.814-5.189 9.408-13.07 9.408-4.22 0-7.629-.751-10.896-2.356a47.87 47.87 0 00.654-6.6 19.839 19.839 0 009.781 2.618c3.942 0 5.976-.914 5.976-2.808.065-1.896-1.378-2.745-7.29-3.857-6.83-1.368-9.851-4.179-9.851-9.143 0-5.617 5.189-9.278 13.07-9.278a25.18 25.18 0 019.608 1.794l-1.32 6.307a19.983 19.983 0 00-8.289-1.764c-3.677 0-5.516.915-5.516 2.684 0 1.57 1.247 2.222 7.028 3.397 7.357 1.564 10.115 4.372 10.115 9.598zm17.293 2.475c-2.955 0-5.322-1.57-5.322-5.682V26.655h7.492l1.394-6.663h-8.884v-9.48a40.822 40.822 0 01-7.818 1.398l-.064 27.561c0 7.513 4.532 11.31 11.297 11.31 1.352.01 2.7-.132 4.021-.421l1.476-7.05a10.898 10.898 0 01-3.592.529zm8.553 6.517h7.882V20.004h-7.882v30.352zm3.973-42.766a4.439 4.439 0 00-3.167 1.214 4.39 4.39 0 00-1.363 3.091 4.383 4.383 0 002.674 4.114 4.435 4.435 0 001.694.354c2.561.015 4.443-1.773 4.483-4.26a4.276 4.276 0 00-1.182-3.185 4.326 4.326 0 00-3.139-1.334v.006zm41.594 12.42v25.6c0 9.668-6.569 16.332-17.669 16.332-3.978 0-8.39-.876-11.349-2.56a35.9 35.9 0 004.324-5.192 19.347 19.347 0 006.237 1.031c7.027 0 10.574-3.857 10.574-8.755v-.98a13.498 13.498 0 01-4.703 3.474 13.569 13.569 0 01-5.74 1.166c-8.276 0-14.515-6.134-14.515-15.22 0-8.95 6.83-15.549 15.173-15.549 4.334 0 8.078 1.57 10.574 4.51l.262-3.858h6.832zm-7.818 14.894c0-4.834-3.546-8.492-8.408-8.492-4.861 0-8.48 3.655-8.48 8.492 0 4.702 3.549 8.361 8.481 8.361a8.263 8.263 0 006.002-2.396 8.166 8.166 0 002.405-5.97v.005zm44.509-14.9V45.61c0 9.669-6.569 16.332-17.668 16.332-3.979 0-8.39-.876-11.347-2.559a35.899 35.899 0 004.323-5.193 19.342 19.342 0 006.235 1.032c7.027 0 10.576-3.858 10.576-8.755v-.98a13.488 13.488 0 01-4.704 3.475 13.555 13.555 0 01-5.741 1.164c-8.274 0-14.515-6.134-14.515-15.22 0-8.95 6.83-15.548 15.173-15.548 4.334 0 8.079 1.57 10.575 4.508l.262-3.857 6.831-.005zm-7.815 14.895c0-4.835-3.547-8.492-8.408-8.492-4.86 0-8.483 3.656-8.483 8.49 0 4.703 3.546 8.363 8.48 8.363a8.251 8.251 0 006.004-2.392 8.14 8.14 0 002.405-5.97h.002z"
+        fill="#1E1E1E"
+      />
+      <defs>
+        <linearGradient
+          id="paint0_linear_1262_15008"
+          x1={-11.6831}
+          y1={75.2914}
+          x2={83.1876}
+          y2={-43.5827}
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop offset={0.352132} stopColor="#1E1E1E" />
+          <stop offset={1} stopColor="#1E1E1E" stopOpacity={0} />
+        </linearGradient>
+      </defs>
+    </svg>
+    }></Card>
 
   
 #### Okta
@@ -96,12 +130,45 @@ Follow the instructions to complete the set up.
 
 Copy the X.509 certificate form the "View SAML Setup Instructions" screen - you'll need these details to complete the integration on the Stigg side.
 
-[ ![](/images/98b7bcf-Stigg_LogoSymbol_ForLightBG.png)  Complete the integration in Stigg ](#completing-the-integration-in-stigg) 
+
+<Card 
+    title="Complete the integration in Stigg" 
+    href="#completing-the-integration-in-stigg" 
+    icon={
+        <svg
+        className="h- w-14"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M47.113 59.079c-.303.151-6.086 2.696-16.313 2.217-5.329-.252-9.95-1.234-13.233-2.142l17.702-20.51a60.106 60.106 0 0011.844 1.788c10.228.504 16.01-2.066 16.314-2.217l-16.314 20.89v-.026zm-26.44-39.41c-2.904-9.802-1.768-16-1.692-16.328L2.516 24.104c-.05.328-1.187 6.527 1.692 16.328 1.515 5.09 3.56 9.349 5.227 12.322L25.22 30.757c-1.516-2.873-3.233-6.653-4.546-11.062v-.026zm41.036 2.167c-2.323-7.861-5.96-13.682-7.45-15.9L39.614 24.559l2.752 13.178c1.642.227 3.258.378 4.9.48.833.024 1.666.05 2.474.05 7.93 0 12.35-1.865 12.829-2.092l1.136-.504c.101-2.721-.075-7.534-1.97-13.859l-.025.025zM52.517 4.601c-2.5-.932-9.015-3.074-17.222-3.477-6.591-.328-11.314.63-13.94 1.386l-.227 1.21c-.05.251-1.061 6.122 1.641 15.32.455 1.562 1.01 3.099 1.616 4.636l13.485-.454L52.543 4.626l-.025-.025z"
+        fill="url(#paint0_linear_1262_15008)"
+      />
+      <path
+        d="M101.643 41.364c0 5.814-5.189 9.408-13.07 9.408-4.22 0-7.629-.751-10.896-2.356a47.87 47.87 0 00.654-6.6 19.839 19.839 0 009.781 2.618c3.942 0 5.976-.914 5.976-2.808.065-1.896-1.378-2.745-7.29-3.857-6.83-1.368-9.851-4.179-9.851-9.143 0-5.617 5.189-9.278 13.07-9.278a25.18 25.18 0 019.608 1.794l-1.32 6.307a19.983 19.983 0 00-8.289-1.764c-3.677 0-5.516.915-5.516 2.684 0 1.57 1.247 2.222 7.028 3.397 7.357 1.564 10.115 4.372 10.115 9.598zm17.293 2.475c-2.955 0-5.322-1.57-5.322-5.682V26.655h7.492l1.394-6.663h-8.884v-9.48a40.822 40.822 0 01-7.818 1.398l-.064 27.561c0 7.513 4.532 11.31 11.297 11.31 1.352.01 2.7-.132 4.021-.421l1.476-7.05a10.898 10.898 0 01-3.592.529zm8.553 6.517h7.882V20.004h-7.882v30.352zm3.973-42.766a4.439 4.439 0 00-3.167 1.214 4.39 4.39 0 00-1.363 3.091 4.383 4.383 0 002.674 4.114 4.435 4.435 0 001.694.354c2.561.015 4.443-1.773 4.483-4.26a4.276 4.276 0 00-1.182-3.185 4.326 4.326 0 00-3.139-1.334v.006zm41.594 12.42v25.6c0 9.668-6.569 16.332-17.669 16.332-3.978 0-8.39-.876-11.349-2.56a35.9 35.9 0 004.324-5.192 19.347 19.347 0 006.237 1.031c7.027 0 10.574-3.857 10.574-8.755v-.98a13.498 13.498 0 01-4.703 3.474 13.569 13.569 0 01-5.74 1.166c-8.276 0-14.515-6.134-14.515-15.22 0-8.95 6.83-15.549 15.173-15.549 4.334 0 8.078 1.57 10.574 4.51l.262-3.858h6.832zm-7.818 14.894c0-4.834-3.546-8.492-8.408-8.492-4.861 0-8.48 3.655-8.48 8.492 0 4.702 3.549 8.361 8.481 8.361a8.263 8.263 0 006.002-2.396 8.166 8.166 0 002.405-5.97v.005zm44.509-14.9V45.61c0 9.669-6.569 16.332-17.668 16.332-3.979 0-8.39-.876-11.347-2.559a35.899 35.899 0 004.323-5.193 19.342 19.342 0 006.235 1.032c7.027 0 10.576-3.858 10.576-8.755v-.98a13.488 13.488 0 01-4.704 3.475 13.555 13.555 0 01-5.741 1.164c-8.274 0-14.515-6.134-14.515-15.22 0-8.95 6.83-15.548 15.173-15.548 4.334 0 8.079 1.57 10.575 4.508l.262-3.857 6.831-.005zm-7.815 14.895c0-4.835-3.547-8.492-8.408-8.492-4.86 0-8.483 3.656-8.483 8.49 0 4.703 3.546 8.363 8.48 8.363a8.251 8.251 0 006.004-2.392 8.14 8.14 0 002.405-5.97h.002z"
+        fill="#1E1E1E"
+      />
+      <defs>
+        <linearGradient
+          id="paint0_linear_1262_15008"
+          x1={-11.6831}
+          y1={75.2914}
+          x2={83.1876}
+          y2={-43.5827}
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop offset={0.352132} stopColor="#1E1E1E" />
+          <stop offset={1} stopColor="#1E1E1E" stopOpacity={0} />
+        </linearGradient>
+      </defs>
+    </svg>
+    }></Card>
 
   
 ### Completing the integration in Stigg
 
-Send the X.509 certificate that was generated in the identity provider to the [Stigg Support](/cdn-cgi/l/email-protection#75060005051a07013506011c12125b1c1a) team.
+Send the X.509 certificate that was generated in the identity provider to the [Stigg Support](mailto:support@stigg.io) team.
 
 The Stigg Support team will complete the setup and enable the configuration for your account.
 
@@ -131,6 +198,6 @@ Revoking access to Stigg is done **directly in the identity provider**.
 
 To revoke access, either remove the association of the specific user from the list of users that have access to the Stigg application, or remove the user from the security group that has access to Stigg.
 
-> ### 🚧
-> 
-> Once access is revoked in the identity provider, the user will no longer be able to access the Stigg Console; however, they will still appear under the Settings > Team members section. Removing the entry from this section should be done **manually**.
+<Warning>
+Once access is revoked in the identity provider, the user will no longer be able to access the Stigg Console; however, they will still appear under the Settings > Team members section. Removing the entry from this section should be done **manually**.
+</Warning>  

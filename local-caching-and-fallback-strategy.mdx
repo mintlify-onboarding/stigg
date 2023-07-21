@@ -8,25 +8,23 @@ Stigg SDKs support local caching, which means that customer entitlements are sto
 
 The local cache is invalidated by frequently polling for updates, or by listening to real-time updates delivered by a WebSocket streaming connection to our API (currently only available for the backend SDKs).
 
-Node.js
-
-`const client = await Stigg.initialize({  
+```javascript Node.js
+const client = await Stigg.initialize({  
     // set the polling interval, default to 30 seconds  
     entitlementPollingInterval: 5000,
 });
-`
+```
 
 ## Fallback strategy
 
-In the case where the entitlement local data is missing (for example: when a new [feature](features) was added to the codebase, but has still not been added to a [plan](plans)) or our API is unreachable (for example: during a drop of internet connectivity), a fallback strategy can be configured using the Stigg SDKs.
+In the case where the entitlement local data is missing (for example: when a new [feature](/features) was added to the codebase, but has still not been added to a [plan](/plans)) or our API is unreachable (for example: during a drop of internet connectivity), a fallback strategy can be configured using the Stigg SDKs.
 
 ### Global fallback configuration
 
 A global fallback strategy can be defined during the SDK initialization, for example:
 
-Node.js
-
-`const stiggClient = Stigg.initialize({
+```javascript Node.js
+const stiggClient = Stigg.initialize({
   apiKey,
   entitlementsFallback: {
     'feature-number-of-seats': {
@@ -38,15 +36,14 @@ Node.js
     }
   },
 });
-`
+```
 
 ### Entitlement-check fallback configuration
 
 A fallback can also be defined during an entitlement check. When defined, entitlement-check fallbacks will override the global fallback configuration for the specific feature. For example:
 
-Node.js
-
-`const entitlement = stiggClient.getMeteredEntitlement({  
+```javascript Node.js
+const entitlement = stiggClient.getMeteredEntitlement({  
   featureId: 'feature-number-of-seats',
   customerId: 'customer-demo-id',  
   options: {  
@@ -57,7 +54,7 @@ Node.js
     }  
   }  
 });
-`
+```
 
 ## Metering usage when there's no internet connectivity
 

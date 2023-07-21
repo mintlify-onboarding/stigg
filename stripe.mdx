@@ -22,8 +22,8 @@ Stigg entities are mapped to Stripe entities as follows:
 | ------------ | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Feature      | N/A           |                                                                                                                                                                                                                                                                                                                                                                                                               |                                                                                                                                                                                  |
 | Product      | N/A           |                                                                                                                                                                                                                                                                                                                                                                                                               |                                                                                                                                                                                  |
-| Plan         | Product       | Planfor example: Acme Basic Plan                                                                                                                                                                                                                                                                                                                                                                              | Every published plan is mapped to a dedicated Stripe product. Plan prices are versioned - when the price changes, a new price is created and the previous price is archived.     |
-| Add-on       | Product       | Add-onfor example: Acme 10 Seats Add-on                                                                                                                                                                                                                                                                                                                                                                       | Every published add-on is mapped to a dedicated Stripe product. Add-on prices are versioned - when the price changes, a new price is created and the previous price is archived. |
+| Plan         | Product       | Plan for example: Acme Basic Plan                                                                                                                                                                                                                                                                                                                                                                              | Every published plan is mapped to a dedicated Stripe product. Plan prices are versioned - when the price changes, a new price is created and the previous price is archived.     |
+| Add-on       | Product       | Add-on for example: Acme 10 Seats Add-on                                                                                                                                                                                                                                                                                                                                                                       | Every published add-on is mapped to a dedicated Stripe product. Add-on prices are versioned - when the price changes, a new price is created and the previous price is archived. |
 | Coupon       | Coupon        | When a coupon is archived in Stigg, it's deleted in Stripe; therefore, the coupon cannot be applied to new customers. Existing customers that the coupon is applied to are not affected.                                                                                                                                                                                                                      |                                                                                                                                                                                  |
 | Customer     | Customer      | By default, the customer name and email in Stigg are synced to Stripe - the name is used as the customer name and description, and the email as the billing email address. It's also possible to report a different customer name to Stripe, which is useful for generating invoices with the full company name (i.e. customer name in Stigg is "Acme", and the customer name in Stripe will be "Acme Ltd."). |                                                                                                                                                                                  |
 | Subscription | Subscription  | Due to a [limitation in Stripe](https://stripe.com/docs/api/subscriptions/create), each customer can have at most 500 active subscriptions.                                                                                                                                                                                                                                                                   |                                                                                                                                                                                  |
@@ -92,23 +92,23 @@ In Stripe, under the "Metadata" section of the relevant entity, click on the lin
 
 ## Integration with Stripe's Billing Portal
 
-When Stigg is integrated with Stripe and using [Stigg's Customer Portal widget](react-sdk#rendering-a-customer-portal), customers can update their billing information and view previous invoices directly from [Stripe's Billing Portal](https://stripe.com/docs/customer-management/get-started) (when it's enabled).
+When Stigg is integrated with Stripe and using [Stigg's Customer Portal widget](/react-sdk#rendering-a-customer-portal), customers can update their billing information and view previous invoices directly from [Stripe's Billing Portal](https://stripe.com/docs/customer-management/get-started) (when it's enabled).
 
 To ensure that the functionality of Stigg's Customer Portal doesn't collide with that of Stripe's Billing Portal, it's recommended to [configure Stripe's Billing Portal](https://dashboard.stripe.com/settings/billing/portal) as follows:
 
 1. Invoices  
-   1. Invoice history - **enabled**
+   i. Invoice history - **enabled**
 2. Customer information - **enabled**  
-   1. Email address - **unchecked**  
-   2. Billing address - **checked**  
-   3. Phone number - **checked**
+   i. Email address - **unchecked**  
+   ii. Billing address - **checked**  
+   iii. Phone number - **checked**
 3. Payment methods  
-   1. Payment method - **enabled**
+   i. Payment method - **enabled**
 4. Subscriptions  
-   1. Cancel subscriptions - **disabled**  
-   2. Pause subscriptions - **disabled**  
-   3. Switch plans - **disabled**  
-   4. Update quantities - **disabled**
+   i. Cancel subscriptions - **disabled**  
+   ii. Pause subscriptions - **disabled**  
+   iii. Switch plans - **disabled**  
+   iv. Update quantities - **disabled**
 
 ## Removing the integration from Stigg
 

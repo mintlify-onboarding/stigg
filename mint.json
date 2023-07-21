@@ -211,19 +211,38 @@
       "group": "💬 Frequently asked questions",
       "pages": [
         "are-your-soc2-compliant",
+        "do-you-support-our-scale",
+        "migrate-existing-customer-base",
         "entitlement-calculation-in-stigg"
       ]
     },
     {
       "group": "📚 API and SDK references",
       "pages": [
-        "api-and-sdk-overview"
+        "api-and-sdk-overview",
+        "graphql-api-link",
+        "nodejs-sdk-link",
+        "javascript-sdk-link",
+        "react-sdk-link"
+      ]
+    },
+    {
+      "group": "🔐 Security & Compliance",
+      "pages": [
+        "security-portal"
       ]
     },
     {
       "group": "🤖 Conceptual guides",
       "pages": [
         "domain-model"
+      ]
+    },
+    {
+      "group": "📜 Legal",
+      "pages": [
+        "terms-of-use",
+        "privacy-policy"
       ]
     }
   ],

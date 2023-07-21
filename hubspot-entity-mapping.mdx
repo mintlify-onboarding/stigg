@@ -44,9 +44,9 @@ In the following cases, the relevant Stigg entities will **not** be synced to Hu
 | Price                  | Unit price                  |                                                                                                                |
 | Billing period         | Recurring billing frequency |                                                                                                                |
 
-> ### 📘
-> 
-> Plans that have separate prices for different billing periods (monthly, annually) will appear as separate HubSpot products.
+<Note> 
+Plans that have separate prices for different billing periods (monthly, annually) will appear as separate HubSpot products.
+</Note>
 
 #### Status mapping
 
@@ -110,9 +110,9 @@ Additional metadata is also reported by Stigg to HubSpot, and appears under the 
 | Status                     | Lifecycle stage             | See [status mapping](#status-mapping) section below |
 | Subscriptions              | Deals                       |                                                     |
 
-> ### 📘
-> 
-> Stigg also links between the HubSpot contact that represents the Stigg customer, and the HubSpot company that represents the Stigg customer.
+<Note>
+Stigg also links between the HubSpot contact that represents the Stigg customer, and the HubSpot company that represents the Stigg customer.
+</Note>
 
 #### Status mapping
 
@@ -121,9 +121,9 @@ Additional metadata is also reported by Stigg to HubSpot, and appears under the 
 | Customer doesn't have any subscription in Stigg | Lead                               |
 | Customer has a paid subscription in Stigg       | Customer                           |
 
-> ### 📘
-> 
-> HubSpot automatically sets contacts' lifecycle stages when they have at least one closed deal. More details about this process can be found in [HubSpot's documentation](https://knowledge.hubspot.com/contacts/use-lifecycle-stages#lifecycle-stages).
+<Note> 
+HubSpot automatically sets contacts' lifecycle stages when they have at least one closed deal. More details about this process can be found in [HubSpot's documentation](https://knowledge.hubspot.com/contacts/use-lifecycle-stages#lifecycle-stages).
+</Note>
 
 #### Additional metadata
 
@@ -148,9 +148,9 @@ Additional metadata is also reported by Stigg to HubSpot, and appears under the 
 | Name                       | Name                        |
 | Subscriptions              | Deals                       |
 
-> ### 📘
-> 
-> Stigg also links between the HubSpot company that represents the Stigg customer, and the HubSpot contact that represents the Stigg customer.
+<Note>
+Stigg also links between the HubSpot company that represents the Stigg customer, and the HubSpot contact that represents the Stigg customer.
+</Note>
 
 #### Additional metadata
 
@@ -168,9 +168,9 @@ Additional metadata is also reported by Stigg to HubSpot, and appears under the 
 
 **Stigg subscription** are mapped to **HubSpot deals**.
 
-> ### 📘
-> 
-> All deals are currently synced to the **default sales pipeline**.
+<Note> 
+All deals are currently synced to the **default sales pipeline**.
+</Note>
 
 #### Property mapping
 
@@ -183,10 +183,10 @@ Additional metadata is also reported by Stigg to HubSpot, and appears under the 
 | Plan                           | Line item                |                                                          |
 | Add-ons                        | Line item                |                                                          |
 
-> ### 📘
-> 
-> 1. When a plan's or add-on's price is updated in Stigg and the change is set to affect **existing customers**, the deal amount of existing customers in HubSpot is not automatically updated.
-> 2. When customers are subscribed to a usage-based plan, the deal amount in HubSpot is **not** currently updated according to the customer usage and will remain at 0.
+<Note>
+1. When a plan's or add-on's price is updated in Stigg and the change is set to affect **existing customers**, the deal amount of existing customers in HubSpot is not automatically updated.
+2. When customers are subscribed to a usage-based plan, the deal amount in HubSpot is **not** currently updated according to the customer usage and will remain at 0.
+</Note>
 
 #### Status mapping
 
@@ -199,9 +199,9 @@ Additional metadata is also reported by Stigg to HubSpot, and appears under the 
 | Cancellation scheduled             | **No change** from the deal last status | If was in trial - not setOtherwise - no change to the close date                              | Reflected using the subscription status and the cancelation date custom properties in HubSpot |
 | Canceled                           | **No change** from the deal last status | Reflected using the subscription status and the cancelation date custom properties in HubSpot |                                                                                               |
 
-> ### 📘
-> 
-> If you've defined custom deal statuses in Stigg, [let us know](/cdn-cgi/l/email-protection#4a393f3a3a25383e0a393e232d2d642325), and we'll be happy to work together on adapting Stigg's integration with HubSpot to your configuration.
+<Note> 
+If you've defined custom deal statuses in Stigg, [let us know](/cdn-cgi/l/email-protection#4a393f3a3a25383e0a393e232d2d642325), and we'll be happy to work together on adapting Stigg's integration with HubSpot to your configuration.
+</Note>
 
 #### Additional metadata
 

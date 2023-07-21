@@ -8,11 +8,10 @@ title: "Events"
 
 Occurs whenever a new feature is created.
 
-Example payload 
+<Accordion title="Example payload">
 
-JSON
-
-`{
+```json JSON
+{
   "type": "feature.created",
   "id": "feature-test-id",
   "name": "feature-test-name",
@@ -23,18 +22,18 @@ JSON
   "meterType": "INCREMENTAL",
   "status": "ACTIVE"
 }
-`
+```
+</Accordion>
 
   
 #### feature.updated
 
 Occurs whenever any property of a feature changes.
 
-Example payload 
+<Accordion title="Example payload">
 
-JSON
-
-`{
+```json JSON
+{
   "type": "feature.updated",
   "id": "feature-test-id",
   "name": "feature-test-name",
@@ -45,18 +44,18 @@ JSON
   "meterType": "INCREMENTAL",
   "status": "ACTIVE"
 }
-`
+```
+</Accordion>
 
   
 #### feature.deleted
 
 Occurs whenever a feature is deleted.
 
-Example payload 
+<Accordion title="Example payload">
 
-JSON
-
-`{
+```json JSON
+{
   "type": "feature.deleted",
   "id": "feature-test-id",
   "name": "feature-test-name",
@@ -67,8 +66,8 @@ JSON
   "meterType": "INCREMENTAL",
   "status": "ACTIVE"
 }
-`
-
+```
+</Accordion>
   
 ## Plans
 
@@ -76,11 +75,10 @@ JSON
 
 Occurs whenever a new plan is created.
 
-Example payload 
+<Accordion title="Example payload">
 
-JSON
-
-`{
+```json JSON
+{
   "type": "plan.created",
   "id": "plan-test-id",
   "name": "plan-test-name",
@@ -118,18 +116,17 @@ JSON
     "testKey": "example value"
   }
 }
-`
-
+```
+</Accordion>
   
 #### plan.updated
 
 Occurs whenever a new version of an plan is published.
 
-Example payload 
+<Accordion title="Example payload">
 
-JSON
-
-`{
+```json JSON
+{
   "type": "plan.updated",
   "id": "plan-test-id",
   "name": "plan-test-name",
@@ -167,18 +164,18 @@ JSON
     "testKey": "example value"
   }
 }
-`
+```
+</Accordion>
 
   
 #### plan.deleted
 
 Occurs whenever a plan is deleted.
 
-Example payload 
+<Accordion title="Example payload">
 
-JSON
-
-`{
+```json JSON
+{
   "type": "plan.deleted",
   "id": "plan-test-id",
   "name": "plan-test-name",
@@ -216,7 +213,8 @@ JSON
     "testKey": "example value"
   }
 }
-`
+```
+</Accordion>
 
   
 ## Add-ons
@@ -225,11 +223,10 @@ JSON
 
 Occurs whenever a new add-on is created.
 
-Example payload 
+<Accordion title="Example payload">
 
-JSON
-
-`{
+```json JSON
+{
   "type": "addon.created",
   "id": "Test addon",
   "name": "Test",
@@ -263,18 +260,18 @@ JSON
     "testKey": "example value"
   }
 }
-`
+```
+</Accordion>
 
   
 #### addon.updated
 
 Occurs whenever a new version of an add-on is published.
 
-Example payload 
+<Accordion title="Example payload">
 
-JSON
-
-`{
+```json JSON
+{
   "type": "addon.deleted",
   "id": "Test addon",
   "name": "Test",
@@ -308,18 +305,18 @@ JSON
     "testKey": "example value"
   }
 }
-`
+```
+</Accordion>
 
   
 #### addon.deleted
 
 Occurs whenever an add-on is deleted.
 
-Example payload 
+<Accordion title="Example payload">
 
-JSON
-
-`{
+```json JSON
+{
   "type": "addon.deleted",
   "id": "Test addon",
   "name": "Test",
@@ -353,7 +350,8 @@ JSON
     "testKey": "example value"
   }
 }
-`
+```
+</Accordion>
 
   
 ## Customers
@@ -362,11 +360,10 @@ JSON
 
 Occurs whenever a new customer is created.
 
-Example payload 
+<Accordion title="Example payload">
 
-JSON
-
-`{
+```json JSON
+{
   "type": "customer.created",
   "entityId": "customer-uuid",
   "id": "customer-test-id",
@@ -385,18 +382,18 @@ JSON
   },
   "billingCurrency": "ils"
 }
-`
+```
+</Accordion>
 
   
 #### customer.updated
 
 Occurs whenever any property of a customer changes.
 
-Example payload 
+<Accordion title="Example payload">
 
-JSON
-
-`{
+```JSON
+{
   "type": "customer.updated",
   "entityId": "customer-uuid",
   "id": "customer-test-id",
@@ -415,18 +412,18 @@ JSON
   },
   "billingCurrency": "ils"
 }
-`
+```
+</Accordion>
 
   
 #### customer.payment\_failed
 
 Occurs when an attempt to charge a customer fails.
 
-Example payload 
+<Accordion title="Example payload">
 
-JSON
-
-`{
+```json JSON
+{
   "type": "customer.payment_failed",
   "timestamp": "2022-08-24T14:11:54.525Z",
   "customer": {
@@ -472,18 +469,18 @@ JSON
     "details": "insufficient_funds"
   }
 }
-`
+```
+</Accordion>
 
   
 #### customer.deleted
 
 Occurs whenever a customer is deleted.
 
-Example payload 
+<Accordion title="Example payload">
 
-JSON
-
-`{
+```json JSON
+{
   "type": "customer.deleted",
   "entityId": "customer-uuid",
   "id": "customer-test-id",
@@ -502,7 +499,8 @@ JSON
   },
   "billingCurrency": "ils"
 }
-`
+```
+</Accordion>
 
   
 ## Subscriptions
@@ -511,11 +509,10 @@ JSON
 
 Occurs whenever a new subscription is created.
 
-Example payload 
+<Accordion title="Example payload">
 
-JSON
-
-`{
+```json JSON
+{
   "type": "subscription.created",
   "entityId": "customer-uuid",
   "id": "subscription-id",
@@ -583,18 +580,18 @@ JSON
   "isDowngrade": true,
   "isUpgrade": false
 }
-`
+```
+</Accordion>
 
   
 #### subscription.updated
 
 Occurs whenever any property of a subscription is updated.
 
-Example payload 
+<Accordion title="Example payload">
 
-JSON
-
-`{
+```json JSON
+{
   "type": "subscription.updated",
   "entityId": "customer-uuid",
   "id": "subscription-id",
@@ -660,18 +657,18 @@ JSON
     "groupType": "CONTROL"
   }
 }
-`
+```
+</Accordion>
 
   
 #### subscription.canceled
 
 Occurs whenever a new subscription is canceled.
 
-Example payload 
+<Accordion title="Example payload">
 
-JSON
-
-`{
+```json JSON
+{
   "type": "subscription.canceled",
   "entityId": "customer-uuid",
   "id": "subscription-id",
@@ -737,18 +734,18 @@ JSON
     "groupType": "CONTROL"
   }
 }
-`
+```
+</Accordion>
 
   
 #### subscription.expired
 
 Occurs whenever a non-recurring subscription expire.
 
-Example payload 
+<Accordion title="Example payload">
 
-JSON
-
-`{
+```json JSON
+{
   "type": "subscription.expired",
   "entityId": "customer-uuid",
   "id": "subscription-id",
@@ -814,18 +811,18 @@ JSON
     "groupType": "CONTROL"
   }
 }
-`
+```
+</Accordion>
 
   
 #### subscription.create\_failed
 
 Occurs whenever an attempt to create a subscription fails.
 
-Example payload 
+<Accordion title="Example payload">
 
-JSON
-
-`{
+```json JSON
+{
   "type": "subscription.create_failed",
   "input": {
     "customerId": "customer-id",
@@ -840,7 +837,8 @@ JSON
   "accountId": "ae3500ba-85da-4499-990c-1b9d24c13ccc",
   "environmentId": "bf154237-4b89-4221-821e-dab51fe8c231"
 }
-`
+```
+</Accordion>
 
   
 ## Trials
@@ -849,11 +847,10 @@ JSON
 
 Occurs whenever a trial of a subscription starts.
 
-Example payload 
+<Accordion title="Example payload">
 
-JSON
-
-`{
+```json JSON
+{
   "type": "subscription.trial_started",
   "id": "subscription-id",
   "status": "IN_TRIAL",
@@ -903,18 +900,18 @@ JSON
   "isDowngrade": true,
   "isUpgrade": false
 }
-`
+```
+</Accordion>
 
   
 #### subscription.trial.ends\_soon
 
 Occurs 7 days before a trial subscription expires.
 
-Example payload 
+<Accordion title="Example payload">
 
-JSON
-
-`{
+```json JSON
+{
   "type": "subscription.trial.ends_soon",
   "id": "subscription-id",
   "status": "IN_TRIAL",
@@ -971,18 +968,18 @@ JSON
     "testKey": "example value"
   }
 }
-`
+```
+</Accordion>
 
   
 #### subscription.trial\_converted
 
 Occurs whenever a trial subscription converts to an active paid subscription.
 
-Example payload 
+<Accordion title="Example payload">
 
-JSON
-
-`{
+```json JSON
+{
   "type": "subscription.trial_converted",
   "id": "subscription-id",
   "status": "IN_TRIAL",
@@ -1038,18 +1035,18 @@ JSON
     "testKey": "example value"
   }
 }
-`
+```
+</Accordion>
 
   
 #### subscription.trial\_expired
 
 Occurs whenever a trial subscription expires.
 
-Example payload 
+<Accordion title="Example payload">
 
-JSON
-
-`{
+```json JSON
+{
   "type": "subscription.trial_expired",
   "entityId": "customer-uuid",
   "id": "subscription-id",
@@ -1115,7 +1112,8 @@ JSON
     "groupType": "CONTROL"
   }
 }
-`
+```
+</Accordion>
 
   
 ## Measurements
@@ -1130,9 +1128,8 @@ This event can be helpful in:
 2. Triggering internal and customer-facing notifications and emails - for example: quota is about to exceeded, quota exceeded, customer will be billed for overage.
 Example payload 
 
-JSON
-
-`{
+```json JSON
+{
   "type": "measurement.reported",
   "currentChange": 1,
   "usageUsedPercentage": 75,
@@ -1186,7 +1183,7 @@ JSON
     }
   ]
 }
-`
+```
 
   
 ## Entitlements
@@ -1195,11 +1192,10 @@ JSON
 
 Occurs whenever an entitlement is requested by a customer.
 
-Example payload 
+<Accordion title="Example payload">
 
-JSON
-
-`{
+```json JSON
+{
   "type": "entitlement.requested",
   "feature": {
     "id": "feature-test-id",
@@ -1244,18 +1240,18 @@ JSON
   ],
   "requestedUsage": 5
 }
-`
+```
+</Accordion>
 
   
 #### entitlement.granted
 
 Occurs whenever access to an entitlement is granted to a customer.
 
-Example payload 
+<Accordion title="Example payload">
 
-JSON
-
-`{
+```json JSON
+{
   "type": "entitlement.granted",
   "feature": {
     "id": "feature-test-id",
@@ -1320,7 +1316,8 @@ JSON
     "accordingTo": "SubscriptionStart"
   }
 }
-`
+```
+</Accordion>
 
   
 #### entitlement.denied
@@ -1329,11 +1326,10 @@ Occurs whenever access to an entitlement is denied from a customer.
 
 This event can be helpful in qualifying customers for upsells - for example: when they attempt to access a gated feature and are denied.
 
-Example payload 
+<Accordion title="Example payload">
 
-JSON
-
-`{
+```json JSON
+{
   "type": "entitlement.denied",
   "feature": {
     "id": "feature-test-id",
@@ -1399,18 +1395,18 @@ JSON
   },
   "accessDeniedReason": "RequestedUsageExceedingLimit"
 }
-`
+```
+</Accordion>
 
   
 #### entitlements.updated
 
 Occurs whenever the list of entitlements that a customer is eligible for are updated.
 
-Example payload 
+<Accordion title="Example payload">
 
-JSON
-
-`{
+```json JSON
+{
   "type": "entitlements.updated",
   "customer": {
     "id": "customer-demo-01",
@@ -1439,7 +1435,8 @@ JSON
     }
   ]
 }
-`
+```
+</Accordion>
 
   
 ## Promotional entitlements
@@ -1448,11 +1445,10 @@ JSON
 
 Occurs whenever a promotional entitlement is granted to a customer.
 
-Example payload 
+<Accordion title="Example payload">
 
-JSON
-
-`{
+```json JSON
+{
   "type": "promotionalEntitlement.granted",
   "id": "plan-test-id",
   "status": "Active",
@@ -1484,18 +1480,18 @@ JSON
   "period": "1 month",
   "endDate": "2022-04-10T00:00:00.001Z"
 }
-`
+```
+</Accordion>
 
   
 #### promotionalEntitlement.updated
 
 Occurs whenever a customer's promotional entitlement is updated.
 
-Example payload 
+<Accordion title="Example payload">
 
-JSON
-
-`{
+```json JSON
+{
   "type": "promotionalEntitlement.updated",
   "id": "plan-test-id",
   "status": "Active",
@@ -1527,18 +1523,18 @@ JSON
   "period": "1 month",
   "endDate": "2022-04-10T00:00:00.001Z"
 }
-`
+```
+</Accordion>
 
   
 #### promotionalEntitlement.revoked
 
 Occurs whenever a promotional entitlement is revoked from a customer.
 
-Example payload 
+<Accordion title="Example payload">
 
-JSON
-
-`{
+```json JSON
+{
   "type": "promotionalEntitlement.revoked",
   "id": "plan-test-id",
   "status": "Active",
@@ -1570,18 +1566,18 @@ JSON
   "period": "1 month",
   "endDate": "2022-04-10T00:00:00.001Z"
 }
-`
+```
+</Accordion>
 
   
 #### promotionalEntitlement.expired
 
 Occurs whenever a customer's promotional entitlement has expired.
 
-Example payload 
+<Accordion title="Example payload">
 
-JSON
-
-`{
+```json JSON
+{
   "type": "promotionalEntitlement.expired",
   "id": "plan-test-id",
   "status": "Active",
@@ -1613,7 +1609,8 @@ JSON
   "period": "1 month",
   "endDate": "2022-04-10T00:00:00.001Z"
 }
-`
+```
+</Accordion>
 
   
 ## Coupons
@@ -1622,11 +1619,10 @@ JSON
 
 Occurs whenever a new coupon is created.
 
-Example payload 
+<Accordion title="Example payload">
 
-JSON
-
-`{
+```json JSON
+{
   "type": "coupon.created",
   "entityId": "coupon-id",
   "name": "best-coupon",
@@ -1637,18 +1633,18 @@ JSON
   "createdAt": "2022-04-10T00:00:00.001Z",
   "updatedAt": "2022-04-10T00:00:00.001Z"
 }
-`
+```
+</Accordion>
 
   
 #### coupon.updated
 
 Occurs whenever a coupon is updated.
 
-Example payload 
+<Accordion title="Example payload">
 
-JSON
-
-`{
+```json JSON
+{
   "type": "coupon.updated",
   "entityId": "coupon-id",
   "name": "best-coupon",
@@ -1659,18 +1655,18 @@ JSON
   "createdAt": "2022-04-10T00:00:00.001Z",
   "updatedAt": "2022-04-10T00:00:00.001Z"
 }
-`
+```
+</Accordion>
 
   
 #### coupon.archived
 
 Occurs whenever a coupon is archived.
 
-Example payload 
+<Accordion title="Example payload">
 
-JSON
-
-`{
+```json JSON
+{
   "type": "coupon.archived",
   "entityId": "coupon-id",
   "name": "best-coupon",
@@ -1681,7 +1677,8 @@ JSON
   "createdAt": "2022-04-10T00:00:00.001Z",
   "updatedAt": "2022-04-10T00:00:00.001Z"
 }
-`
+```
+</Accordion>
 
   
 ## Third-party integration sync
@@ -1690,17 +1687,17 @@ JSON
 
 Occurs whenever syncing of an entity to an integrated app fails.
 
-Example payload 
+<Accordion title="Example payload">
 
-JSON
-
-`{
+```json JSON
+{
   "type": "sync.failed",
   "error": "Customer already exists",
   "id": "customer-id",
   "entityType": "CUSTOMER",
   "vendorIdentifier": "stripe"
 
-`
+```
+</Accordion>
 
   

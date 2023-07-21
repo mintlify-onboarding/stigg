@@ -25,17 +25,17 @@ In the opened modal enter the following details:
 
 Click "Add" to confirm the action.
 
-> ### 📘
-> 
-> Created webhooks are immediately activated; that is, Stigg will start streaming events to them immediately after they're created. To disable sending of events to a specific webhook, see the "[Disabling webhooks](https://stigg.readme.io/docs/webhooks#disabling-webhooks)" section.
+<Note> 
+Created webhooks are immediately activated; that is, Stigg will start streaming events to them immediately after they're created. To disable sending of events to a specific webhook, see the "[Disabling webhooks](https://stigg.readme.io/docs/webhooks#disabling-webhooks)" section.
+</Note>
 
 ## Viewing webhook details
 
 To view the details of specific webhook, click on the relevant row in the webhook list screen.
 
-> ### 📘
-> 
-> Stigg will include a webhook secret in the header of sent events. Use this value to validate that requests to the defined endpoint URL originate from Stigg.
+<Note>
+Stigg will include a webhook secret in the header of sent events. Use this value to validate that requests to the defined endpoint URL originate from Stigg.
+</Note>
 
 ## Sending test events
 
@@ -61,9 +61,9 @@ In order to verify that the event was sent by Stigg simply make sure that the we
 
 ![](/images/89e7930-Screen_Shot_2022-10-13_at_11.29.20.png)
 
-> ### 📘
-> 
-> Support for webhook validation using HMAC signatures is in our roadmap.
+<Note>
+Support for webhook validation using HMAC signatures is in our roadmap.
+</Note>
 
 ## Editing webhooks
 
@@ -92,9 +92,9 @@ To stop sending events to a specific webhook, while still keeping the webhook co
 
 Confirm the action in the opened modal.
 
-> ### 📘
-> 
-> Any events that take place on the Stigg platform will not be send to disabled webhooks. It's also not possible to replay missed events after the webhook is activated again.
+<Note> 
+Any events that take place on the Stigg platform will not be send to disabled webhooks. It's also not possible to replay missed events after the webhook is activated again.
+</Note>
 
 Once you're ready to start sending events again to the webhook, set the toggle that appears under the webhook details section to "Active".
 

@@ -8,16 +8,15 @@ In order to future-proof your public website and application for price localizat
 
 Doing so will allow you to introduce and rollout changes to the price localization configuration, without requiring any additional code changes.
 
-> ### 🚧
-> 
-> 1. When no localized pricing is defined for a specified country, the default pricing will be used.
-> 2. If the customer has already subscribed to a plan with a localized price, its billing country code would **override** the one that's provided programatically.
+<Warning>
+1. When no localized pricing is defined for a specified country, the default pricing will be used.
+2. If the customer has already subscribed to a plan with a localized price, its billing country code would **override** the one that's provided programatically.
+</Warning>
 
 ## Visibility for localized prices in your public pricing page
 
-React TSX
-
-`// fetch the billingCountryCode according to the visitor's IP
+```javascript React TSX
+// fetch the billingCountryCode according to the visitor's IP
 
 <Paywall
   highlightedPlanId="plan-id"
@@ -26,7 +25,7 @@ React TSX
     // Handle customer intention to subscribe to plan
   }}
 />
-`
+```
 
 ![](/images/9d5fd67-Screenshot_2023-03-30_at_0.11.07.png)
 
@@ -34,9 +33,8 @@ React TSX
 
 ### In-app paywall
 
-React TSX
-
-`// fetch the billingCountryCode according to the customer's IP if they have never subscribed to a paid plan
+```javascript React TSX
+// fetch the billingCountryCode according to the customer's IP if they have never subscribed to a paid plan
 // otherwise, the in-app paywall will be rendered according to the localized pricing that the customer has been subscribed to in the past
 
 <Paywall
@@ -46,15 +44,14 @@ React TSX
     // Handle customer intention to subscribe to plan
   }}
 />
-`
+```
 
 ![](/images/9f9f2b0-Screenshot_2023-03-30_at_0.13.07.png)
 
 ### Customer portal
 
-React TSX
-
-`// fetch the billingCountryCode according to the customer's IP if they have never subscribed to a paid plan
+```javascript React TSX
+// fetch the billingCountryCode according to the customer's IP if they have never subscribed to a paid plan
 
 <CustomerPortal
     paywallComponent={
@@ -66,9 +63,9 @@ React TSX
     />
   }
 />
-`
-
-![](/images/5638603-Screenshot_2023-03-30_at_0.12.04.png)
+```
+![](/images/1e4c96d-Screenshot_2023-07-20_at_14.38.31.png)
+![](/images/606de77-Screenshot_2023-07-20_at_14.39.17.png)
 
 ### Checkout
 
@@ -76,9 +73,8 @@ React TSX
 
 If you're using your own checkout page, you can leverage Stigg's `estimateSubscription` method to present your customers with the estimated subscription cost, while taking price localization into consideration.
 
-Node.js
-
-`// fetch billingCountryCode according to the customer's IP, billing address, etc.
+```javascript Node.js
+// fetch billingCountryCode according to the customer's IP, billing address, etc.
 
 await stiggClient.estimateSubscription({  
   customerId: "customer-demo-01",
@@ -92,15 +88,14 @@ await stiggClient.estimateSubscription({
   promotionCode: "STIGG50",     // optional
   billingCountryCode: "DK"      // must be in the ISO-3166-1 format
 });
-`
+```
 
 #### When provisioning a subscription
 
 When Stigg is integrated with a billing solution (for example: [Stripe](stripe)), and the `checkoutOptions` parameter is passed, customers will be redirected to a hosted checkout page that includes visibility for the localized price.
 
-Node.js
-
-`// fetch billingCountryCode according to the customer's IP, billing address, etc.
+```javascript Node.js
+// fetch billingCountryCode according to the customer's IP, billing address, etc.
 
 const subscription = await stiggClient.provisionSubscription({  
     customerId: "customer-demo-01",  
@@ -120,15 +115,14 @@ const subscription = await stiggClient.provisionSubscription({
     awaitPaymentConfirmation: true,
     ...
 });
-`
+```
 
 ![](/images/5b560cf-Screenshot_2023-03-30_at_0.16.06.png)
 
 ## Provisioning subscriptions with localized pricing
 
-Node.js
-
-`// fetch billingCountryCode according to the customer's IP, billing address, etc.
+```javascript Node.js
+// fetch billingCountryCode according to the customer's IP, billing address, etc.
 
 const subscription = await stiggClient.provisionSubscription({  
     customerId: "customer-demo-01",  
@@ -143,8 +137,8 @@ const subscription = await stiggClient.provisionSubscription({
     awaitPaymentConfirmation: true,
     ...
 });
-`
+```
 
 ## Additional resources
 
-[ ![](/images/ad4e0e2-computer.png)  Integrate Stigg into your codebase ](codebase-integration-overview) 
+<Card title="Integrate Stigg into your codebase" href="/codebase-integration-overview" icon="computer"></Card>

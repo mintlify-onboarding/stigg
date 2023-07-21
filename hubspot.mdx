@@ -3,9 +3,9 @@ title: "HubSpot"
 description: "Learn about Stigg's integration with HubSpot CRM"
 ---
 
-> ### 🚧
-> 
-> The HubSpot integration is currently in beta
+<Warning> 
+The HubSpot integration is currently in beta
+</Warning>
 
 ## Overview
 
@@ -28,9 +28,9 @@ Stigg entities are mapped to HubSpot entities as follows:
 | Customer     | Contact, Company |
 | Subscription | Deal             |
 
-> ### 📘
-> 
-> Additional details about the mapping of the properties and statuses of each entity can be found [here](hubspot-entity-mapping).
+<Note>
+Additional details about the mapping of the properties and statuses of each entity can be found [here](/hubspot-entity-mapping).
+</Note>
 
   
 ### Entities that are not synced to HubSpot
@@ -51,24 +51,24 @@ Stigg entities are mapped to HubSpot entities as follows:
 Stigg's integration with HubSpot requires the following HubSpot permissions, which you'll be asked to grant when [adding the integration in Stigg](#adding-the-hubspot-integration-in-stigg):
 
 1. Manage and view your CRM data  
-   1. View details about property settings for contacts.  
-   2. Create, delete, or make changes to property settings for contacts.  
-   3. View properties and other details about line items.  
-   4. Create, delete, or make changes to line items.  
-   5. View properties and other details about contacts.  
-   6. Create, delete, or make changes to contacts.  
-   7. View properties and other details about companies.  
-   8. Create, delete, or make changes to companies.  
-   9. View properties and other details about deals.  
-   10. Create, delete, or make changes to deals.
+   i. View details about property settings for contacts.  
+   ii. Create, delete, or make changes to property settings for contacts.  
+   iii. View properties and other details about line items.  
+   iv. Create, delete, or make changes to line items.  
+   v. View properties and other details about contacts.  
+   vi. Create, delete, or make changes to contacts.  
+   vii. View properties and other details about companies.  
+   viii. Create, delete, or make changes to companies.  
+   ix. View properties and other details about deals.  
+   x. Create, delete, or make changes to deals.
 2. Access to e-commerce  
-   1. This includes access to e-commerce features - this permission is required for propagation of your pricing to the HubSpot product catalog.
+   i. This includes access to e-commerce features - this permission is required for propagation of your pricing to the HubSpot product catalog.
 3. Create or modify all your CRM data through bulk imports  
-   1. This app can import records into your CRM - including creation of new records or modification of any of your existing records for all CRM data types (contacts, companies, deals, tickets, etc.). This doesn't include archiving or deleting any data.
+   i. This app can import records into your CRM - including creation of new records or modification of any of your existing records for all CRM data types (contacts, companies, deals, tickets, etc.). This doesn't include archiving or deleting any data.
   
 ## Adding the HubSpot integration in Stigg
 
-In the [Stigg Console](%F0%9F%94%97), under the **Settings > Integrations > Apps** section, select the HubSpot connector.
+In the [Stigg Console](), under the **Settings > Integrations > Apps** section, select the HubSpot connector.
 
 Click "Connect with HubSpot".
 
@@ -85,18 +85,18 @@ Once all of the integration steps on the HubSpot side are completed, you'll be r
   
 ## Indication for synced entities
 
-In the [Stigg Console](%F0%9F%94%97), entities that are synced from Stigg to HubSpot have a clickable "CRM ID" property with a HubSpot logo next to it and indication of their sync status (successful, failed, [will not be synced](#entities-that-are-not-synced-to-hubspot)).
+In the [Stigg Console](), entities that are synced from Stigg to HubSpot have a clickable "CRM ID" property with a HubSpot logo next to it and indication of their sync status (successful, failed, [will not be synced](#entities-that-are-not-synced-to-hubspot)).
 
 When attempting to add or edit entities that are synced to HubSpot, there will be an indication that the change will also be reflected HubSpot.
 
   
 ## Accessing HubSpot entities from Stigg
 
-In the [Stigg Console](%F0%9F%94%97), clicking on the link of the "CRM ID" property will open the relevant entity in HubSpot.
+In the [Stigg Console](), clicking on the link of the "CRM ID" property will open the relevant entity in HubSpot.
 
-> ### 📘
-> 
-> Due to the fact that HubSpot doesn't support direct deep-links to entities in the HubSpot product catalog, attempting to access synced **plans** and **add-ons** from the Stigg console will only open the HubSpot product catalog, and not the specific entity inside the product catalog.
+<Note> 
+Due to the fact that HubSpot doesn't support direct deep-links to entities in the HubSpot product catalog, attempting to access synced **plans** and **add-ons** from the Stigg console will only open the HubSpot product catalog, and not the specific entity inside the product catalog.
+</Note>
 
   
 ## Accessing Stigg entities from HubSpot
@@ -193,7 +193,7 @@ Click on the link icon that appears when hovering on this property.
   
 ## Removing the integration from Stigg
 
-To remove the integration, in the [Stigg Console](%F0%9F%94%97), under the **Settings > Integrations > Apps** section, select the HubSpot connector.
+To remove the integration, in the [Stigg Console](), under the **Settings > Integrations > Apps** section, select the HubSpot connector.
 
 Click on the dotted menu icon and select the "Remove" action.
 
@@ -207,8 +207,8 @@ Confirm the action by clicking on the "Remove" button in the opened modal.
 3. When a plan's or add-on's price is updated in Stigg and the change is set to affect **existing customers**, the deal amount of existing customers in HubSpot is not automatically updated.
 4. When customers are subscribed to a usage-based plan, the deal amount in HubSpot is **not** currently updated according to the customer usage and will remain at 0.
 
-> ### 📘
-> 
-> If any of the above mentioned limitations affect your use-case, [let us know](/cdn-cgi/l/email-protection#63101613130c11172310170a04044d0a0c) and we'd be happy to work together to lift them.
+<Note>
+If any of the above mentioned limitations affect your use-case, [let us know](mailto:support@stigg.io) and we'd be happy to work together to lift them.
+</Note>
 
   
