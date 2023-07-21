@@ -1,5 +1,5 @@
 ---
-title: "Plans"
+title: "Plans - N-billable metrics"
 ---
 
 ## Overview
@@ -12,7 +12,7 @@ The functionality that’s included in each plan is defined by a combination of 
 
 Published plans appear in paywalls that are rendered to customers using Stigg's SDK.
 
-![](/images/715ff6a-Screen_Shot_2022-10-19_at_22.38.13.png)
+![](/images/plans1.png)
 
 ## Viewing the list of plans
 
@@ -21,7 +21,7 @@ To view the list of plans of a specific product:
 1. Select the relevant product from the Products sub-section of the Product Catalog.
 2. Scroll down to the **Pricing > Plans** section of the selected product.
 
-![](/images/4aa7d3c-Screen_Shot_2022-10-19_at_22.18.28.png)
+![](/images/plans2.png)
 
 <Note>
 Also see the product's "[Modeling your pricing](/products#modeling-your-pricing)" section.
@@ -30,7 +30,7 @@ Also see the product's "[Modeling your pricing](/products#modeling-your-pricing)
   
 Viewing a flat list of all of the plans of all of the products is possible by selecting the Plans sub-section of the Product Catalog from the left navigation pane.
 
-![](/images/035c91b-Screen_Shot_2022-10-19_at_22.08.27.png)
+![](/images/plans3.png)
 
 ## Creating plans
 
@@ -48,23 +48,25 @@ The values that are entered in the "Name" and "Description" fields will be lever
 
 Confirm the action by clicking on the "Create" button.
 
-New plans are created as drafts. Plans must be published in order to be visible to customers and be able to create subscriptions for them.
-
 <Warning> 
-Before publishing a plan, make sure to [assign features](#assigning-features-to-plans) to the plan and [define their pricing](#defining-the-plans-price).
+New plans are created as drafts.
+
+Plans must be published in order to be visible to customers and be able to create subscriptions for them.
+
+Before publishing a plan, make sure to define the plan's [pricing](#defining-the-plans-price) and their [entitlements](#assigning-features-to-plans).
 </Warning>
 
 ## Defining the plan's price
 
-The price that's defined in Stigg will be shown to customers in the paywalls that are rendered using Stigg's SDKs. When Stigg is integrated with a billing solution (for example: [Stripe](stripe)), subscriptions will be created in the billing solution using the price that was defined in Stigg.
+The price that's defined in Stigg will be shown to customers in the paywalls that are rendered using Stigg's SDKs. 
+
+When Stigg is integrated with a billing solution (for example: [Stripe](stripe)), subscriptions will be created in the billing solution using the price that was defined in Stigg.
 
 Click on the "Set" button under the Pricing section of the selected plan.
 
-In the opened modal, select the plan type (free, paid, custom) and enter the actual price when relevant.
+The first step would be to select the plan type - free, paid or custom.
 
-Click "Save changes".
-
-![](/images/4cf878b-Screen_Shot_2022-10-19_at_22.50.06.png)
+![](/images/plans4.png)
 
 ### Free plans
 
@@ -72,58 +74,130 @@ Free plans are usually intended to allow your customers to access a limited func
 
 Customers are not required to enter any payment information in subscribe to such plans.
 
+To set the plan as "Free", select "Free" as the plan type and click "Set".
+
 ### Paid plans
 
 Paid plans in Stigg are intended to be used in order to allow your customers to subscribe to your product in a **self-served manner**.
 
-When defining paid plans, the following information is also required:
+When defining paid plans, additional information is required.
 
-1. Pricing model  
-   1. **Flat fee** - represents a fixed recurring fee.  
-   2. **Per unit** - represents a recurring fee according to the feature quantity that customers sign up for upfront.  
-         1. Per unit pricing is dependent on a metered feature.  
-         2. Minimum and maximum quantity restrictions can also be set:  
-                  1. The quantity restrictions only apply to subscriptions that are created in a self-served manner - the restrictions will be visible in Stigg's plan pickers widget, and when Stigg is integrated with a billing solution also enforced in the rendered checkout page.  
-                  2. The restrictions are not enforced during manual creation of subscriptions in the Stigg Console.  
-   3. **Usage based** - charge customers according to the actual consumption of the plan's features. Usage based pricing is dependent on a metered feature.
-2. Billing period - monthly, annually, or both.  
-   1. For usage-based pricing only a monthly billing period can be set.
-3. Price in each billing period in USD.  
-   1. Prices can be defined with up 5 decimal points, i.e. 0.XXXXX.
+To set a plan as "Paid", select "Paid" as the plan type and click "Continue".
 
-<Note>
-Per-unit and usage-based pricing depend on metered features. A relevant entitlement for the dependent feature will automatically be added to the plan.
+#### Billing Period
 
-If the plan already includes entitlement for that feature, it will be overridden by the value of the price point.
-</Note>
+The allowed intervals that customers will be billed at - monthly, annual or both.
 
-![](/images/e572d42-Screen_Shot_2022-10-19_at_22.50.00.png)
+When customers subscribe to this plan, the billing period will also serve as subscription's commitment length - when customers update their subscription or cancel it altogether they'll be [compensated in time or money](/subscription-updates-in-stigg) according to the remaining time in the current billing period.
+
+#### Charges
+
+Charges refer to the line items that customers will be billed for when subscribing to this plan - this can be a recurring fixed fee, based on usage or using a combination of both.
+
+To add a charge, first select the charge type:
+
+1. [Base charge](#base-charge)
+2. [Usage-based charges](#usage-based-charge)
+
+![](/images/plans5.png)
+
+#### Base charge
+
+A **recurring fixed fee** that customers will be billed during each billing period.
+
+A plan can only have one base charge.
+
+Enter the charge amount in US dollars in each of the allowed billing periods. Defining prices in other currencies can be done later by leveraging Stigg's [price localization](/price-localization) capabilities.
+
+Click "Add" to add the charge.
+
+![](/images/plans6.png)
+
+#### Usage-based charges
+
+**Usage-based** charges refer to fees that customers will pay for usage of specific features.
+
+Plan prices in Stigg can have one more usage-based charges.
+
+When adding a usage-based charge, first select the feature that you'd like to charge for its usage.
+
+![](/images/plans7.png)
+
+Then, select whether customers will be charged for committed usage or charges for their actual consumption (pay-as-you-go).
+
+#### In-advance commitment
+
+Select this method when you'd like customers to pay for their **committed usage** of a feature (instead of their actual usage), for example: when paying for **seats**.
+
+1. Customers will be charged for their in-advance commitment charges immediately upon provisioning of the subscription and at the beginning of every billing period afterwards.
+2. Customers' actual usage will be limited by the amount that they committed to in advance. To increase the limit customers will need to increase their commitment. When the commitment is increased mid-billing period, customers will be immediately charged a prorated amount for the increased commitment until the end of the current billing period. The full amount will be charged in the following billing cycles.
+
+Enter the charge amount in each of the allowed billing period in US dollars. A granularity of up to 5 decimal points is supported, i.e. $0.0027 USD. Defining prices in other currencies can be done later by leveraging Stigg's [price localization](/price-localization) capabilities.
+
+Under the "Advanced" section, you can optionally define the minimum and maximum quantity of committed units.
+
+1. When no minimum is defined, customers will need to commit to usage of at least 1 unit of the feature.
+2. When no maximum is defined, customers will be able to commit to any usage of the feature.
+
+Click "Add" to add the charge.
+
+![](/plans8.png)
+
+#### Pay-as-you-go
+Select this method when you'd like customers to pay for the actual usage that took place throughout the billing period, for example: when paying for **compute time**.
+
+Customers will be billed for pay-as-you-go charges **at the end of each billing period**.
+
+<Warning>
+Pay-as-you-go charges can be added to plans when only a monthly billing period is allowed.
+</Warning>
+
+Enter the charge amount in each of the allowed billing period in US dollars. A granularity of up to 5 decimal points is supported, i.e. $0.0027 USD. Defining prices in other currencies can be done later by leveraging Stigg's [price localization](/price-localization) capabilities.
+
+Click "Add" to add the charge.
+
+![](/images/plans9.png)
+
+Click on "+ Add usage-based charge" to add additional usage-based charges.
+
+When done, click "Continue" to proceed to the plan's default free trial configuration.
+
+![](/plans10.png)
 
 ### Custom plans
 
 Custom plans are intended to be used when the price of subscriptions to them is negotiated with each customer and therefore varies between different customers, as is usually the case in sales-led opportunities.
 
-<Note>
-When Stigg is integrated with a billing solution, subscriptions to plans with a **custom** price will not be created in the billing solution.
-</Note>
+When Stigg is integrated with a billing solution,  subscriptions to custom plans will not be created in the billing solution.
+
+To set a plan as "Custom", select "Custom" as the plan type and click "Continue" to proceed to the plan's [default free trial configuration](#defining-free-trial-periods).
 
 ## Defining free trial periods
 
-**Paid and custom plans** can be configured to start with a free trial period when a subscription is created.
+[Paid](#paid-plans) and [custom](#custom-plans) plans can be configured to start with a free trial period when a subscription is created.
 
 Stigg's allows product manager and growth team members to add, modify and remove trial period for plans without requiring additional engineering changes.
 
-![](/images/6502b78-Screen_Shot_2022-10-19_at_22.55.14.png)
-
-![](/images/29fcfe6-Screen_Shot_2022-10-19_at_22.55.29.png)
+![](/images/plans11.png)
 
   
 #### To add a default trial period
 
-1. Click on the "Add free trial" link in the Pricing section.
-2. Set the default trial period in days or months.
-3. Click on "Add".
-  
+When defining the plan's price:
+
+1. Set the "Start in a free trial" toggle ON.
+2. Set the default trial period in days.
+3. Click on "Save changes".
+
+![](/images/plans12.png)
+
+When the plan's price has already been defined:
+
+1. Click on the "Add free trial" link in the plan's Price section.
+2. Continue as described above.
+
+![](/images/plans13.png
+)
 #### To change the default trial period
 
 1. Click on the dotted menu icon under the "Free trial" section and select the "Edit" action.
@@ -160,7 +234,7 @@ More details can be found in the "[Creating subscriptions](\subscriptions#creati
 
 The functionality that’s included in each plan is defined by a combination of features and their configuration, referred to in Stigg as **entitlements**.
 
-![](/images/7061afe-Screen_Shot_2022-10-19_at_23.00.29.png)
+![](/images/plans14.png)
 
   
 ### Inheriting entitlements from other plans
@@ -183,10 +257,6 @@ Apply the relevant configuration for the selected features:
 1. **Configuration features** must be defined with the configuration value.
 2. **Metered features** can be defined with a limit or without one. Stigg can optionally automatically reset the measured usage every predefined period (monthly, weekly, daily, or hourly). This can be useful for representing features, such as number of API calls per month.
 
-<Note>
-**Boolean features** don't require any additional configuration.
-</Note>
-
 Confirm the action by clicking on the "Add" button.
 
   
@@ -208,18 +278,18 @@ Entitlements to boolean features can't be overridden.
 
 Overriding entitlements will have an icon appear next to their value.
 
-![](/images/71d0cce-Screenshot_2022-11-10_at_23.44.20.png)
+![](/images/plans15.png)
 
 The value of overridden entitlements in will be crossed out.
 
-![](/images/7a278d6-Screenshot_2022-11-10_at_23.44.29.png)
+![](/images/plans16.png)
 
   
 ### Defining variable entitlement values
 
-Entitlements of **plans with a custom price** can be defined as having a variable value, which will be required to be set during the provisioning of subscriptions of that plan to each customer.
+[Custom plans](#custom-plans) can have entitlements with variable values, which will be required to be set during the provisioning of subscriptions of that plan to each customer.
 
-This allows you leverage plans with a custom price as templates, where the actual entitlement value is set according to the contract that's defined with the relevant customer.
+This allows you leverage custom plans as templates, where the actual entitlement value is set according to the contract that's defined with the relevant customer.
 
 To define an entitlement as having a variable value between each subscription click on the "variable entitlement value" icon in the entitlement modal.
 
@@ -234,7 +304,7 @@ By default, the order of entitlements in pricing tables that are rendered using 
 
 The order can be changed using a drag-and-drop gesture, by dragging drag handle that appears in the left-most area of the entitlement row.
 
-![](/images/d98da41-Screenshot_2022-12-04_at_12.55.28.png)
+![](/images/plans17.png)
 
   
 ### Controlling the entitlement visibility
